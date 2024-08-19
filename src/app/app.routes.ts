@@ -31,7 +31,11 @@ import { CEditContactComponent } from './pages/crm-page/c-edit-contact/c-edit-co
 import { CCreateContactComponent } from './pages/crm-page/c-create-contact/c-create-contact.component';
 import { CContactsComponent } from './pages/crm-page/c-contacts/c-contacts.component';
 import { CrmPageComponent } from './pages/crm-page/crm-page.component';
+import { CrmComponent } from './dashboard/crm/crm.component';
+import { AuthGuard } from './guards/auth.guard';
+
 export const routes: Routes = [
+
     {
         path: 'authentication',
         component: AuthenticationComponent,
@@ -40,8 +44,6 @@ export const routes: Routes = [
             {path: 'sign-up', component: SignUpComponent},
             {path: 'forgot-password', component: ForgotPasswordComponent},
             {path: 'reset-password', component: ResetPasswordComponent},
-            {path: 'lock-screen', component: LockScreenComponent},
-            {path: 'confirm-email', component: ConfirmEmailComponent},
             {path: 'logout', component: LogoutComponent}
         ]
     },
@@ -49,6 +51,7 @@ export const routes: Routes = [
     {
         path: 'settings',
         component: SettingsComponent,
+        canActivateChild: [AuthGuard],
         children: [
             {path: '', component: AccountSettingsComponent},
             {path: 'change-password', component: ChangePasswordComponent},
@@ -60,8 +63,10 @@ export const routes: Routes = [
     {
         path: 'leads',
         component: CrmPageComponent,
+        canActivateChild: [AuthGuard],
         children: [
             {path: '', component: CContactsComponent},
+            {path: 'dashboard', component: CrmComponent},
             {path: 'create-contact', component: CCreateContactComponent},
             {path: 'edit-contact', component: CEditContactComponent},
             {path: 'customers', component: CCustomersComponent},
@@ -75,6 +80,7 @@ export const routes: Routes = [
     {
         path: 'forms',
         component: FormsComponent,
+        canActivateChild: [AuthGuard],
         children: [
             {path: '', component: BasicElementsComponent},
             {path: 'advanced-elements', component: AdvancedElementsComponent},

@@ -7,7 +7,6 @@ import { FooterComponent } from './common/footer/footer.component';
 import { CustomizerSettingsComponent } from './customizer-settings/customizer-settings.component';
 import { CustomizerSettingsService } from './customizer-settings/customizer-settings.service';
 import { ToggleService } from './common/sidebar/toggle.service';
-
 @Component({
     selector: 'app-root',
     standalone: true,

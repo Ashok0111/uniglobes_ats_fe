@@ -46,63 +46,85 @@
                         </mat-expansion-panel-header>
                         <ul class="sidebar-sub-menu">
                             <li class="sidemenu-item">
-                                <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                <a routerLink="/leads/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
                                     Admin Stats
                                 </a>
                             </li>
 
                         </ul>
                     </mat-expansion-panel>
-
                     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = true">
                         <mat-expansion-panel-header>
                             <mat-panel-title>
                                 <i class="material-symbols-outlined">
-                                    lock_open
+                                    dashboard
                                 </i>
                                 <span class="title">
-                                    Authentication
+                                    Leads
                                 </span>
                             </mat-panel-title>
                         </mat-expansion-panel-header>
                         <ul class="sidebar-sub-menu">
                             <li class="sidemenu-item">
-                                <a routerLink="/authentication" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Sign In
+                                <a routerLink="/leads/create-lead" class="sidemenu-link">
+                                    Create Leads
                                 </a>
                             </li>
+
+                        </ul>
+                        <ul class="sidebar-sub-menu">
                             <li class="sidemenu-item">
-                                <a routerLink="/authentication/sign-up" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Sign Up
+                                <a routerLink="/leads/leads" class="sidemenu-link">
+                                    My Leads
                                 </a>
                             </li>
-                            <li class="sidemenu-item">
-                                <a routerLink="/authentication/forgot-password" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Forgot Password
-                                </a>
-                            </li>
-                            <li class="sidemenu-item">
-                                <a routerLink="/authentication/reset-password" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Reset Password
-                                </a>
-                            </li>
-                            <li class="sidemenu-item">
-                                <a routerLink="/authentication/confirm-email" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Confirm Email
-                                </a>
-                            </li>
-                            <li class="sidemenu-item">
-                                <a routerLink="/authentication/lock-screen" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Lock Screen
-                                </a>
-                            </li>
-                            <li class="sidemenu-item">
-                                <a routerLink="/authentication/logout" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Logout
-                                </a>
-                            </li>
+
                         </ul>
                     </mat-expansion-panel>
+                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = true">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <i class="material-symbols-outlined">
+                                    account_circle
+                                </i>
+                                <span class="title">
+                                    My Profile
+                                </span>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <ul class="sidebar-sub-menu">
+                            <li class="sidemenu-item">
+                                <a routerLink="/" class="sidemenu-link">
+                                    Candidate Profile
+                                </a>
+                            </li>
+
+                        </ul>
+                    </mat-expansion-panel>
+                    <a routerLink="/" class="sidebar-menu-link" >
+                        <i class="material-symbols-outlined">
+                            local_library
+                        </i>
+                        <span class="title">
+                            Explore Universities
+                        </span>
+                    </a>
+                    <a routerLink="/" class="sidebar-menu-link" >
+                        <i class="material-symbols-outlined">
+                            local_library
+                        </i>
+                        <span class="title">
+                            Explore Courses
+                        </span>
+                    </a>
+                    <a routerLink="/" class="sidebar-menu-link" >
+                        <i class="material-symbols-outlined">
+                            school
+                        </i>
+                        <span class="title">
+                            My College Request
+                        </span>
+                    </a>
                     <a routerLink="/my-profile" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                         <i class="material-symbols-outlined">
                             account_circle
