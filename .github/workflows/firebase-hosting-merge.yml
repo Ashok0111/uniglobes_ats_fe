@@ -25,8 +25,17 @@ jobs:
 
       - name: Install Angular CLI
         run: npm install -g @angular/cli
-      - run: ng build
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+
+      - name: Build Angular app
+        run: ng build
+
+      - name: Deploy to Firebase Hosting Preview
+        run: npx firebase-tools@latest hosting:channel:deploy preview --expires 7d --project uniglobes --json
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_UNIGLOBES }}
+
+      - name: Deploy to Firebase Hosting Production
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_UNIGLOBES }}
