@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { NgIf } from '@angular/common';
 import { Router } from '@angular/router';
 import { CustomizerSettingsService } from '../../customizer-settings/customizer-settings.service';
+import { APISERVICE } from '../../services/auth.service';
 
 @Component({
     selector: 'app-sign-in',
@@ -24,7 +25,8 @@ export class SignInComponent {
     constructor(
         private fb: FormBuilder,
         private router: Router,
-        public themeService: CustomizerSettingsService
+        public themeService: CustomizerSettingsService,
+        public service: APISERVICE
     ) {
         this.authForm = this.fb.group({
             email: ['', [Validators.required, Validators.email]],
@@ -42,7 +44,17 @@ export class SignInComponent {
     authForm: FormGroup;
     onSubmit() {
         if (this.authForm.valid) {
-            this.router.navigate(['/']);
+            this.service.login(this.authForm.value).subscribe((response: any) => {
+                console.log(response)
+                if("access" in response)
+                {
+                    localStorage.setItem('token',response["access"])
+                    localStorage.setItem('refresh',response["refresh"])
+                    this.router.navigateByUrl('/');
+                }else{
+                   console.log("Auth Failed")
+                }
+              })
         } else {
             console.log('Form is invalid. Please check the fields.');
         }
