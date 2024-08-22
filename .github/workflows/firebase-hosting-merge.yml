@@ -18,20 +18,20 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '19'
 
       - name: Install dependencies
         run: npm install
 
       - name: Install Angular CLI
-        run: npm install -g @angular/cli
+        run: npm install -g @angular/cli@18.1.4
 
       - name: Build Angular app
         run: ng build
 
-      - name: Deploy angular app to Firebase
-        uses: w9jds/firebase-action@master
+      - name: Deploy to Firebase Hosting Production
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          args: deploy --only hosting
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_UNIGLOBES }}
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_UNIGLOBES }}
+          projectId: uniglobes
