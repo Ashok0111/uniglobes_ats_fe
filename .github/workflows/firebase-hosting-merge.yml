@@ -18,13 +18,13 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '19'
+          node-version: '18'
 
       - name: Install dependencies
         run: npm install
 
       - name: Install Angular CLI
-        run: npm install -g @angular/cli@18.1.4
+        run: npm install -g @angular/cli
 
       - name: Build Angular app
         run: ng build
