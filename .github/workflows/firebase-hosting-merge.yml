@@ -24,7 +24,7 @@ jobs:
         run: npm install
 
       - name: Install Angular CLI
-        run: npm install -g @angular/cli
+        run: npm install -g @angular/cli@18.1.4
 
       - name: Build Angular app
         run: ng build
