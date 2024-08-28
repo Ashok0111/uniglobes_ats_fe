@@ -17,17 +17,6 @@
     </div>
     <ng-scrollbar visibility="hover">
         <div class="settings-body">
-            <div class="p-20">
-                <span class="d-block mb-12 fw-medium">
-                    RTL Mode
-                </span>
-                <button
-                    (click)="toggleRTLEnabledTheme()"
-                    class="switch-btn"
-                    [class.active]="themeService.isRTLEnabled()"
-                >
-                </button>
-            </div>
             <mat-divider></mat-divider>
             <div class="p-20">
                 <span class="d-block mb-12 fw-medium">
@@ -40,84 +29,7 @@
                 >
                 </button>
             </div>
-            <mat-divider></mat-divider>
-            <div class="p-20">
-                <span class="d-block mb-12 fw-medium">
-                    Only Sidebar Dark
-                </span>
-                <button
-                    (click)="toggleSidebarTheme()"
-                    class="switch-btn"
-                    [class.active]="themeService.isSidebarDark()"
-                >
-                </button>
-            </div>
-            <mat-divider></mat-divider>
-            <div class="p-20">
-                <span class="d-block mb-12 fw-medium">
-                    Only Header Dark
-                </span>
-                <button
-                    (click)="toggleHeaderTheme()"
-                    class="switch-btn"
-                    [class.active]="themeService.isHeaderDark()"
-                >
-                </button>
-            </div>
-            <mat-divider></mat-divider>
-            <div class="p-20">
-                <span class="d-block mb-12 fw-medium">
-                    Right Sidebar
-                </span>
-                <button
-                    (click)="toggleRightSidebarTheme()"
-                    class="switch-btn"
-                    [class.active]="themeService.isRightSidebar()"
-                >
-                </button>
-            </div>
-            <mat-divider></mat-divider>
-            <div class="p-20 hide-sidebar">
-                <span class="d-block mb-12 fw-medium">
-                    Hide Sidebar
-                </span>
-                <button
-                    (click)="toggleHideSidebarTheme()"
-                    class="switch-btn"
-                    [class.active]="themeService.isHideSidebar()"
-                >
-                </button>
-            </div>
-            <mat-divider></mat-divider>
-            <div class="p-20">
-                <span class="d-block mb-12 fw-medium">
-                    Borderd Card
-                </span>
-                <button
-                    (click)="toggleCardBorderTheme()"
-                    class="switch-btn"
-                    [class.active]="themeService.isCardBorder()"
-                >
-                </button>
-            </div>
-            <mat-divider></mat-divider>
-            <div class="p-20">
-                <span class="d-block mb-12 fw-medium">
-                    Card Border Radius
-                </span>
-                <button
-                    (click)="toggleCardBorderRadiusTheme()"
-                    class="switch-btn"
-                    [class.active]="themeService.isCardBorderRadius()"
-                >
-                </button>
-            </div>
-            <mat-divider></mat-divider>
-            <div class="p-20">
-                <a mat-flat-button href="https://1.envato.market/oqD6RY" class="daxa" target="_blank">
-                    Buy Daxa
-                </a>
-            </div>
+
         </div>
     </ng-scrollbar>
 </div>

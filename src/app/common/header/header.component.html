@@ -128,10 +128,10 @@
                             <img src="images/admin.png" alt="profile-image">
                             <div class="title">
                                 <a routerLink="/my-profile" class="d-inline-block fw-medium">
-                                    Mateo Luca
+                                    {{this.generic.get_username_f()}}
                                 </a>
                                 <span class="designation d-block text-body">
-                                    Admin
+                                    {{ userRole  | uppercase }}
                                 </span>
                             </div>
                         </div>

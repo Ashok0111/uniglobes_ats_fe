@@ -1,4 +1,5 @@
 <div
+*ngIf="role!=''"
     class="sidebar-area bg-white active"
     [ngClass]="{'active': isSidebarToggled}"
     [class.component-dark-theme]="themeService.isDark()"
@@ -30,7 +31,7 @@
                     <span class="sub-title text-body">
                         MAIN
                     </span>
-                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = true">
+                    <mat-expansion-panel *ngIf="userRole=='facilitator'" (opened)="panelOpenState = true" (closed)="panelOpenState = true">
                         <mat-expansion-panel-header>
                             <mat-panel-title>
                                 <i class="material-symbols-outlined">
@@ -47,13 +48,13 @@
                         <ul class="sidebar-sub-menu">
                             <li class="sidemenu-item">
                                 <a routerLink="/leads/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Admin Stats
+                                    Metrics
                                 </a>
                             </li>
 
                         </ul>
                     </mat-expansion-panel>
-                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = true">
+                    <mat-expansion-panel *ngIf="userRole=='facilitator' || userRole=='agent'" (opened)="panelOpenState = true" (closed)="panelOpenState = true">
                         <mat-expansion-panel-header>
                             <mat-panel-title>
                                 <i class="material-symbols-outlined">
@@ -66,7 +67,7 @@
                         </mat-expansion-panel-header>
                         <ul class="sidebar-sub-menu">
                             <li class="sidemenu-item">
-                                <a routerLink="/leads/create-lead" class="sidemenu-link">
+                                <a routerLink="/leads/create-lead" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"  class="sidemenu-link">
                                     Create Leads
                                 </a>
                             </li>
@@ -74,34 +75,34 @@
                         </ul>
                         <ul class="sidebar-sub-menu">
                             <li class="sidemenu-item">
-                                <a routerLink="/leads/leads" class="sidemenu-link">
+                                <a routerLink="/leads/leads"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
                                     My Leads
                                 </a>
                             </li>
 
                         </ul>
                     </mat-expansion-panel>
-                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = true">
+                    <mat-expansion-panel *ngIf="this.userRole=='student'" (opened)="panelOpenState = true" (closed)="panelOpenState = true">
                         <mat-expansion-panel-header>
                             <mat-panel-title>
                                 <i class="material-symbols-outlined">
                                     account_circle
                                 </i>
                                 <span class="title">
-                                    My Profile
+                                    Student Profile
                                 </span>
                             </mat-panel-title>
                         </mat-expansion-panel-header>
                         <ul class="sidebar-sub-menu">
                             <li class="sidemenu-item">
-                                <a routerLink="/" class="sidemenu-link">
-                                    Candidate Profile
+                                <a routerLink="/"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                     Profile
                                 </a>
                             </li>
 
                         </ul>
                     </mat-expansion-panel>
-                    <a routerLink="/" class="sidebar-menu-link" >
+                    <a routerLink="/" *ngIf="this.userRole=='student'"   routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidebar-menu-link" >
                         <i class="material-symbols-outlined">
                             local_library
                         </i>
@@ -109,7 +110,7 @@
                             Explore Universities
                         </span>
                     </a>
-                    <a routerLink="/" class="sidebar-menu-link" >
+                    <a routerLink="/" *ngIf="this.userRole=='student'"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidebar-menu-link" >
                         <i class="material-symbols-outlined">
                             local_library
                         </i>
@@ -117,7 +118,7 @@
                             Explore Courses
                         </span>
                     </a>
-                    <a routerLink="/" class="sidebar-menu-link" >
+                    <a routerLink="/"  *ngIf="this.userRole=='student'"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidebar-menu-link" >
                         <i class="material-symbols-outlined">
                             school
                         </i>
@@ -125,14 +126,7 @@
                             My College Request
                         </span>
                     </a>
-                    <a routerLink="/my-profile" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                        <i class="material-symbols-outlined">
-                            account_circle
-                        </i>
-                        <span class="title">
-                            My Profile
-                        </span>
-                    </a>
+
                     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = true">
                         <mat-expansion-panel-header>
                             <mat-panel-title>

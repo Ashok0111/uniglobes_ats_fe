@@ -6,16 +6,21 @@ import { environment } from '../../environments/environment';
     providedIn: 'root'
     })
 
-export class APISERVICE {
+export class Services {
   constructor(
     private readonly httpClient: HttpClient
   ) { }
 
 
 
-  login(payload: any): Observable<any> {
-    return this.httpClient.post<any>(environment.API_URL+'auth/token/', payload);
+  createlead(payload: any): Observable<any> {
+    return this.httpClient.post<any>(environment.API_URL+'api/create_user_lead/', payload);
   }
+
+  getMyLeads(): Observable<any> {
+    return this.httpClient.get<any>(environment.API_URL+'api/fetch_my_leads/');
+  }
+
 
 
 }
