@@ -20,22 +20,27 @@
 <mat-card class="daxa-card stats-card mb-25 border-radius bg-white border-none d-block">
     <mat-card-content>
         <div class="row">
-            <div class="col-md-6 col-xxxl-4">
+            <div class="col-md-6 col-xxxl-3">
 
                 <!-- New Leads -->
                 <app-new-leads />
 
             </div>
-            <div class="col-md-6 col-xxxl-4">
+            <div class="col-md-6 col-xxxl-3">
 
                 <!-- Active Leads -->
                 <app-active-leads />
 
             </div>
-            <div class="col-md-6 col-xxxl-4">
+            <div class="col-md-6 col-xxxl-3">
 
                 <!-- Lead Conversation -->
                 <app-lead-conversion />
+
+            </div>
+            <div class="col-md-6 col-xxxl-3">
+
+                <app-revenue-growth />
 
             </div>
         </div>
@@ -180,7 +185,16 @@
                             Status
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            <span class="daxa-badge new d-inline-block" *ngIf="element.status">
+                            <span class="daxa-badge in-progress  d-inline-block" *ngIf="element.status=='Draft'">
+                                {{element.status}}
+                            </span>
+                            <span class="daxa-badge new d-inline-block" *ngIf="element.status=='New'">
+                                {{element.status}}
+                            </span>
+                            <span class="daxa-badge new d-inline-block" *ngIf="element.status=='Inprogress'">
+                                {{element.status}}
+                            </span>
+                            <span class="daxa-badge won d-inline-block" *ngIf="element.status=='Completed'">
                                 {{element.status}}
                             </span>
                         </td>
@@ -193,19 +207,14 @@
                         </th>
                         <td mat-cell *matCellDef="let element">
                             <div class="action-info">
-                                <button type="button" mat-button matTooltip="View Lead" matTooltipPosition="above">
+                                <a mat-button  matTooltip="Edit Lead"  matTooltipPosition="above" (click)="editLead(element)">
                                     <i class="material-symbols-outlined">
-                                        {{element.action.view}}
-                                    </i>
-                                </button>
-                                <a mat-button routerLink="/crm-page/edit-lead" matTooltip="Edit Lead" matTooltipPosition="above">
-                                    <i class="material-symbols-outlined">
-                                        {{element.action.edit}}
+                                        Edit
                                     </i>
                                 </a>
-                                <button type="button" mat-button matTooltip="Delete" matTooltipPosition="above">
+                                <button type="button" mat-button matTooltip="Delete" matTooltipPosition="above" (click)="deleteLeads(element.id)">
                                     <i class="material-symbols-outlined">
-                                        {{element.action.delete}}
+                                        Delete
                                     </i>
                                 </button>
                             </div>

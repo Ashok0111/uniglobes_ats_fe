@@ -1,6 +1,6 @@
 .mat-mdc-card {
     &.daxa-card {
-        &.edit-lead-card {
+        &.create-lead-card {
             .mat-mdc-card-content {
                 .main-label {
                     margin-bottom: 13px;
@@ -13,7 +13,7 @@
 ::ng-deep {
     .mat-mdc-card {
         &.daxa-card {
-            &.edit-lead-card {
+            &.create-lead-card {
                 .mat-mdc-card-content {
                     .btn-box {
                         .mat-mdc-button {
@@ -33,6 +33,20 @@
                         }
                     }
                 }
+                &.rtl-enabled {
+                    .mat-mdc-card-content {
+                        .btn-box {
+                            .mat-mdc-button {
+                                &:not(:first-child) {
+                                    margin: {
+                                        left: 0;
+                                        right: 10px;
+                                    };
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -43,7 +57,7 @@
 
     .mat-mdc-card {
         &.daxa-card {
-            &.edit-lead-card {
+            &.create-lead-card {
                 .mat-mdc-card-content {
                     .main-label {
                         margin-bottom: 10px;
@@ -56,14 +70,28 @@
     ::ng-deep {
         .mat-mdc-card {
             &.daxa-card {
-                &.edit-lead-card {
+                &.create-lead-card {
                     .mat-mdc-card-content {
                         .btn-box {
                             .mat-mdc-button {
                                 padding: 13px 18px;
-    
+
                                 &:not(:first-child) {
                                     margin-left: 8px;
+                                }
+                            }
+                        }
+                    }
+                    &.rtl-enabled {
+                        .mat-mdc-card-content {
+                            .btn-box {
+                                .mat-mdc-button {
+                                    &:not(:first-child) {
+                                        margin: {
+                                            left: 0;
+                                            right: 8px;
+                                        };
+                                    }
                                 }
                             }
                         }

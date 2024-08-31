@@ -6,15 +6,10 @@
     <h5>
         Lead Conversation
     </h5>
+    <h6 class="title d-block text-body">(Completed)</h6>
     <div class="number lh-1 fw-medium">
-        25.99%
+        {{overAllCompleted}}
     </div>
-    <span class="daxa-up-down-badge down position-relative">
-        <i class="material-symbols-outlined">
-            trending_down
-        </i>
-        1.25%
-    </span>
     <div class="chart">
         <apx-chart
             [series]="chartOptions.series!"
@@ -30,7 +25,7 @@
             [legend]="chartOptions.legend!"
         ></apx-chart>
         <div class="title d-block text-body">
-            Last Week
+            weekly
         </div>
     </div>
 </div>

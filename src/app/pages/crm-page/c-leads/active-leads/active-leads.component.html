@@ -7,13 +7,13 @@
         Active Leads
     </h5>
     <div class="number lh-1 fw-medium">
-        94,817
+        {{LeadsInprogress}}
     </div>
-    <span class="daxa-up-down-badge position-relative">
+    <span class="daxa-up-down-badge position-relative" [ngClass]="this.leadsTrends <= 0 ? '' : 'down'">
         <i class="material-symbols-outlined">
             trending_up
         </i>
-        8.75%
+        {{this.leadsTrends}}
     </span>
     <div class="chart">
         <apx-chart

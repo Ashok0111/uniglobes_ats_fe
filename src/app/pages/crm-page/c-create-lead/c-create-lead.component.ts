@@ -57,7 +57,7 @@ export class CCreateLeadComponent {
             year_intake: ['', Validators.required],
             source: ['', Validators.required],
             status: ['', Validators.required],
-            description: ['', Validators.required]
+            description: ['']
           });
           this.groupMonthsByYear();
     }

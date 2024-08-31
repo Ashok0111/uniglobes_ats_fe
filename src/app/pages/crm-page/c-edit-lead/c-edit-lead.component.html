@@ -1,178 +1,144 @@
-<!-- Breadcrumb -->
+<!-- HTML Template for the form -->
 <div class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-between">
-    <h5 class="mb-0">
-        Edit Lead
-    </h5>
+    <h5 class="mb-0">Edit Lead</h5>
     <ol class="breadcrumb list-unstyled mt-0 mb-0 pl-0">
         <li class="breadcrumb-item position-relative">
-            <a routerLink="/" class="d-inline-block position-relative">
-                <i class="ri-home-8-line"></i>
-                Dashboard
+            <a routerLink="/leads/leads" class="d-inline-block position-relative">
+                <i class="ri-home-8-line"></i>Leads
             </a>
         </li>
-        <li class="breadcrumb-item position-relative">
-            E-Commerce
-        </li>
-        <li class="breadcrumb-item position-relative">
-            Leads
-        </li>
-        <li class="breadcrumb-item position-relative">
-            Edit Lead
-        </li>
+        <li class="breadcrumb-item position-relative">Edit Leads</li>
     </ol>
 </div>
 
-<!-- Edit Lead -->
-<mat-card class="daxa-card edit-lead-card mb-25 border-radius bg-white border-none d-block">
+<mat-card class="daxa-card create-lead-card mb-25 border-radius bg-white border-none d-block">
     <mat-card-content>
-        <form>
+        <form [formGroup]="leadForm" (ngSubmit)="onSubmit()">
             <div class="row">
+                <!-- First Name -->
                 <div class="col-md-4 col-sm-6">
                     <div class="mb-25">
-                        <label class="main-label d-block lh-1 text-black">
-                            ID
-                        </label>
+                        <label class="main-label d-block lh-1 text-black">First Name</label>
                         <mat-form-field>
-                            <mat-label>
-                                Enter id
-                            </mat-label>
-                            <input matInput value="E.g. #ARP-1217">
+                            <mat-label>Student Name</mat-label>
+                            <input matInput formControlName="first_name" placeholder="E.g. Ashok">
                         </mat-form-field>
                     </div>
                 </div>
+
+                <!-- Last Name -->
                 <div class="col-md-4 col-sm-6">
                     <div class="mb-25">
-                        <label class="main-label d-block lh-1 text-black">
-                            Customer Name
-                        </label>
+                        <label class="main-label d-block lh-1 text-black">Last Name</label>
                         <mat-form-field>
-                            <mat-label>
-                                Enter Customer name
-                            </mat-label>
-                            <input matInput value="E.g. Marcia Baker">
+                            <mat-label>Last Name</mat-label>
+                            <input matInput formControlName="last_name" placeholder="E.g. Kumar">
                         </mat-form-field>
                     </div>
                 </div>
+
+                <!-- Email Address -->
                 <div class="col-md-4 col-sm-6">
                     <div class="mb-25">
-                        <label class="main-label d-block lh-1 text-black">
-                            Email Address
-                        </label>
+                        <label class="main-label d-block lh-1 text-black">Email Address</label>
                         <mat-form-field>
-                            <mat-label>
-                                Enter email address
-                            </mat-label>
-                            <input matInput value="E.g. marcia@example.com">
+                            <mat-label>Enter email address</mat-label>
+                            <input matInput formControlName="email" placeholder="E.g. marcia@example.com">
                         </mat-form-field>
                     </div>
                 </div>
+
+                <!-- Phone Number -->
                 <div class="col-md-4 col-sm-6">
                     <div class="mb-25">
-                        <label class="main-label d-block lh-1 text-black">
-                            Phone Number
-                        </label>
+                        <label class="main-label d-block lh-1 text-black">Phone Number</label>
                         <mat-form-field>
-                            <mat-label>
-                                Enter phone number
-                            </mat-label>
-                            <input matInput value="E.g. +1 555-123-4567">
+                            <mat-label>Enter phone number</mat-label>
+                            <input matInput formControlName="phone_number" placeholder="E.g. +1 555-123-4567">
                         </mat-form-field>
                     </div>
                 </div>
+
+                <!-- Communication Address -->
                 <div class="col-md-4 col-sm-6">
                     <div class="mb-25">
-                        <label class="main-label d-block lh-1 text-black">
-                            Create Date
-                        </label>
+                        <label class="main-label d-block lh-1 text-black">Communication Address</label>
                         <mat-form-field>
-                            <mat-label>
-                                Enter create date
-                            </mat-label>
-                            <input matInput value="E.g. Nov 10, 2024">
+                            <mat-label>Address</mat-label>
+                            <textarea matInput formControlName="c_address" placeholder="Ex..."></textarea>
                         </mat-form-field>
                     </div>
                 </div>
+
+                <!-- Permanent Address -->
                 <div class="col-md-4 col-sm-6">
                     <div class="mb-25">
-                        <label class="main-label d-block lh-1 text-black">
-                            Company
-                        </label>
+                        <label class="main-label d-block lh-1 text-black">Permanent Address</label>
                         <mat-form-field>
-                            <mat-label>
-                                Enter company
-                            </mat-label>
-                            <input matInput value="E.g. ABC Corporation">
+                            <mat-label>Address</mat-label>
+                            <textarea matInput formControlName="p_address" placeholder="Ex..."></textarea>
                         </mat-form-field>
                     </div>
                 </div>
+
+                <!-- Year Intake -->
                 <div class="col-md-4 col-sm-6">
                     <div class="mb-25">
-                        <label class="main-label d-block lh-1 text-black">
-                            Lead Source
-                        </label>
+                        <label class="main-label d-block lh-1 text-black">Year Intake</label>
                         <mat-form-field>
-                            <mat-label>
-                                Select lead source
-                            </mat-label>
-                            <mat-select [(value)]="leadSourceSelected">
-                                <mat-option value="option1">
-                                    Website
-                                </mat-option>
-                                <mat-option value="option2">
-                                    Referral
-                                </mat-option>
-                                <mat-option value="option3">
-                                    Cold Call
-                                </mat-option>
-                                <mat-option value="option4">
-                                    Email Campaign
-                                </mat-option>
-                                <mat-option value="option5">
-                                    Online Store
-                                </mat-option>
+                            <mat-label>Enter Year Intake</mat-label>
+                            <mat-select formControlName="year_intake" placeholder="Select Intake Year and Month">
+                                <mat-optgroup *ngFor="let yearGroup of IntakeYear">{{yearGroup.year}}
+                                  <mat-option *ngFor="let month of yearGroup.months" [value]="month + ' ' + yearGroup.year">
+                                    {{ month }} {{ yearGroup.year }}
+                                  </mat-option>
+                                </mat-optgroup>
+                              </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!-- Lead Source -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="mb-25">
+                        <label class="main-label d-block lh-1 text-black">Lead Source</label>
+                        <mat-form-field>
+                            <mat-label>Select lead source</mat-label>
+                            <mat-select  formControlName="source">
+                                    <mat-option *ngFor="let el of Leadsource" [value]="el"> {{el}}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
                 </div>
+
+                <!-- Status -->
                 <div class="col-md-4 col-sm-6">
                     <div class="mb-25">
-                        <label class="main-label d-block lh-1 text-black">
-                            Status
-                        </label>
+                        <label class="main-label d-block lh-1 text-black">Status</label>
                         <mat-form-field>
-                            <mat-label>
-                                Select status
-                            </mat-label>
-                            <mat-select [(value)]="statusSelected">
-                                <mat-option value="option1">
-                                    New
-                                </mat-option>
-                                <mat-option value="option2">
-                                    Won
-                                </mat-option>
-                                <mat-option value="option3">
-                                    In Progress
-                                </mat-option>
-                                <mat-option value="option4">
-                                    Lost
-                                </mat-option>
+                            <mat-label>Select status</mat-label>
+                            <mat-select formControlName="status">
+                                <mat-option value="Draft">Draft</mat-option>
+                                <mat-option value="New">New</mat-option>
+                                <mat-option value="Inprogress">In Progress</mat-option>
+                                <mat-option value="Completed">Completed</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
                 </div>
+
+                <!-- Description -->
                 <div class="col-md-12 col-sm-12">
                     <div class="mb-25">
-                        <label class="main-label d-block lh-1 text-black">
-                            Customer Image
-                        </label>
-                        <file-upload class="file-uploader" [multiple]="multiple"></file-upload>
+                        <label class="main-label d-block lh-1 text-black">Description</label>
+                        <mat-form-field>
+                            <textarea matInput formControlName="description" placeholder="..."></textarea>
+                        </mat-form-field>
                     </div>
                 </div>
             </div>
             <div class="btn-box">
-                <button mat-button>
-                    Save Changes
-                </button>
+                <button mat-button type="submit" >Save Changes</button>
             </div>
         </form>
     </mat-card-content>
