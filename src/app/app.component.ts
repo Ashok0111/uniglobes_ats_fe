@@ -8,14 +8,16 @@ import { CustomizerSettingsComponent } from './customizer-settings/customizer-se
 import { CustomizerSettingsService } from './customizer-settings/customizer-settings.service';
 import { ToggleService } from './common/sidebar/toggle.service';
 import { Location } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 @Component({
     selector: 'app-root',
     standalone: true,
-    imports: [RouterOutlet, CommonModule, SidebarComponent, HeaderComponent, FooterComponent, CustomizerSettingsComponent, NgClass],
+    imports: [RouterOutlet, CommonModule, SidebarComponent, HeaderComponent, FooterComponent, CustomizerSettingsComponent, NgClass,NgxSpinnerModule],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss'
 })
+
+
 export class AppComponent {
 
     // Title
@@ -33,6 +35,7 @@ export class AppComponent {
         private viewportScroller: ViewportScroller,
         public location: Location,
         public themeService: CustomizerSettingsService,
+        private spinner: NgxSpinnerService
 
     ) {
 
@@ -61,5 +64,13 @@ export class AppComponent {
         const regex = /^\/authentication\/reset-password\/[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\/?$/;
         return regex.test(url);
     }
+    ngOnInit() {
+        /** spinner starts on init */
+
+      }
 
 }
+
+interface NgxSpinnerConfig {
+    type?: string;
+  }
