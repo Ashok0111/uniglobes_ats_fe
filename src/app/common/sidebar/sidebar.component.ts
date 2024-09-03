@@ -41,10 +41,8 @@ export class SidebarComponent implements OnInit {
 
         this.userRole=this.generic.get_userrole()
         this.refreshComponent();
-        console.log( this.userRole," this.userRole")
         this.toggleService.isSidebarToggled$.subscribe(isSidebarToggled => {
             this.isSidebarToggled = isSidebarToggled;
-            console.log(this.isSidebarToggled)
         });
         this.themeService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;
@@ -53,7 +51,6 @@ export class SidebarComponent implements OnInit {
     ngOnInit(): void {
         this.refreshSubscription = this.generic.refresh$.subscribe(() => {
             this.userRole=this.generic.get_userrole();
-            console.log( this.userRole," this.userRole")
           });
 
       }

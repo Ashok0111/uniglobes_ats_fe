@@ -7,7 +7,7 @@ import { FooterComponent } from './common/footer/footer.component';
 import { CustomizerSettingsComponent } from './customizer-settings/customizer-settings.component';
 import { CustomizerSettingsService } from './customizer-settings/customizer-settings.service';
 import { ToggleService } from './common/sidebar/toggle.service';
-
+import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 @Component({
     selector: 'app-root',
@@ -31,8 +31,11 @@ export class AppComponent {
         public router: Router,
         private toggleService: ToggleService,
         private viewportScroller: ViewportScroller,
-        public themeService: CustomizerSettingsService
+        public location: Location,
+        public themeService: CustomizerSettingsService,
+
     ) {
+
         this.router.events.subscribe((event: Event) => {
             if (event instanceof NavigationEnd) {
                 // Scroll to the top after each navigation end
@@ -46,8 +49,17 @@ export class AppComponent {
             this.isToggled = isToggled;
         });
         if(!localStorage.getItem('token')){
-            this.router.navigateByUrl('authentication')
+            let path=location.path()
+            if(!this.isValidActivationUrl(path)){
+                this.router.navigateByUrl('authentication');
+            }
+
         }
+    }
+    isValidActivationUrl(url:any) {
+        // Define the regex pattern to match the format 'url/activate/{uid}/{token}/'
+        const regex = /^\/authentication\/reset-password\/[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\/?$/;
+        return regex.test(url);
     }
 
 }

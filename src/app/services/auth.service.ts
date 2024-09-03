@@ -16,6 +16,8 @@ export class APISERVICE {
   login(payload: any): Observable<any> {
     return this.httpClient.post<any>(environment.API_URL+'auth/token/', payload);
   }
-
+  reset_password(payload: any,url_param:any): Observable<any> {
+    return this.httpClient.post<any>(environment.API_URL+'api/password_reset/'+url_param,payload);
+  }
 
 }
