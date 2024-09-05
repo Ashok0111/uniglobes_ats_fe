@@ -7,11 +7,16 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
     })
 
 export class shareService {
+    profileData={"email": "",
+        "first_name": "",
+        "last_name": "",
+        "phone_number": "",
+        "c_address": "",
+        "p_address": "",
+        "date_joined": ""}
   constructor() { }
   newLeads = new BehaviorSubject({leads:[],labels:[]});
-  // expose the BehaviorSubject as an Observable
   currentQuote = this.newLeads.asObservable();
-  // function to update the value of the BehaviorSubject
   updateLeads(param:any){
     this.newLeads.next(param);
   }
@@ -35,11 +40,15 @@ export class shareService {
 
 
   newLeadsCompleted = new BehaviorSubject({leads:[],labels:[]});
-  // expose the BehaviorSubject as an Observable
   newLeadsCompletedOB = this.newLeadsCompleted.asObservable();
-  // function to update the value of the BehaviorSubject
   updateLeadsCompleted(param:any){
     this.newLeadsCompleted.next(param);
+  }
+
+  updateProfile = new BehaviorSubject(this.profileData);
+  updateProfileOB = this.updateProfile.asObservable();
+  updateProfileData(param:any){
+    this.updateProfile.next(param);
   }
 
 

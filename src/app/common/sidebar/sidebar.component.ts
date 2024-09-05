@@ -26,7 +26,7 @@ export class SidebarComponent implements OnInit {
     pathMap:any={
         "facilitator":"leads/dashboard",
         "agent":"leads/leads",
-        "student":"profile"
+        "student":"my-profile"
 
     }
     private refreshSubscription: Subscription;

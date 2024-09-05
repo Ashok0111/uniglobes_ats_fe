@@ -12,7 +12,7 @@ import { ConnectionsComponent } from './settings/connections/connections.compone
 import { ChangePasswordComponent } from './settings/change-password/change-password.component';
 import { AccountSettingsComponent } from './settings/account-settings/account-settings.component';
 import { SettingsComponent } from './settings/settings.component';
-import { MyProfileComponent } from './my-profile/my-profile.component';
+import { ProfileComponent } from './my-profile/profile/profile.component';
 import { LogoutComponent } from './authentication/logout/logout.component';
 import { ConfirmEmailComponent } from './authentication/confirm-email/confirm-email.component';
 import { LockScreenComponent } from './authentication/lock-screen/lock-screen.component';
@@ -33,6 +33,8 @@ import { CContactsComponent } from './pages/crm-page/c-contacts/c-contacts.compo
 import { CrmPageComponent } from './pages/crm-page/crm-page.component';
 import { CrmComponent } from './dashboard/crm/crm.component';
 import { AuthGuard } from './guards/auth.guard';
+import { EditApplicationComponent } from './my-profile/edit-application/edit-application.component';
+import { MyProfileComponent } from './my-profile/my-profile.component';
 
 export const routes: Routes = [
 
@@ -47,7 +49,14 @@ export const routes: Routes = [
             {path: 'logout', component: LogoutComponent}
         ]
     },
-    {path: 'my-profile', component: MyProfileComponent},
+    { path: 'my-profile',
+        component: MyProfileComponent,
+        canActivateChild: [AuthGuard],
+        children: [
+            {path: '', component: ProfileComponent},
+            {path: 'view-application/:lead_id', component: EditApplicationComponent},
+        ]
+    },
     {
         path: 'settings',
         component: SettingsComponent,

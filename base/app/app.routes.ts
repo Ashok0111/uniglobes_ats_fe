@@ -194,6 +194,7 @@ import { EProductsListComponent } from './pages/ecommerce-page/e-products-list/e
 import { EProductsGridComponent } from './pages/ecommerce-page/e-products-grid/e-products-grid.component';
 import { EcommercePageComponent } from './pages/ecommerce-page/ecommerce-page.component';
 import { TeamMembersComponent } from './pages/users-page/team-members/team-members.component';
+import { EditApplicationComponent } from '../../src/app/my-profile/edit-application/edit-application.component';
 
 export const routes: Routes = [
     {path: '', component: EcommerceComponent},
@@ -353,6 +354,7 @@ export const routes: Routes = [
             {path: '', component: TeamMembersComponent},
             {path: 'users-list', component: UsersListComponent},
             {path: 'add-user', component: AddUserComponent},
+            {path: 'view-application', component: EditApplicationComponent},
         ]
     },
     {

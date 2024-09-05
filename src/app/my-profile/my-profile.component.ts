@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { TotalProjectsComponent } from './total-projects/total-projects.component';
 import { TotalRevenueComponent } from './total-revenue/total-revenue.component';
@@ -14,8 +14,12 @@ import { RecentActivityComponent } from './recent-activity/recent-activity.compo
 @Component({
     selector: 'app-my-profile',
     standalone: true,
-    imports: [RouterLink, WelcomeComponent, TotalProjectsComponent, TotalOrdersComponent, TotalRevenueComponent, ProfileIntroComponent, ProfileInformationComponent, AdditionalInformationComponent, OverviewComponent, ToDoListComponent, RecentActivityComponent],
+    imports: [RouterLink, RouterOutlet,WelcomeComponent, TotalProjectsComponent, TotalOrdersComponent, TotalRevenueComponent, ProfileIntroComponent, ProfileInformationComponent, AdditionalInformationComponent, OverviewComponent, ToDoListComponent, RecentActivityComponent],
     templateUrl: './my-profile.component.html',
     styleUrl: './my-profile.component.scss'
 })
-export class MyProfileComponent {}
+
+export class MyProfileComponent  {
+
+
+}

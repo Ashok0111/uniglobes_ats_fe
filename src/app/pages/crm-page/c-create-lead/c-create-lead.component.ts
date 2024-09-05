@@ -94,8 +94,6 @@ export class CCreateLeadComponent {
               description: formValues.description
             }
           };
-
-          console.log(result);  // This is where you would send the result to your backend
           this.service.createlead(result).subscribe((response)=>{
             if(response.status_code==201){
                 Notiflix.Notify.success('Lead is created succcessfully');

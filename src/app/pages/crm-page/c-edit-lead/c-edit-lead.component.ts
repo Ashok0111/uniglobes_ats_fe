@@ -37,6 +37,7 @@ export class CEditLeadComponent {
         ['text_color', 'background_color'],
         ['align_left', 'align_center', 'align_right', 'align_justify'],
     ];
+
     Leadsource: string[] = ["Refferal", "College Referal"];
     IntakeYearBase:string[] =["January","June","September"];
     IntakeYear: { year: number, months: string[] }[] = [];

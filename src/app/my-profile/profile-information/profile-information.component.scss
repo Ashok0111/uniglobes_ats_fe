@@ -13,10 +13,10 @@
                     }
                     .title {
                         margin-left: 15px;
-                        
+
                         span {
                             font-size: 18px;
-    
+
                             &:not(:first-child) {
                                 margin-top: 5px;
                                 font-size: var(--fontSize);
@@ -74,7 +74,7 @@
                 }
                 .team-group {
                     margin-top: 15px;
-                    
+
                     .users {
                         img {
                             width: 40px;
@@ -110,7 +110,7 @@
                     overflow: auto;
                     padding-right: 20px;
                     margin-right: -20px;
-                    
+
                     .follower {
                         margin-bottom: 20px;
 
@@ -122,7 +122,7 @@
                         }
                         .title {
                             margin-left: 12px;
-                            
+
                             span {
                                 &:not(:first-child) {
                                     margin-top: 3px;
@@ -152,13 +152,13 @@
                 .mat-mdc-card-content {
                     .user {
                         margin-bottom: 15px;
-    
+
                         .title {
                             margin-left: 12px;
-                            
+
                             span {
                                 font-size: 16px;
-        
+
                                 &:not(:first-child) {
                                     font-size: 14px;
                                 }
@@ -171,7 +171,7 @@
 
                         .follower {
                             margin-bottom: 15px;
-        
+
                             .title {
                                 span {
                                     &:not(:first-child) {
@@ -210,6 +210,25 @@
         }
     }
 
+}
+.add-new-task-btn {
+    padding: {
+        top: 20px;
+        left: 20px;
+        right: 20px;
+    };
+    .mat-mdc-button {
+        padding: 0;
+        height: auto;
+        min-width: auto;
+        font: {
+            size: var(--fontSize) !important;
+            weight: normal;
+        };
+        &:not(:disabled) {
+            color: var(--daxaColor);
+        }
+    }
 }
 
 /* Min width 992px to Max width 1199px */

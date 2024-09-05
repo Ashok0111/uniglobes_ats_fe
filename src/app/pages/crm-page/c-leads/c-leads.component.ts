@@ -52,7 +52,6 @@ export class CLeadsComponent implements OnInit {
             'No',
             () => {
                 this.globalService.deleteLeads({'id':id}).subscribe((res:any)=>{
-                    console.log(res,"res")
                     if(res['status_code']==201){
                         Notiflix.Report.success(
                             'Success',

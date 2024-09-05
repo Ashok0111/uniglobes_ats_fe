@@ -1,10 +1,10 @@
-import { NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { DatePipe, NgIf } from '@angular/common';
+import { Component, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -14,19 +14,23 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { CustomizerSettingsService } from '../../customizer-settings/customizer-settings.service';
+import { StudentServices } from '../../services/student.service';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
     selector: 'app-to-do-list:not(pp)',
     standalone: true,
-    imports: [MatCardModule, MatMenuModule, MatButtonModule, RouterLink, MatTableModule, NgIf, MatCheckboxModule, MatTooltipModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule],
+    imports: [MatCardModule, MatMenuModule, MatButtonModule, RouterLink, MatTableModule, NgIf, MatCheckboxModule, MatTooltipModule,DatePipe],
     templateUrl: './to-do-list.component.html',
     styleUrl: './to-do-list.component.scss'
 })
 export class ToDoListComponent {
+    @ViewChild(MatPaginator) paginator: MatPaginator;
 
-    displayedColumns: string[] = ['select', 'taskID', 'taskName', 'assignedTo', 'dueDate', 'priority', 'status', 'action'];
-    dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-    selection = new SelectionModel<PeriodicElement>(true, []);
+    ELEMENT_DATA: any[];
+    displayedColumns: string[] = [ 'lead_id','user_email','agent_name','created_date','status','action'];
+    dataSource = new MatTableDataSource<any>([]);
+    selection = new SelectionModel<any>(true, []);
 
     /** Whether the number of selected elements matches the total number of rows. */
     isAllSelected() {
@@ -45,7 +49,7 @@ export class ToDoListComponent {
     }
 
     /** The label for the checkbox on the passed row */
-    checkboxLabel(row?: PeriodicElement): string {
+    checkboxLabel(row?: any): string {
         if (!row) {
             return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
         }
@@ -68,137 +72,37 @@ export class ToDoListComponent {
     isToggled = false;
 
     constructor(
-        public themeService: CustomizerSettingsService
+        public themeService: CustomizerSettingsService,
+        public service: StudentServices,
+        public router:Router,
     ) {
         this.themeService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;
         });
     }
+    editLead(payload:any){
+        this.router.navigateByUrl("my-profile/view-application/"+payload.lead_id)
+    }
+    deleteLeads(id:any){
 
+    }
     // RTL Mode
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();
     }
 
-}
+    ngOnInit(): void {
+        this.service.getMyApplications().subscribe((result)=>{
+         if(result['status_code']==200){
+            this.ELEMENT_DATA=result.result;
+            this.dataSource = new MatTableDataSource<any>(this.ELEMENT_DATA);
+            this.ngAfterViewInit();
+         }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-    {
-        taskID: '#951',
-        taskName: 'Hotel management system',
-        assignedTo: 'Shawn Kennedy',
-        dueDate: '15 Nov, 2024',
-        priority: 'High',
-        status: {
-            inProgress: 'In Progress',
-            // pending: 'Pending',
-            // completed: 'Completed',
-            // notStarted: 'Not Started',
-        },
-        action: {
-            view: 'visibility',
-            edit: 'edit',
-            delete: 'delete'
-        }
-    },
-    {
-        taskID: '#587',
-        taskName: 'Send proposal to APR Ltd',
-        assignedTo: 'Roberto Cruz',
-        dueDate: '14 Nov, 2024',
-        priority: 'Medium',
-        status: {
-            // inProgress: 'In Progress',
-            pending: 'Pending',
-            // completed: 'Completed',
-            // notStarted: 'Not Started',
-        },
-        action: {
-            view: 'visibility',
-            edit: 'edit',
-            delete: 'delete'
-        }
-    },
-    {
-        taskID: '#618',
-        taskName: 'Python upgrade',
-        assignedTo: 'Juli Johnson',
-        dueDate: '13 Nov, 2024',
-        priority: 'High',
-        status: {
-            // inProgress: 'In Progress',
-            // pending: 'Pending',
-            completed: 'Completed',
-            // notStarted: 'Not Started',
-        },
-        action: {
-            view: 'visibility',
-            edit: 'edit',
-            delete: 'delete'
-        }
-    },
-    {
-        taskID: '#367',
-        taskName: 'Schedule meeting with Daxa',
-        assignedTo: 'Catalina Engles',
-        dueDate: '12 Nov, 2024',
-        priority: 'Low',
-        status: {
-            // inProgress: 'In Progress',
-            // pending: 'Pending',
-            // completed: 'Completed',
-            notStarted: 'Not Started',
-        },
-        action: {
-            view: 'visibility',
-            edit: 'edit',
-            delete: 'delete'
-        }
-    },
-    {
-        taskID: '#761',
-        taskName: 'Engineering lite touch',
-        assignedTo: 'Louis Nagle',
-        dueDate: '11 Nov, 2024',
-        priority: 'Medium',
-        status: {
-            inProgress: 'In Progress',
-            // pending: 'Pending',
-            // completed: 'Completed',
-            // notStarted: 'Not Started',
-        },
-        action: {
-            view: 'visibility',
-            edit: 'edit',
-            delete: 'delete'
-        }
-    },
-    {
-        taskID: '#431',
-        taskName: 'Refund bill payment',
-        assignedTo: 'Michael Marquez',
-        dueDate: '10 Nov, 2024',
-        priority: 'Low',
-        status: {
-            // inProgress: 'In Progress',
-            // pending: 'Pending',
-            // completed: 'Completed',
-            notStarted: 'Not Started',
-        },
-        action: {
-            view: 'visibility',
-            edit: 'edit',
-            delete: 'delete'
-        }
+        });
+     }
+     ngAfterViewInit() {
+        this.dataSource.paginator = this.paginator;
     }
-];
-
-export interface PeriodicElement {
-    taskName: string;
-    taskID: string;
-    assignedTo: string;
-    dueDate: string;
-    priority: string;
-    status: any;
-    action: any;
 }
+

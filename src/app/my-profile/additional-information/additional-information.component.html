@@ -9,19 +9,10 @@
     <mat-card-content>
         <ul class="info-list pr-0 pl-0 mb-0 mt-0 list-unstyled">
             <li>
-                <span class="text-body">Phone:</span> +1 444 266 5599
+                <span class="text-body">Phone:</span> {{this.userObject.phone_number}}
             </li>
             <li>
-                <span class="text-body">Address:</span> 84 S. Arrowhead Court Branford
-            </li>
-            <li>
-                <span class="text-body">Orders:</span> 696
-            </li>
-            <li>
-                <span class="text-body">Products:</span> 9240
-            </li>
-            <li>
-                <span class="text-body">Events:</span> 5
+                <span class="text-body">Communication Address:</span>  {{this.userObject.c_address}}
             </li>
         </ul>
     </mat-card-content>

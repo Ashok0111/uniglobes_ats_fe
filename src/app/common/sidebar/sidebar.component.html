@@ -95,14 +95,14 @@
                         </mat-expansion-panel-header>
                         <ul class="sidebar-sub-menu">
                             <li class="sidemenu-item">
-                                <a routerLink="/"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                <a routerLink="/my-profile"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
                                      Profile
                                 </a>
                             </li>
 
                         </ul>
                     </mat-expansion-panel>
-                    <a routerLink="/" *ngIf="this.userRole=='student'"   routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidebar-menu-link" >
+                    <a routerLink="/" *ngIf="this.userRole=='student'"    class="sidebar-menu-link" >
                         <i class="material-symbols-outlined">
                             local_library
                         </i>
@@ -110,7 +110,7 @@
                             Explore Universities
                         </span>
                     </a>
-                    <a routerLink="/" *ngIf="this.userRole=='student'"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidebar-menu-link" >
+                    <a routerLink="/" *ngIf="this.userRole=='student'"   class="sidebar-menu-link" >
                         <i class="material-symbols-outlined">
                             local_library
                         </i>
@@ -118,7 +118,7 @@
                             Explore Courses
                         </span>
                     </a>
-                    <a routerLink="/"  *ngIf="this.userRole=='student'"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidebar-menu-link" >
+                    <a routerLink="/"  *ngIf="this.userRole=='student'"  class="sidebar-menu-link" >
                         <i class="material-symbols-outlined">
                             school
                         </i>

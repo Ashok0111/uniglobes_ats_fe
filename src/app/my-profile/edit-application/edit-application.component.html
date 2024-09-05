@@ -1,0 +1,172 @@
+<!-- Breadcrumb -->
+<div class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-between">
+    <h5 class="mb-0">
+        View Application
+    </h5>
+    <ol class="breadcrumb list-unstyled mt-0 mb-0 pl-0">
+        <li class="breadcrumb-item position-relative">
+            <a routerLink="/my-profile" class="d-inline-block position-relative">
+                <i class="ri-home-8-line"></i>
+                My profile
+            </a>
+        </li>
+        <li class="breadcrumb-item position-relative">
+            View Application
+        </li>
+    </ol>
+</div>
+
+<!-- Add User -->
+<div class="row">
+    <div class="col-xxl-13 col-xxxl-12">
+        <mat-card
+            class="daxa-card add-user-card mb-25 border-radius bg-white border-none d-block"
+            [class.rtl-enabled]="themeService.isRTLEnabled()"
+        >
+
+
+            <mat-card-header>
+                    <div class="row" *ngIf="this.ApplicationObject">
+                        <div class="col-sm-6">
+                            <h5 class="mb-0">
+                                My Application [ {{this.ApplicationObject?.lead.lead_id || ' '}}]
+                            </h5>
+                        </div>
+                        <div class="col-sm-6 d-flex justify-content-end">
+                            <span  class="badge rounded-pill text-bg-daxa">{{this.ApplicationObject.lead.status}}</span>
+                        </div>
+                    </div>
+            </mat-card-header>
+            <mat-card-content>
+
+                <div class="row" *ngIf="this.ApplicationObject">
+                    <div class="col-sm-6">
+                        <div class="mb-25">
+                            <label class="main-label d-block lh-1 text-black">
+                                Email Address
+                            </label>
+                            <mat-form-field>
+                                <mat-label>
+                                    Email Address
+                                </mat-label>
+                                <input matInput [(ngModel)]="this.ApplicationObject.user.email" disabled>
+                            </mat-form-field>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="mb-25">
+                            <label class="main-label d-block lh-1 text-black">
+                                Application ID
+                            </label>
+                            <mat-form-field>
+                                <mat-label>
+                                    Application ID
+                                </mat-label>
+                                <input matInput [(ngModel)]="this.ApplicationObject.lead.lead_id" disabled>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="mb-25">
+                            <label class="main-label d-block lh-1 text-black">
+                                First Name
+                            </label>
+                            <mat-form-field>
+                                <mat-label>
+                                    First Name
+                                </mat-label>
+                                <input matInput [(ngModel)]="this.ApplicationObject.user.first_name" disabled>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="mb-25">
+                            <label class="main-label d-block lh-1 text-black">
+                                Last Name
+                            </label>
+                            <mat-form-field>
+                                <mat-label>
+                                    Last Name
+                                </mat-label>
+                                <input matInput [(ngModel)]="this.ApplicationObject.user.last_name" disabled>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="mb-25">
+                            <label class="main-label d-block lh-1 text-black">
+                                Phone No
+                            </label>
+                            <mat-form-field>
+                                <mat-label>
+                                    Phone no
+                                </mat-label>
+                                <input matInput [(ngModel)]="this.ApplicationObject.user.phone_number" disabled>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="mb-25">
+                            <label class="main-label d-block lh-1 text-black">
+                                Primary Address
+                            </label>
+                            <mat-form-field class="textarea">
+                                <mat-label>
+                                    Primary Address
+                                </mat-label>
+                                <textarea matInput [(ngModel)]="this.ApplicationObject.user.p_address" disabled></textarea>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="mb-25">
+                            <label class="main-label d-block lh-1 text-black">
+                                Communication Address
+                            </label>
+                            <mat-form-field class="textarea">
+                                <mat-label>
+                                    Communication Address
+                                </mat-label>
+                                <textarea matInput [(ngModel)]="this.ApplicationObject.user.c_address" disabled></textarea>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="mb-25">
+                                <label class="main-label d-block lh-1 text-black">
+                                    Do You Need Support for Visa Slot Booking?
+                                </label>
+                                    <mat-card-content>
+                                        <mat-slide-toggle matInput [(ngModel)]="this.ApplicationObject.user.visa_slot_booking">Visa Slot</mat-slide-toggle>
+                                    </mat-card-content>
+                            </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="mb-25">
+                            <label class="main-label d-block lh-1 text-black">
+                                Do You Need Support for Flight Tickets Booking?
+                            </label>
+                                <mat-card-content>
+                                    <mat-slide-toggle matInput [(ngModel)]="this.ApplicationObject.user.flight_ticket_booking">Flight Tickets</mat-slide-toggle>
+                                </mat-card-content>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <app-media></app-media>
+                </div>
+
+                <div class="btn-box">
+                    <button mat-button>
+                        Save & Update
+                    </button>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+</div>
