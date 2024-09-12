@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
@@ -14,20 +14,55 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { SidebarComponent } from '../../common/sidebar/sidebar.component';
 import { CustomizerSettingsService } from '../../customizer-settings/customizer-settings.service';
-
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, Validators } from '@angular/forms';
+import { FileUploadModule } from '@iplab/ngx-file-upload';
+import { CommonModule } from '@angular/common';
+import { StudentServices } from '../../services/student.service';
+import { E } from '@angular/cdk/keycodes';
+import { fileSizeValidator } from './file-size.validator';
+import { shareService } from '../../services/share.service';
+import Notiflix from 'notiflix';
 @Component({
     selector: 'app-media',
     standalone: true,
-    imports: [MatCardModule, MatMenuModule, SidebarComponent, MatButtonModule, RouterLink, MatTableModule, MatCheckboxModule, MatTooltipModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule],
+    imports: [FileUploadModule,MatCardModule,CommonModule ,MatMenuModule, SidebarComponent, MatButtonModule, RouterLink, MatTableModule, MatCheckboxModule, MatTooltipModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, FormsModule,ReactiveFormsModule],
     templateUrl: './media.component.html',
-    styleUrl: './media.component.scss'
+    styleUrl: './media.component.scss',
+    schemas: [CUSTOM_ELEMENTS_SCHEMA], // Add this line
 })
-export class MediaComponent {
-
-    displayedColumns: string[] = ['folderName', 'owner', 'listedDate', 'fileSize', 'fileItems', 'action'];
-    dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-    selection = new SelectionModel<PeriodicElement>(true, []);
-
+export class MediaComponent implements OnInit {
+    @Input() appid = '';
+    displayedColumns: string[] = ['folderName', 'owner', 'listedDate', 'action'];
+    dataSource = new MatTableDataSource<any>([]);
+    selection = new SelectionModel<any>(true, []);
+    documentForm: FormGroup;
+    uploadedFiles:any;
+    selectedFile: File | null = null;
+    MAX_FILE_SIZE = 5 * 1024 * 1024;  // 5 MB
+    DocsList:any={}
+    documentsTypes: string[] = [
+        "Passport",
+        "Visa",
+        "Academic Transcripts",
+        "Language Proficiency Test Scores (IELTS, TOEFL)",
+        "Letter of Recommendation",
+        "Statement of Purpose (SOP)",
+        "Resume/Curriculum Vitae (CV)",
+        "Financial Statements (Proof of Funds)",
+        "Application Form",
+        "Offer Letter",
+        "Health and Medical Certificate",
+        "Scholarship Letters (if applicable)",
+        "Birth Certificate",
+        "Work Experience Certificates (if applicable)",
+        "Research Proposal (for PhD or research-based courses)",
+        "Accommodation Proof (if pre-arranged)",
+        "Vaccination Records (in some countries)"
+      ];
+    DocTypes:any= {};
+    DocTypeList: any={};
+    fileUrl: any;
     /** Whether the number of selected elements matches the total number of rows. */
     isAllSelected() {
         const numSelected = this.selection.selected.length;
@@ -43,9 +78,56 @@ export class MediaComponent {
         }
         this.selection.select(...this.dataSource.data);
     }
+    convertFileToBase64(file: File): Promise<string> {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => {
+                resolve(reader.result as string);
+            };
+            reader.onerror = (error) => {
+                reject(error);
+            };
+            // Ensure that the parameter passed is a File or Blob
+            if (file instanceof Blob) {
+                reader.readAsDataURL(file);
+            } else {
+                reject(new Error('The provided input is not a valid File or Blob'));
+            }
+        });
+    }
+    async getFile(){
+        const base64String = await this.convertFileToBase64(this.documentForm.value.document_file[0]);
+        return base64String
+    }
+    async onSubmit() {
+        if (this.documentForm.valid) {
+            let payload={
+                'document_type':this.documentForm.value.document_type,
+                'document_name':this.documentForm.value.document_file[0].name,
+                'document_file':await this.getFile(),
+                'document_exn':'png',
+                'lead_id':this.appid
+            }
+                this.service.updateMyDocument(payload).subscribe((result)=>{
+                    if(result['status_code']==200){
+                        Notiflix.Notify.success("Document is Updated Successfully")
+                    }
+                   this.refreshMyDocs();
+                   this.toggleClass();
+            });
 
+
+
+        } else {
+          console.log('Form is not valid');
+        }
+      }
+      addKeyValuePair(key: string, value: any): void {
+        this.documentForm.addControl(key, new FormControl(value, Validators.required));
+      }
+    classApplied = false;
     /** The label for the checkbox on the passed row */
-    checkboxLabel(row?: PeriodicElement): string {
+    checkboxLabel(row?: any): string {
         if (!row) {
             return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
         }
@@ -59,96 +141,92 @@ export class MediaComponent {
     }
 
     // Popup Trigger
-    classApplied = false;
     toggleClass() {
         this.classApplied = !this.classApplied;
+
     }
 
+  // Capture the selected file
+  onFileSelected(event: any): void {
+    const file: File = event.target.files;
+    if (file) {
+    }
+}
     // isToggled
     isToggled = false;
 
     constructor(
-        public themeService: CustomizerSettingsService
+        public themeService: CustomizerSettingsService,
+        private fb: FormBuilder,
+        public service: StudentServices,
+        public share_ser:shareService,
+
     ) {
         this.themeService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;
         });
+        this.share_ser.docTypesOB.subscribe((result:any)=>{
+            this.DocTypes=result.doc_types;
+            this.DocsList=result.my_docs;
+            this.DocTypeList= this.convertListToDict(this.DocTypes);
+        });
     }
+    ngOnInit(): void {
+        this.documentForm = this.fb.group({
+            document_type: ['', Validators.required],
+            document_file: [null, Validators.required,fileSizeValidator(this.MAX_FILE_SIZE)]
+          });
+    }
+    download_file(element:any){
+        let payload={
+        "doc_id": element.id,
+        "lead_id": this.appid
+        };
+        this.service.downloadMyDocument(payload).subscribe((result:any)=>{
+            if(result['status_code']==200){
+                this.fileUrl =result['result']['url'];
+                this.browserDownload(element);
+            }
+        });
 
+    }
+    delete_my_file(element:any){
+        this.service.deleteMyDocument(element.id).subscribe((result:any)=>{
+            if(result['status_code']==200){
+                Notiflix.Notify.success("Document is deleted Successfully");
+                this.refreshMyDocs();
+            }
+        });
+
+    }
+    browserDownload(element:any) {
+        if (this.fileUrl) {
+          const a = document.createElement('a');
+          a.href = this.fileUrl;  // Set the URL from the backend
+          a.download = element.document_name;  // Set the desired file name
+          a.target = '_blank';
+          a.click();  // Trigger the download
+        }
+      }
+     convertListToDict(data:any) {
+        // Use the reduce function to convert the array into an object
+        return data.reduce((acc:any, item:any) => {
+            acc[item.id] = item.name;
+            return acc;
+        }, {}); // Start with an empty object as the accumulator
+    }
     // RTL Mode
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();
     }
+    refreshMyDocs(){
+        this.service.getMyApplicationDetailByID({"application_id":this.appid}).subscribe((response)=>{
+            if(response["status_code"]==200){
+                this.share_ser.setdocTypesOB(response.result)
+
+            }
+        });
+    }
 
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-    {
-        folderName: 'Graphic design file',
-        owner: 'Sharilyn Goodall',
-        listedDate: 'Nov 13, 2024',
-        fileSize: '1.6 GB',
-        fileItems: 142,
-        action: {
-            download: 'sim_card_download',
-            edit: 'edit',
-            delete: 'delete'
-        }
-    },
-    {
-        folderName: 'Personal photo',
-        owner: 'Annie Carver',
-        listedDate: 'Nov 9, 2024',
-        fileSize: '1.2 GB',
-        fileItems: 175,
-        action: {
-            download: 'sim_card_download',
-            edit: 'edit',
-            delete: 'delete'
-        }
-    },
-    {
-        folderName: 'Audio file',
-        owner: 'Winona Etzel',
-        listedDate: 'Nov 8, 2024',
-        fileSize: '1.3 GB',
-        fileItems: 136,
-        action: {
-            download: 'sim_card_download',
-            edit: 'edit',
-            delete: 'delete'
-        }
-    },
-    {
-        folderName: 'English learning files',
-        owner: 'Thomas Lane',
-        listedDate: 'Nov 6, 2024',
-        fileSize: '1.1 GB',
-        fileItems: 65,
-        action: {
-            download: 'sim_card_download',
-            edit: 'edit',
-            delete: 'delete'
-        }
-    },
-    {
-        folderName: 'Mix projects design files',
-        owner: 'Edward Goodman',
-        listedDate: 'Nov 5, 2024',
-        fileSize: '1.2 GB',
-        fileItems: 88,
-        action: {
-            download: 'sim_card_download',
-            edit: 'edit',
-            delete: 'delete'
-        }
-    },
-];
-export interface PeriodicElement {
-    folderName: string;
-    owner: string;
-    listedDate: string;
-    fileSize: string;
-    fileItems: number;
-    action: any;
-}

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -23,7 +23,8 @@ import { MediaComponent } from '../media/media.component';
     standalone: true,
     imports: [MatCardModule, MatMenuModule, MatButtonModule, RouterLink, FormsModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, ReactiveFormsModule, FileUploadModule, MatRadioModule, MatCheckboxModule,CommonModule,MatSlideToggleModule,MediaComponent],
     templateUrl: './edit-application.component.html',
-    styleUrl: './edit-application.component.scss'
+    styleUrl: './edit-application.component.scss',
+    schemas: [CUSTOM_ELEMENTS_SCHEMA], // Add this line
 })
 export class EditApplicationComponent implements OnInit {
 
@@ -38,7 +39,8 @@ export class EditApplicationComponent implements OnInit {
         public themeService: CustomizerSettingsService,
         public route:Router,
         public snap:ActivatedRoute,
-        public service:StudentServices
+        public service:StudentServices,
+        public share_ser:shareService
 
     ) {
         this.themeService.isToggled$.subscribe(isToggled => {
@@ -50,10 +52,11 @@ export class EditApplicationComponent implements OnInit {
     ngOnInit(): void {
         this.service.getMyApplicationDetailByID({"application_id":this.application_id}).subscribe((response)=>{
             if(response["status_code"]==200){
-                console.log(response.result,"data")
                 this.ApplicationObject=response.result;
+                this.share_ser.setdocTypesOB(this.ApplicationObject)
+
             }
-        })
+        });
     }
 
     // RTL Mode

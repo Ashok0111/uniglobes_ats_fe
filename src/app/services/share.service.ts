@@ -51,5 +51,10 @@ export class shareService {
     this.updateProfile.next(param);
   }
 
+  docTypes = new BehaviorSubject({});
+  docTypesOB = this.docTypes.asObservable();
+  setdocTypesOB(param:any){
+    this.docTypes.next(param);
+  }
 
 }

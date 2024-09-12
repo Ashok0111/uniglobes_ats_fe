@@ -8,19 +8,15 @@ import { Router, RouterLink } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
 import { CustomizerSettingsService } from '../../customizer-settings/customizer-settings.service';
 import { StudentServices } from '../../services/student.service';
 import { MatPaginator } from '@angular/material/paginator';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-to-do-list:not(pp)',
     standalone: true,
-    imports: [MatCardModule, MatMenuModule, MatButtonModule, RouterLink, MatTableModule, NgIf, MatCheckboxModule, MatTooltipModule,DatePipe],
+    imports: [MatCardModule, MatMenuModule, MatButtonModule, RouterLink, MatTableModule, NgIf, MatCheckboxModule, MatTooltipModule,DatePipe,ReactiveFormsModule],
     templateUrl: './to-do-list.component.html',
     styleUrl: './to-do-list.component.scss'
 })

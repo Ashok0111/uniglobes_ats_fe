@@ -27,5 +27,16 @@ export class StudentServices {
     getMyApplicationDetailByID(payload:any): Observable<any> {
         return this.httpClient.post<any>(environment.API_URL+'api/get_my_application_byid/',payload);
     }
+    updateMyDocument(payload:any): Observable<any> {
+        return this.httpClient.post<any>(environment.API_URL+'api/update_my_documents/',payload);
+    }
+    downloadMyDocument(payload:any): Observable<any> {
+        return this.httpClient.post<any>(environment.API_URL+'api/download_my_document/',payload);
+    }
+    deleteMyDocument(payload:any): Observable<any> {
+        return this.httpClient.delete<any>(environment.API_URL+'api/delete_my_document/'+payload);
+    }
 
+
+//update_my_documents
 }
