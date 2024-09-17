@@ -27,7 +27,7 @@ export class SignInComponent {
     pathMap:any={
         "facilitator":"leads/dashboard",
         "agent":"leads/leads",
-        "student":"my-profile"
+        "student":"my-profile/details"
 
     }
     constructor(

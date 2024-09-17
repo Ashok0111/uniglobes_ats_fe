@@ -12,7 +12,7 @@ import { ConnectionsComponent } from './settings/connections/connections.compone
 import { ChangePasswordComponent } from './settings/change-password/change-password.component';
 import { AccountSettingsComponent } from './settings/account-settings/account-settings.component';
 import { SettingsComponent } from './settings/settings.component';
-import { ProfileComponent } from './my-profile/profile/profile.component';
+import { ProfileComponent } from './pages/profile-page/profile/profile.component';
 import { LogoutComponent } from './authentication/logout/logout.component';
 import { ConfirmEmailComponent } from './authentication/confirm-email/confirm-email.component';
 import { LockScreenComponent } from './authentication/lock-screen/lock-screen.component';
@@ -33,8 +33,11 @@ import { CContactsComponent } from './pages/crm-page/c-contacts/c-contacts.compo
 import { CrmPageComponent } from './pages/crm-page/crm-page.component';
 import { CrmComponent } from './dashboard/crm/crm.component';
 import { AuthGuard } from './guards/auth.guard';
-import { EditApplicationComponent } from './my-profile/edit-application/edit-application.component';
+import { EditApplicationComponent } from './pages/profile-page/edit-application/edit-application.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
+import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
+import { EducationalDetailComponent } from './pages/profile-page/education-detail/education-detail.component';
+import { ExperienceDetailComponent } from './pages/profile-page/experience-detail/experience-detail.component';
 
 export const routes: Routes = [
 
@@ -50,11 +53,13 @@ export const routes: Routes = [
         ]
     },
     { path: 'my-profile',
-        component: MyProfileComponent,
+        component: ProfilePageComponent,
         canActivateChild: [AuthGuard],
         children: [
-            {path: '', component: ProfileComponent},
+            {path: 'details', component: ProfileComponent},
             {path: 'view-application/:lead_id', component: EditApplicationComponent},
+            {path: 'edu-details', component: EducationalDetailComponent},
+            {path: 'exp-details', component: ExperienceDetailComponent},
         ]
     },
     {

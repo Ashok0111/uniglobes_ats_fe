@@ -3,8 +3,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { RouterLink } from '@angular/router';
-import { StudentServices } from '../../services/student.service';
-import { shareService } from '../../services/share.service';
+import { StudentServices } from '../../../services/student.service';
+import { shareService } from '../../../services/share.service';
 
 @Component({
     selector: 'app-additional-information',

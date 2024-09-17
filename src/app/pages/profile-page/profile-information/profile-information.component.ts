@@ -3,8 +3,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { RouterLink } from '@angular/router';
-import { StudentServices } from '../../services/student.service';
-import { shareService } from '../../services/share.service';
+import { StudentServices } from '../../../services/student.service';
+import { shareService } from '../../../services/share.service';
 import { DatePipe } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -55,7 +55,6 @@ export class ProfileInformationComponent {
          this.classApplied = !this.classApplied;
      }
      onSubmit(){
-        console.log(this.leadForm.value)
         this.service.setMyprofile(this.leadForm.value).subscribe((result)=>{
             if(result['status_code']==200){
                 Notiflix.Notify.success('Profile is Updated Successfully');

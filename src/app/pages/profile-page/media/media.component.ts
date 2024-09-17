@@ -12,17 +12,17 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { SidebarComponent } from '../../common/sidebar/sidebar.component';
-import { CustomizerSettingsService } from '../../customizer-settings/customizer-settings.service';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder, FormsModule, Validators } from '@angular/forms';
 import { FileUploadModule } from '@iplab/ngx-file-upload';
 import { CommonModule } from '@angular/common';
-import { StudentServices } from '../../services/student.service';
 import { E } from '@angular/cdk/keycodes';
 import { fileSizeValidator } from './file-size.validator';
-import { shareService } from '../../services/share.service';
 import Notiflix from 'notiflix';
+import { SidebarComponent } from '../../../common/sidebar/sidebar.component';
+import { CustomizerSettingsService } from '../../../customizer-settings/customizer-settings.service';
+import { StudentServices } from '../../../services/student.service';
+import { shareService } from '../../../services/share.service';
 @Component({
     selector: 'app-media',
     standalone: true,
@@ -108,7 +108,7 @@ export class MediaComponent implements OnInit {
                 'document_exn':'png',
                 'lead_id':this.appid
             }
-                this.service.updateMyDocument(payload).subscribe((result)=>{
+                this.service.updateMyDocument(payload).subscribe((result:any)=>{
                     if(result['status_code']==200){
                         Notiflix.Notify.success("Document is Updated Successfully")
                     }

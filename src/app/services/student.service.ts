@@ -36,6 +36,30 @@ export class StudentServices {
     deleteMyDocument(payload:any): Observable<any> {
         return this.httpClient.delete<any>(environment.API_URL+'api/delete_my_document/'+payload);
     }
+    addEducation(payload:any): Observable<any> {
+        return this.httpClient.post<any>(environment.API_URL+'api/add_lead_education/',payload);
+    }
+    updateEducation(payload:any): Observable<any> {
+        return this.httpClient.put<any>(environment.API_URL+'api/update_lead_education/',payload);
+    }
+    getEducation(): Observable<any> {
+        return this.httpClient.get<any>(environment.API_URL+'api/get_lead_education/');
+    }
+    addExperience(payload:any): Observable<any> {
+        return this.httpClient.post<any>(environment.API_URL+'api/add_lead_exp/',payload);
+    }
+    getExperience(): Observable<any> {
+        return this.httpClient.get<any>(environment.API_URL+'api/get_lead_exp/');
+    }
+    updateExperience(payload:any): Observable<any> {
+        return this.httpClient.put<any>(environment.API_URL+'api/update_lead_exp/',payload);
+    }
+    deleteMyEducation(payload:any): Observable<any> {
+        return this.httpClient.delete<any>(environment.API_URL+'api/delete_my_education/'+payload);
+    }
+    deleteMyExperience(payload:any): Observable<any> {
+        return this.httpClient.delete<any>(environment.API_URL+'api/delete_my_exp/'+payload);
+    }
 
 
 //update_my_documents

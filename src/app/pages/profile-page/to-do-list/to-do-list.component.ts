@@ -8,10 +8,10 @@ import { Router, RouterLink } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { CustomizerSettingsService } from '../../customizer-settings/customizer-settings.service';
-import { StudentServices } from '../../services/student.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CustomizerSettingsService } from '../../../customizer-settings/customizer-settings.service';
+import { StudentServices } from '../../../services/student.service';
 
 @Component({
     selector: 'app-to-do-list:not(pp)',
@@ -88,7 +88,7 @@ export class ToDoListComponent {
     }
 
     ngOnInit(): void {
-        this.service.getMyApplications().subscribe((result)=>{
+        this.service.getMyApplications().subscribe((result:any)=>{
          if(result['status_code']==200){
             this.ELEMENT_DATA=result.result;
             this.dataSource = new MatTableDataSource<any>(this.ELEMENT_DATA);

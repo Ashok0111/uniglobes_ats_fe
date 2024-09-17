@@ -1,0 +1,174 @@
+<mat-card
+    class="daxa-card media-card mb-25 border-radius bg-white border-none d-block"
+    [class.rtl-enabled]="themeService.isRTLEnabled()"
+>
+    <mat-card-header>
+        <div class="row">
+            <div class="col-md-6">
+                <h5 class="mb-0">
+                    Educational Details
+                </h5>
+            </div>
+            <div class="col-md-6 d-flex justify-content-end">
+                <button mat-flat-button class="daxa" (click)="addEducation()">+ Add Education</button>
+            </div>
+
+
+        </div>
+
+    </mat-card-header>
+
+    <mat-card-content>
+        <div class="media-table">
+            <div class="table-responsive">
+                <table mat-table [dataSource]="EduList">
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="education">
+                        <th mat-header-cell *matHeaderCellDef>
+                            Education
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            <a class="folder-name position-relative fw-medium">
+                                <i class="material-symbols-outlined">
+                                    image
+                                </i>
+                                {{element.education}}
+                            </a>
+                        </td>
+                    </ng-container>
+
+                    <!-- Owner Column -->
+                   <ng-container matColumnDef="institute">
+                        <th mat-header-cell *matHeaderCellDef>
+                            Institute
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            {{element.institute}}
+                        </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="score">
+                        <th mat-header-cell *matHeaderCellDef>
+                            Grade/CGPA
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            {{element.score}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="created_date">
+                        <th mat-header-cell *matHeaderCellDef>
+                            Date
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            {{element.created_date | date:'dd/MM/yyyy'}}
+                        </td>
+                    </ng-container>
+
+
+
+                    <!-- Action Column -->
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef>
+                            Action
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            <div class="action-info">
+                                <button type="button" (click)="edit_record(element)" mat-button matTooltip="Remove" matTooltipPosition="above">
+                                    <i class="material-symbols-outlined">
+                                     edit
+                                    </i>
+                                </button>
+                                <button type="button" (click)="delete_my_file(element)" mat-button matTooltip="Remove" matTooltipPosition="above">
+                                    <i class="material-symbols-outlined">
+                                     delete
+                                    </i>
+                                </button>
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                </table>
+            </div>
+        </div>
+    </mat-card-content>
+
+</mat-card>
+
+
+<!-- Popup -->
+<div
+    class="add-new-task-popup"
+    [class.active]="classApplied"
+
+>
+    <div class="popup-dialog">
+        <mat-card class="daxa-card mb-25 border-radius bg-white border-none d-block">
+            <mat-card-header>
+                <mat-card-title>
+                    <h5 class="mb-0">
+                        Add Education
+                    </h5>
+                </mat-card-title>
+                <mat-card-subtitle>
+                    <button
+                        mat-button
+                        (click)="toggleClass()"
+                    >
+                        <i class="ri-close-fill"></i>
+                    </button>
+                </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <form [formGroup]="documentForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="main-label d-block lh-1 text-black">
+                            Education
+                        </label>
+                            <mat-form-field>
+                                <mat-label>Education</mat-label>
+                                <mat-select formControlName="education">
+                                    <mat-option *ngFor="let doc of DocTypes" [value]="doc">
+                                        {{ doc }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label class="main-label d-block lh-1 text-black">
+                            Institution
+                        </label>
+                            <mat-form-field>
+                                <mat-label>Institution Name</mat-label>
+                                <input matInput formControlName="institute">
+                            </mat-form-field>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="main-label d-block lh-1 text-black">
+                            CGPA/SCORE
+                        </label>
+                            <mat-form-field>
+                                <mat-label>CGPA in %</mat-label>
+                                <input matInput formControlName="score" type="number">
+                            </mat-form-field>
+                    </div>
+
+
+                </div>
+                <div class="btn-box">
+                    <button mat-button type="submit">Upload</button>
+                </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+
+

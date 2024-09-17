@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { WelcomeComponent } from '../welcome/welcome.component';
-import { TotalProjectsComponent } from '../total-projects/total-projects.component';
-import { TotalRevenueComponent } from '../total-revenue/total-revenue.component';
-import { TotalOrdersComponent } from '../total-orders/total-orders.component';
-import { ProfileIntroComponent } from '../profile-intro/profile-intro.component';
+import { WelcomeComponent } from '../../../my-profile/welcome/welcome.component';
+import { TotalProjectsComponent } from '../../../my-profile/total-projects/total-projects.component';
+import { TotalRevenueComponent } from '../../../my-profile/total-revenue/total-revenue.component';
+import { TotalOrdersComponent } from '../../../my-profile/total-orders/total-orders.component';
+import { ProfileIntroComponent } from '../../../my-profile/profile-intro/profile-intro.component';
 import { ProfileInformationComponent } from '../profile-information/profile-information.component';
-import { AdditionalInformationComponent } from '../additional-information/additional-information.component';
-import { OverviewComponent } from '../overview/overview.component';
+import { OverviewComponent } from '../../../my-profile/overview/overview.component';
+import { RecentActivityComponent } from '../../../my-profile/recent-activity/recent-activity.component';
+import { StudentServices } from '../../../services/student.service';
+import { shareService } from '../../../services/share.service';
 import { ToDoListComponent } from '../to-do-list/to-do-list.component';
-import { RecentActivityComponent } from '../recent-activity/recent-activity.component';
-import { StudentServices } from '../../services/student.service';
-import { shareService } from '../../services/share.service';
+import { AdditionalInformationComponent } from '../additional-information/additional-information.component';
 
 @Component({
     selector: 'app-my-profile',

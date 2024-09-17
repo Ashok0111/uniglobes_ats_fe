@@ -12,16 +12,17 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FileUploadModule } from '@iplab/ngx-file-upload';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { CustomizerSettingsService } from '../../customizer-settings/customizer-settings.service';
-import { shareService } from '../../services/share.service';
-import { StudentServices } from '../../services/student.service';
+import { CustomizerSettingsService } from '../../../customizer-settings/customizer-settings.service';
+import { shareService } from '../../../services/share.service';
+import { StudentServices } from '../../../services/student.service';
 import { CommonModule } from '@angular/common';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { EducationalDetailComponent } from '../education-detail/education-detail.component';
 import { MediaComponent } from '../media/media.component';
 
 @Component({
     standalone: true,
-    imports: [MatCardModule, MatMenuModule, MatButtonModule, RouterLink, FormsModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, ReactiveFormsModule, FileUploadModule, MatRadioModule, MatCheckboxModule,CommonModule,MatSlideToggleModule,MediaComponent],
+    imports: [MatCardModule, MatMenuModule, MatButtonModule, RouterLink, FormsModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, ReactiveFormsModule, FileUploadModule, MatRadioModule, MatCheckboxModule,CommonModule,MatSlideToggleModule,MediaComponent,EducationalDetailComponent],
     templateUrl: './edit-application.component.html',
     styleUrl: './edit-application.component.scss',
     schemas: [CUSTOM_ELEMENTS_SCHEMA], // Add this line
