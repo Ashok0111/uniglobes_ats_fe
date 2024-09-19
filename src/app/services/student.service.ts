@@ -60,6 +60,12 @@ export class StudentServices {
     deleteMyExperience(payload:any): Observable<any> {
         return this.httpClient.delete<any>(environment.API_URL+'api/delete_my_exp/'+payload);
     }
+    getMyConversation(payload:any): Observable<any>{
+        return this.httpClient.get<any>(environment.API_URL+'api/conversation/'+payload);
+    }
+    setMyConversation(lead_id:any,payload:any): Observable<any>{
+        return this.httpClient.post<any>(environment.API_URL+'api/conversation/'+lead_id,payload);
+    }
 
 
 //update_my_documents

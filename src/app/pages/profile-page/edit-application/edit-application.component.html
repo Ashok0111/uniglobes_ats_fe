@@ -159,15 +159,26 @@
                 <div class="col-sm-12">
                     <app-media [appid]="application_id"> </app-media>
                 </div>
-
-
-                <div class="btn-box">
-                    <button mat-button>
-                        Save & Update
-                    </button>
-                </div>
             </mat-card-content>
+
         </mat-card>
+        <mat-card
+            class="daxa-card add-user-card mb-25 border-radius bg-white border-none d-block"
+            [class.rtl-enabled]="themeService.isRTLEnabled()"
+        >
+        <div class="col-sm-12">
+            <mat-card-content>
+                <app-communication></app-communication>
+            </mat-card-content>
+        </div>
+
+        </mat-card>
+
+        <div class="btn-box">
+            <button mat-button>
+                Save
+            </button>
+        </div>
     </div>
 
 </div>

@@ -168,7 +168,10 @@ export class MediaComponent implements OnInit {
         this.share_ser.docTypesOB.subscribe((result:any)=>{
             this.DocTypes=result.doc_types;
             this.DocsList=result.my_docs;
-            this.DocTypeList= this.convertListToDict(this.DocTypes);
+            if(this.DocTypes){
+                this.DocTypeList= this.convertListToDict(this.DocTypes);
+            }
+
         });
     }
     ngOnInit(): void {

@@ -19,10 +19,11 @@ import { CommonModule } from '@angular/common';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { EducationalDetailComponent } from '../education-detail/education-detail.component';
 import { MediaComponent } from '../media/media.component';
+import { CommunicationComponent } from '../communication/communication.component';
 
 @Component({
     standalone: true,
-    imports: [MatCardModule, MatMenuModule, MatButtonModule, RouterLink, FormsModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, ReactiveFormsModule, FileUploadModule, MatRadioModule, MatCheckboxModule,CommonModule,MatSlideToggleModule,MediaComponent,EducationalDetailComponent],
+    imports: [MatCardModule, MatMenuModule, MatButtonModule, RouterLink, FormsModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, ReactiveFormsModule, FileUploadModule, MatRadioModule, MatCheckboxModule,CommonModule,MatSlideToggleModule,MediaComponent,EducationalDetailComponent,CommunicationComponent],
     templateUrl: './edit-application.component.html',
     styleUrl: './edit-application.component.scss',
     schemas: [CUSTOM_ELEMENTS_SCHEMA], // Add this line
@@ -54,7 +55,8 @@ export class EditApplicationComponent implements OnInit {
         this.service.getMyApplicationDetailByID({"application_id":this.application_id}).subscribe((response)=>{
             if(response["status_code"]==200){
                 this.ApplicationObject=response.result;
-                this.share_ser.setdocTypesOB(this.ApplicationObject)
+                this.share_ser.setdocTypesOB(this.ApplicationObject);
+                console.log(this.ApplicationObject)
 
             }
         });
