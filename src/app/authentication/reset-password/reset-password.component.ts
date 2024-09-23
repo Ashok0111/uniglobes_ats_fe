@@ -40,7 +40,6 @@ export class ResetPasswordComponent {
         this.themeService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;
         });
-
     }
 
   ngOnInit(): void {
@@ -56,9 +55,6 @@ export class ResetPasswordComponent {
 
     });
     // Optionally, decode the JWT token
-    if (this.token) {
-      console.log('Decoded Token:', this.token);
-    }
 }
 // Custom validator to check if passwords match
 passwordMatchValidator(g: FormGroup): { [key: string]: boolean } | null {
@@ -71,7 +67,7 @@ onSubmit(){
         // Handle form submission
         console.log('Form Submitted!', this.setPassword.value);
         this.auth.reset_password( this.setPassword.value,this.pathURL).subscribe((res)=>{
-            console.log(res,"result")
+            // console.log(res,"result")
         });
       } else {
         console.log('Form is invalid');

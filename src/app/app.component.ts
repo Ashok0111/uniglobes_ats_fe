@@ -51,12 +51,14 @@ export class AppComponent {
         this.themeService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;
         });
-        if(!localStorage.getItem('token')){
-            let path=location.path()
-            if(!this.isValidActivationUrl(path)){
-                this.router.navigateByUrl('authentication');
+        let path=location.path();
+        if(!this.isValidActivationUrl(path)){
+            this.router.navigateByUrl('authentication');
+        }else{
+            const shouldSkip = path.startsWith('/authentication/reset-password/');
+            if(shouldSkip){
+                localStorage.clear();
             }
-
         }
     }
     isValidActivationUrl(url:any) {

@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { StudentServices } from '../../../services/student.service';
 import { shareService } from '../../../services/share.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
     selector: 'app-communication',
@@ -19,7 +20,7 @@ import { shareService } from '../../../services/share.service';
     templateUrl: './communication.component.html',
     styleUrl: './communication.component.scss'
 })
-export class CommunicationComponent  implements OnInit {
+export class CommunicationComponent  {
 
     // isToggled
     isToggled = false;
@@ -28,40 +29,46 @@ export class CommunicationComponent  implements OnInit {
     currentUserId = 33;  // Set the current user's ID
     DocsList: any;
     lead_number: any="";
+    private destroy$ = new Subject<void>();
     constructor(
         public themeService: CustomizerSettingsService,
-        public service:StudentServices,
-        public share_ser:shareService
+        public service: StudentServices,
+        public share_ser: shareService
     ) {
-        this.themeService.isToggled$.subscribe(isToggled => {
-            this.isToggled = isToggled;
-        });
-        this.share_ser.docTypesOB.subscribe((result:any)=>{
-            if(result.lead){
-                this.lead_number=result.lead.lead_id;
-                this.service.getMyConversation(this.lead_number).subscribe((res:any)=>{
-                    this.messages=res['result']
-                });
-            }
-
+        this.themeService.isToggled$
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(isToggled => {
+                this.isToggled = isToggled;
+            });
+    
+        this.share_ser.docTypesOB
+            .pipe(takeUntil(this.destroy$))
+            .subscribe((result: any) => {
+                if (result.lead) {
+                    this.lead_number = result.lead.lead_id;
+                    this.fetchConversations(this.lead_number);
+                }
+            });
+    }
+    fetchConversations(leadNumber: string) {
+        this.service.getMyConversation(leadNumber).subscribe((res: any) => {
+            this.messages = res['result'];
+            this.myQuery = "";
         });
     }
-    ngOnInit(): void {
-        throw new Error('Method not implemented.');
-    }
-    sendConvo(){
-        if(this.myQuery.trim()!=""){
-            let payload={'content':this.myQuery}
-            this.service.setMyConversation(this.lead_number,payload).subscribe((res:any)=>{
-                if(res.status_code==201){
-                    this.service.getMyConversation(this.lead_number).subscribe((res:any)=>{
-                        this.messages=res['result'];
-                        this.myQuery="";
-                    });
+    sendConvo() {
+        if (this.myQuery.trim() !== "") {
+            const payload = { 'content': this.myQuery };
+            
+            this.service.setMyConversation(this.lead_number, payload).subscribe((res: any) => {
+                if (res.status_code === 201) {
+                    this.fetchConversations(this.lead_number);
                 }
             });
         }
-
     }
-
+    ngOnDestroy() {
+        this.destroy$.next(); // Emit value to complete all subscriptions
+        this.destroy$.complete();
+    }
 }

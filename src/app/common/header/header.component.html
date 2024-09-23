@@ -19,12 +19,7 @@
                 <span class="middle-bar d-block bg-black transition"></span>
                 <span class="bottom-bar d-block bg-black transition"></span>
             </div>
-            <form class="search-box position-relative">
-                <i class="material-symbols-outlined">
-                    search
-                </i>
-                <input type="text" class="input-search d-block w-100 border-none outline-0" placeholder="Search here...">
-            </form>
+           
         </div>
         <ul class="header-right-side d-flex align-items-center mt-0 mb-0 pl-0 list-unstyled">
 
@@ -40,7 +35,7 @@
                 </button>
             </li>
             <li>
-                <button mat-icon-button [matMenuTriggerFor]="notificationsMenu" class="notifications-menu-btn p-0">
+                <!-- <button mat-icon-button [matMenuTriggerFor]="notificationsMenu" class="notifications-menu-btn p-0">
                     <i class="material-symbols-outlined">
                         notifications
                     </i>
@@ -113,11 +108,11 @@
                             </a>
                         </div>
                     </div>
-                </mat-menu>
+                </mat-menu> -->
             </li>
             <li>
                 <button mat-button [matMenuTriggerFor]="profileMenu" class="profile-menu-btn">
-                    <img src="images/admin.png" alt="profile-image">
+                    <img [src]="this.userIMG" alt="profile-image">
                     <span class="status d-inline-block rounded-circle position-absolute"></span>
                 </button>
                 <mat-menu class="profile-menu-dropdown" #profileMenu="matMenu" xPosition="before">
@@ -125,7 +120,7 @@
                         [class.dark-menu]="themeService.isDark() || themeService.isHeaderDark()"
                     >
                         <div class="menu-header d-flex align-items-center">
-                            <img src="images/admin.png" alt="profile-image">
+                            <img [src]="this.userIMG" alt="profile-image">
                             <div class="title">
                                 <a routerLink="/my-profile" class="d-inline-block fw-medium">
                                     {{this.generic.get_username_f()}}

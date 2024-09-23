@@ -27,6 +27,9 @@ export class StudentServices {
     getMyApplicationDetailByID(payload:any): Observable<any> {
         return this.httpClient.post<any>(environment.API_URL+'api/get_my_application_byid/',payload);
     }
+    updateMyApplicationDetail(app_id:any,payload:any): Observable<any> {
+        return this.httpClient.post<any>(environment.API_URL+'api/update_my_application/'+app_id,payload);
+    }
     updateMyDocument(payload:any): Observable<any> {
         return this.httpClient.post<any>(environment.API_URL+'api/update_my_documents/',payload);
     }
@@ -66,6 +69,7 @@ export class StudentServices {
     setMyConversation(lead_id:any,payload:any): Observable<any>{
         return this.httpClient.post<any>(environment.API_URL+'api/conversation/'+lead_id,payload);
     }
+   
 
 
 //update_my_documents

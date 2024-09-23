@@ -56,12 +56,20 @@ export class EditApplicationComponent implements OnInit {
             if(response["status_code"]==200){
                 this.ApplicationObject=response.result;
                 this.share_ser.setdocTypesOB(this.ApplicationObject);
-                console.log(this.ApplicationObject)
 
             }
         });
     }
-
+    updateMyProfile(){
+        var payload={
+            "visa_slot_booking":this.ApplicationObject.lead.visa_slot_booking,
+            "flight_ticket_booking":this.ApplicationObject.lead.flight_ticket_booking,
+        }
+        console.log(payload,"payload")
+        this.service.updateMyApplicationDetail(this.application_id,payload).subscribe((response)=>{
+            console.log("uploaded")
+        });
+    }
     // RTL Mode
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();

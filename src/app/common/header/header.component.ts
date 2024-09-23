@@ -24,6 +24,7 @@ export class HeaderComponent {
     // isToggled
     isToggled = false;
     userRole: any;
+    userIMG: any='images/admin.png';
 
     constructor(
         private toggleService: ToggleService,
@@ -31,6 +32,12 @@ export class HeaderComponent {
         public generic :genericservice,
     ) {
         this.userRole=this.generic.get_userrole();
+        if(this.userRole.toLowerCase()=='student'){
+            this.userIMG='images/graduated.png'
+        }else if(this.userRole.toLowerCase()=='agent'){
+            this.userIMG='images/admin_user.png'
+        }
+        
         this.toggleService.isSidebarToggled$.subscribe(isSidebarToggled => {
             this.isSidebarToggled = isSidebarToggled;
         });

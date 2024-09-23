@@ -3,7 +3,7 @@
     <h5 class="mb-0">
         View Application
     </h5>
-    <ol class="breadcrumb list-unstyled mt-0 mb-0 pl-0">
+    <!-- <ol class="breadcrumb list-unstyled mt-0 mb-0 pl-0">
         <li class="breadcrumb-item position-relative">
             <a routerLink="/my-profile" class="d-inline-block position-relative">
                 <i class="ri-home-8-line"></i>
@@ -13,8 +13,9 @@
         <li class="breadcrumb-item position-relative">
             View Application
         </li>
-    </ol>
+    </ol> -->
 </div>
+
 
 <!-- Add User -->
 <div class="row">
@@ -141,7 +142,7 @@
                                     Do You Need Support for Visa Slot Booking?
                                 </label>
                                     <mat-card-content>
-                                        <mat-slide-toggle matInput [(ngModel)]="this.ApplicationObject.user.visa_slot_booking">Visa Slot</mat-slide-toggle>
+                                        <mat-slide-toggle matInput [(ngModel)]="this.ApplicationObject.lead.visa_slot_booking">Visa Slot</mat-slide-toggle>
                                     </mat-card-content>
                             </div>
                     </div>
@@ -151,21 +152,33 @@
                                 Do You Need Support for Flight Tickets Booking?
                             </label>
                                 <mat-card-content>
-                                    <mat-slide-toggle matInput [(ngModel)]="this.ApplicationObject.user.flight_ticket_booking">Flight Tickets</mat-slide-toggle>
+                                    <mat-slide-toggle matInput  [(ngModel)]="this.ApplicationObject.lead.flight_ticket_booking">Flight Tickets</mat-slide-toggle>
                                 </mat-card-content>
                         </div>
                     </div>
+                    <div class="col-sm-6">
+                       </div>
+                    <div class="col-sm-6 d-flex justify-content-end">
+                         <button mat-flat-button class="daxa" (click)="updateMyProfile()" >Update</button>
+                        </div>
                 </div>
-                <div class="col-sm-12">
-                    <app-media [appid]="application_id"> </app-media>
-                </div>
+
             </mat-card-content>
+
 
         </mat-card>
         <mat-card
+        class="daxa-card add-user-card mb-25 border-radius bg-white border-none d-block"
+        [class.rtl-enabled]="themeService.isRTLEnabled()">
+                <mat-card-content>
+                    <div class="col-sm-12">
+                        <app-media [appid]="application_id"> </app-media>
+                    </div>
+                    </mat-card-content>
+        </mat-card>
+        <mat-card
             class="daxa-card add-user-card mb-25 border-radius bg-white border-none d-block"
-            [class.rtl-enabled]="themeService.isRTLEnabled()"
-        >
+            [class.rtl-enabled]="themeService.isRTLEnabled()">
         <div class="col-sm-12">
             <mat-card-content>
                 <app-communication></app-communication>
@@ -174,11 +187,6 @@
 
         </mat-card>
 
-        <div class="btn-box">
-            <button mat-button>
-                Save
-            </button>
-        </div>
     </div>
 
 </div>
