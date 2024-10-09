@@ -101,6 +101,14 @@
                             </li>
 
                         </ul>
+                        <ul class="sidebar-sub-menu">
+                            <li class="sidemenu-item">
+                                <a routerLink="/my-applications/"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                     My Applications
+                                </a>
+                            </li>
+
+                        </ul>
                     </mat-expansion-panel>
                     <a routerLink="/" *ngIf="this.userRole=='student'"    class="sidebar-menu-link" >
                         <i class="material-symbols-outlined">
@@ -139,7 +147,7 @@
                             </mat-panel-title>
                         </mat-expansion-panel-header>
                         <ul class="sidebar-sub-menu">
-                           
+
                             <li class="sidemenu-item">
                                 <a routerLink="/settings/change-password" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
                                     Change Password

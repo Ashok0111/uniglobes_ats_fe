@@ -37,6 +37,9 @@ export class EditApplicationComponent implements OnInit {
     isToggled = false;
     application_id: string;
     ApplicationObject:any;
+    Country:any;
+    University:any;
+    Course:any;
     constructor(
         public themeService: CustomizerSettingsService,
         public route:Router,
@@ -52,11 +55,35 @@ export class EditApplicationComponent implements OnInit {
 
     }
     ngOnInit(): void {
+        this.service.getCountry().subscribe((response:any)=>{
+            if(response["status_code"]==200){
+                this.Country=response.result
+            }
+        });
         this.service.getMyApplicationDetailByID({"application_id":this.application_id}).subscribe((response)=>{
             if(response["status_code"]==200){
                 this.ApplicationObject=response.result;
                 this.share_ser.setdocTypesOB(this.ApplicationObject);
+                this.University=this.ApplicationObject.university_list;
+                this.Course=this.ApplicationObject.course_list;
 
+            }
+        });
+    }
+    getUniverityList(){
+        this.ApplicationObject.lead.preferred_university.id=null;
+        this.ApplicationObject.lead.preferred_course.id=null;
+        this.service.getUniversity(this.ApplicationObject.lead.preferred_country.id).subscribe((response)=>{
+            if(response["status_code"]==200){
+                this.University=response.result;
+            }
+        });
+    }
+    getCourseList(){
+        this.ApplicationObject.lead.preferred_course.id=null;
+        this.service.getCourse(this.ApplicationObject.lead.preferred_university.id).subscribe((response)=>{
+            if(response["status_code"]==200){
+                this.Course=response.result;
             }
         });
     }
@@ -64,10 +91,13 @@ export class EditApplicationComponent implements OnInit {
         var payload={
             "visa_slot_booking":this.ApplicationObject.lead.visa_slot_booking,
             "flight_ticket_booking":this.ApplicationObject.lead.flight_ticket_booking,
+            "preferred_country":this.ApplicationObject.lead.preferred_country.id || '',
+            "preferred_university":this.ApplicationObject.lead.preferred_university.id || '',
+            "preferred_course":this.ApplicationObject.lead.preferred_course.id || '',
         }
         console.log(payload,"payload")
         this.service.updateMyApplicationDetail(this.application_id,payload).subscribe((response)=>{
-            console.log("uploaded")
+
         });
     }
     // RTL Mode

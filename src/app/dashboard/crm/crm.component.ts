@@ -10,11 +10,15 @@ import { ToDoListComponent } from './to-do-list/to-do-list.component';
 import { ClientPaymentStatusComponent } from './client-payment-status/client-payment-status.component';
 import { TotalLeadsComponent } from './total-leads/total-leads.component';
 import { RouterLink } from '@angular/router';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
     selector: 'app-crm',
     standalone: true,
-    imports: [StatsComponent, MostLeadsComponent, CountryStatsComponent, EarningReportsComponent, TasksStatsComponent, TopCustomersComponent, RecentLeadsComponent, ToDoListComponent, ClientPaymentStatusComponent, TotalLeadsComponent, RouterLink],
+    imports: [MatCardModule, StatsComponent,MatOptionModule, MatSelectModule,MostLeadsComponent, CountryStatsComponent, EarningReportsComponent, TasksStatsComponent, TopCustomersComponent, RecentLeadsComponent, ToDoListComponent, ClientPaymentStatusComponent, TotalLeadsComponent, FormsModule, ReactiveFormsModule,RouterLink],
     templateUrl: './crm.component.html',
     styleUrl: './crm.component.scss'
 })

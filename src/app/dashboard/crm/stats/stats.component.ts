@@ -7,11 +7,14 @@ import { NewUsersComponent } from './new-users/new-users.component';
 import { ActiveUsersComponent } from './active-users/active-users.component';
 import { LeadConversationComponent } from './lead-conversation/lead-conversation.component';
 import { RevenueGrowthComponent } from './revenue-growth/revenue-growth.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
     selector: 'app-stats',
     standalone: true,
-    imports: [MatCardModule, MatMenuModule, MatButtonModule, RouterLink, NewUsersComponent, ActiveUsersComponent, LeadConversationComponent, RevenueGrowthComponent],
+    imports: [MatOptionModule, MatSelectModule,FormsModule, ReactiveFormsModule,MatCardModule, MatMenuModule, MatButtonModule, RouterLink, NewUsersComponent, ActiveUsersComponent, LeadConversationComponent, RevenueGrowthComponent],
     templateUrl: './stats.component.html',
     styleUrl: './stats.component.scss'
 })

@@ -3,17 +3,6 @@
     <h5 class="mb-0">
         View Application
     </h5>
-    <!-- <ol class="breadcrumb list-unstyled mt-0 mb-0 pl-0">
-        <li class="breadcrumb-item position-relative">
-            <a routerLink="/my-profile" class="d-inline-block position-relative">
-                <i class="ri-home-8-line"></i>
-                My profile
-            </a>
-        </li>
-        <li class="breadcrumb-item position-relative">
-            View Application
-        </li>
-    </ol> -->
 </div>
 
 
@@ -156,6 +145,59 @@
                                 </mat-card-content>
                         </div>
                     </div>
+                    <div class="col-sm-4">
+                        <div class="mb-25">
+                            <label class="main-label d-block lh-1 text-black">
+                                Preferred Country
+                            </label>
+                            <mat-form-field class="textarea">
+                                <mat-label>
+                                    Preferred Country
+                                </mat-label>
+                                <mat-select (selectionChange)="getUniverityList()" [(ngModel)]="this.ApplicationObject.lead.preferred_country.id" >
+                                    <mat-option *ngFor="let country of Country" [value]="country.id">
+                                        {{ country.nicename }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="mb-25">
+                            <label class="main-label d-block lh-1 text-black">
+                                Preferred University
+                            </label>
+                            <mat-form-field class="textarea">
+                                <mat-label>
+                                    Preferred University
+                                </mat-label>
+                                <mat-select  (selectionChange)="getCourseList()" [(ngModel)]="this.ApplicationObject.lead.preferred_university.id" >
+                                    <mat-option *ngFor="let uni of University" [value]="uni.id">
+                                        {{ uni.name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="mb-25">
+                            <label class="main-label d-block lh-1 text-black">
+                                Preferred Courses
+                            </label>
+                            <mat-form-field class="textarea">
+                                <mat-label>
+                                    Preferred Courses
+                                </mat-label>
+                                <mat-select [(ngModel)]="this.ApplicationObject.lead.preferred_course.id"  >
+                                    <mat-option *ngFor="let cou of Course" [value]="cou.id">
+                                        {{ cou.name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+
                     <div class="col-sm-6">
                        </div>
                     <div class="col-sm-6 d-flex justify-content-end">

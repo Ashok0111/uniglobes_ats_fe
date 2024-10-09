@@ -77,7 +77,7 @@ export class ToDoListComponent {
         });
     }
     editLead(payload:any){
-        this.router.navigateByUrl("my-profile/view-application/"+payload.lead_id)
+        this.router.navigateByUrl("my-applications/view-application/"+payload.lead_id)
     }
     deleteLeads(id:any){
 

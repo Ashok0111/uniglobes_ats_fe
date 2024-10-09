@@ -69,7 +69,17 @@ export class StudentServices {
     setMyConversation(lead_id:any,payload:any): Observable<any>{
         return this.httpClient.post<any>(environment.API_URL+'api/conversation/'+lead_id,payload);
     }
-   
+    getCountry(): Observable<any> {
+        return this.httpClient.get<any>(environment.API_URL+'api/get_country/');
+    }
+    getUniversity(country_id:number): Observable<any> {
+        return this.httpClient.get<any>(environment.API_URL+'api/countries/'+country_id+'/universities/');
+    }
+    getCourse(university_id:number): Observable<any> {
+        return this.httpClient.get<any>(environment.API_URL+'api/universities/'+university_id+'/courses/');
+    }
+
+
 
 
 //update_my_documents

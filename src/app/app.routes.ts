@@ -38,6 +38,8 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { EducationalDetailComponent } from './pages/profile-page/education-detail/education-detail.component';
 import { ExperienceDetailComponent } from './pages/profile-page/experience-detail/experience-detail.component';
+import { ListApplicationsComponent } from './pages/profile-page/list-applications/list-applications.component';
+import { ToDoListComponent } from './pages/profile-page/to-do-list/to-do-list.component';
 
 export const routes: Routes = [
 
@@ -58,10 +60,20 @@ export const routes: Routes = [
         children: [
             {path: 'details', component: ProfileComponent},
             {path: 'view-application/:lead_id', component: EditApplicationComponent},
+
             {path: 'edu-details', component: EducationalDetailComponent},
             {path: 'exp-details', component: ExperienceDetailComponent},
         ]
     },
+    { path: 'my-applications',
+        component: ListApplicationsComponent,
+        canActivateChild: [AuthGuard],
+        children: [
+            {path: '', component: ToDoListComponent},
+            {path: 'view-application/:lead_id', component: EditApplicationComponent},
+        ]
+    },
+
     {
         path: 'settings',
         component: SettingsComponent,
@@ -75,20 +87,12 @@ export const routes: Routes = [
         ]
     },
     {
-        path: 'leads',
+        path: 'admin',
         component: CrmPageComponent,
         canActivateChild: [AuthGuard],
         children: [
             {path: '', component: CContactsComponent},
             {path: 'dashboard', component: CrmComponent},
-            {path: 'create-contact', component: CCreateContactComponent},
-            {path: 'edit-contact', component: CEditContactComponent},
-            {path: 'customers', component: CCustomersComponent},
-            {path: 'create-lead', component: CCreateLeadComponent},
-            {path: 'edit-lead', component: CEditLeadComponent},
-            {path: 'leads', component: CLeadsComponent},
-            {path: 'deals', component: CDealsComponent},
-            {path: 'create-deal', component: CCreateDealComponent}
         ]
     },
     {
