@@ -24,7 +24,7 @@ export class SidebarComponent implements OnInit {
     isToggled = false;
     userRole="None";
     pathMap:any={
-        "facilitator":"leads/dashboard",
+        "facilitator":"admin/dashboard",
         "agent":"leads/leads",
         "student":"my-profile"
 

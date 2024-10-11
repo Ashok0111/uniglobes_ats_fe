@@ -78,6 +78,9 @@ export class StudentServices {
     getCourse(university_id:number): Observable<any> {
         return this.httpClient.get<any>(environment.API_URL+'api/universities/'+university_id+'/courses/');
     }
+    getAgentList(): Observable<any> {
+        return this.httpClient.get<any>(environment.API_URL+'api/get_agents/');
+    }
 
 
 

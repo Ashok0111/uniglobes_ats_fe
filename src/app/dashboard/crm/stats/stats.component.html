@@ -27,9 +27,7 @@
                                     <mat-label>selected agent</mat-label>
                                     <mat-select>
                                         <mat-option selected=true value="All">All</mat-option>
-                                        <mat-option value="Steak">Steak</mat-option>
-                                        <mat-option value="Pizza">Pizza</mat-option>
-                                        <mat-option value="Tacos">Tacos</mat-option>
+                                        <mat-option  *ngFor="let agent of AgentList" [value]="agent.id" >{{agent.first_name}}</mat-option>
                                     </mat-select>
                                 </mat-form-field>
 
