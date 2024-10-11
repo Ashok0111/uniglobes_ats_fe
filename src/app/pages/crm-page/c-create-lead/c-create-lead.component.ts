@@ -17,6 +17,7 @@ import { CommonModule } from '@angular/common';
 import Notiflix from 'notiflix';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { Router } from '@angular/router';
+import { StudentServices } from '../../../services/student.service';
 @Component({
     selector: 'app-c-create-lead',
     standalone: true,
@@ -29,6 +30,10 @@ export class CCreateLeadComponent {
     // Text Editor
     leadForm: FormGroup;
     editor: Editor;
+    Country:any;
+    University:any;
+    Course:any;
+    ApplicationObject:any={'lead':{}}
     Leadsource: string[] = ["Refferal", "College Referal"];
     IntakeYearBase:string[] =["January","June","September"];
     IntakeYear: { year: number, months: string[] }[] = [];
@@ -46,7 +51,11 @@ export class CCreateLeadComponent {
     ngOnInit(): void {
 
         this.editor = new Editor();
-
+        this.studentervice.getCountry().subscribe((response:any)=>{
+            if(response["status_code"]==200){
+                this.Country=response.result
+            }
+        });
         this.leadForm = this.fb.group({
             first_name: ['', Validators.required],
             last_name: ['', Validators.required],
@@ -55,6 +64,9 @@ export class CCreateLeadComponent {
             c_address: ['', Validators.required],
             p_address: ['', Validators.required],
             year_intake: ['', Validators.required],
+            country: ['', Validators.required],
+            university: ['', Validators.required],
+            course: ['', Validators.required],
             source: ['', Validators.required],
             status: ['', Validators.required],
             description: ['']
@@ -88,12 +100,17 @@ export class CCreateLeadComponent {
               c_address: formValues.c_address
             },
             lead: {
+                preferred_country: formValues.country,
+                preferred_university: formValues.university,
+              preferred_course: formValues.course,
               source: formValues.source,
               year_intake: formValues.year_intake,
               status: formValues.status,
               description: formValues.description
             }
           };
+          console.log(result,"RESULT");
+          debugger;
           this.service.createlead(result).subscribe((response)=>{
             if(response.status_code==201){
                 Notiflix.Notify.success('Lead is created succcessfully');
@@ -104,6 +121,23 @@ export class CCreateLeadComponent {
         } else {
           console.log('Form is invalid');
         }
+    }
+    getUniverityList(){
+        this.leadForm.value.university=null;
+        this.leadForm.value.course=null;
+        this.studentervice.getUniversity(this.leadForm.value.country).subscribe((response)=>{
+            if(response["status_code"]==200){
+                this.University=response.result;
+            }
+        });
+    }
+    getCourseList(){
+        this.leadForm.value.course=null;
+        this.studentervice.getCourse(this.leadForm.value.university).subscribe((response)=>{
+            if(response["status_code"]==200){
+                this.Course=response.result;
+            }
+        });
     }
     // make sure to destory the editor
     ngOnDestroy(): void {
@@ -120,7 +154,8 @@ export class CCreateLeadComponent {
         public themeService: CustomizerSettingsService,
         private fb: FormBuilder,
         public service:Services,
-        public router:Router
+        public router:Router,
+        public studentervice:StudentServices,
     ) {
         this.themeService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;

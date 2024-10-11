@@ -95,7 +95,6 @@ export class EditApplicationComponent implements OnInit {
             "preferred_university":this.ApplicationObject.lead.preferred_university.id || '',
             "preferred_course":this.ApplicationObject.lead.preferred_course.id || '',
         }
-        console.log(payload,"payload")
         this.service.updateMyApplicationDetail(this.application_id,payload).subscribe((response)=>{
 
         });

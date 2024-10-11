@@ -71,7 +71,8 @@ export class ActiveLeadsComponent {
         } else if (currentWeekLeads !== 0) {
             trendingPercentage = 100; // If previous week had 0 leads and current week has leads, it's a 100% increase
         }
-
+        if(isNaN(trendingPercentage))
+                    return "0 %"
         return trendingPercentage.toFixed(2) + "%";
     }
     ngOnInit(): void {

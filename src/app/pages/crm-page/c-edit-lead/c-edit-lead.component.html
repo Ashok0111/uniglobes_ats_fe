@@ -80,7 +80,57 @@
                         </mat-form-field>
                     </div>
                 </div>
-
+                <div class="col-sm-4">
+                    <div class="mb-25">
+                        <label class="main-label d-block lh-1 text-black">
+                            Preferred Country
+                        </label>
+                        <mat-form-field class="textarea">
+                            <mat-label>
+                                Preferred Country
+                            </mat-label>
+                            <mat-select formControlName="country" >
+                                <mat-option *ngFor="let country of Country" [value]="country.id">
+                                    {{ country.nicename }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="mb-25">
+                        <label class="main-label d-block lh-1 text-black">
+                            Preferred University
+                        </label>
+                        <mat-form-field class="textarea">
+                            <mat-label>
+                                Preferred University
+                            </mat-label>
+                            <mat-select formControlName="university"  >
+                                <mat-option *ngFor="let uni of University" [value]="uni.id">
+                                    {{ uni.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="mb-25">
+                        <label class="main-label d-block lh-1 text-black">
+                            Preferred Courses
+                        </label>
+                        <mat-form-field class="textarea">
+                            <mat-label>
+                                Preferred Courses
+                            </mat-label>
+                            <mat-select  formControlName="course" >
+                                <mat-option *ngFor="let cou of Course" [value]="cou.id">
+                                    {{ cou.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
                 <!-- Year Intake -->
                 <div class="col-md-4 col-sm-6">
                     <div class="mb-25">

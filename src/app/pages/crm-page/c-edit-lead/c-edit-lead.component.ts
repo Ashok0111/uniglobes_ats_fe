@@ -15,6 +15,7 @@ import { CustomizerSettingsService } from '../../../customizer-settings/customiz
 import { Services } from '../../../services/leads.service';
 import { CommonModule } from '@angular/common';
 import Notiflix from 'notiflix';
+import { StudentServices } from '../../../services/student.service';
 @Component({
 	selector: 'app-c-edit-lead',
 	standalone: true,
@@ -23,7 +24,7 @@ import Notiflix from 'notiflix';
 	styleUrl: './c-edit-lead.component.scss'
 })
 export class CEditLeadComponent {
-
+    
     editor: Editor;
     SCREEN_TYPE='edit';
     leadForm: FormGroup;
@@ -42,6 +43,9 @@ export class CEditLeadComponent {
     IntakeYearBase:string[] =["January","June","September"];
     IntakeYear: { year: number, months: string[] }[] = [];
     lead_id:any;
+    Country: any;
+    University: any;
+    Course: any;
     groupMonthsByYear(): void {
         const currentYear = new Date().getFullYear();
         const nextYear = currentYear + 1;
@@ -55,6 +59,11 @@ export class CEditLeadComponent {
     ngOnInit(): void {
 
         this.editor = new Editor();
+        this.studentService.getCountry().subscribe((response:any)=>{
+            if(response["status_code"]==200){
+                this.Country=response.result
+            }
+        });
         this.leadForm = this.fb.group({
             first_name: ['', Validators.required],
             last_name: ['', Validators.required],
@@ -63,10 +72,14 @@ export class CEditLeadComponent {
             c_address: ['', Validators.required],
             p_address: ['', Validators.required],
             year_intake: ['', Validators.required],
+            country: [{value:'',disabled: true}, Validators.required],
+            university: [{value:'',disabled: true}, Validators.required],
+            course: [{value:'',disabled: true}, Validators.required],
             source: [{value:'',disabled: true}, Validators.required],
             status: [{value:'',disabled: true}, Validators.required],
             description: ['']
           });
+          
           this.groupMonthsByYear();
     }
     onSubmit(): void {
@@ -101,6 +114,7 @@ export class CEditLeadComponent {
         public themeService: CustomizerSettingsService,
         private fb: FormBuilder,
         public service:Services,
+        public studentService:StudentServices,
         public router:Router,
         private route: ActivatedRoute
     ) {
@@ -116,10 +130,16 @@ export class CEditLeadComponent {
                     c_address: leadData.c_address,  // Assuming you might get c_address from another source
                     p_address: leadData.p_address,  // Assuming you might get p_address from another source
                     year_intake: leadData.year_intake,
+                    country: leadData.preferred_country,
+                    university: leadData.preferred_university,
+                    course: leadData.preferred_course,
                     source: leadData.source,
                     status: leadData.status,
                     description: leadData.description
                 });
+                this.University=[{id:leadData.preferred_university,name:leadData.university_name}];
+                this.Course=[{id:leadData.preferred_course,name:leadData.course_name}];
+               
             }
           });
     }

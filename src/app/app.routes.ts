@@ -65,6 +65,23 @@ export const routes: Routes = [
             {path: 'exp-details', component: ExperienceDetailComponent},
         ]
     },
+    {
+        path: 'leads',
+        component: CrmPageComponent,
+        canActivateChild: [AuthGuard],
+        children: [
+            {path: '', component: CContactsComponent},
+            {path: 'dashboard', component: CrmComponent},
+            {path: 'create-contact', component: CCreateContactComponent},
+            {path: 'edit-contact', component: CEditContactComponent},
+            {path: 'customers', component: CCustomersComponent},
+            {path: 'create-lead', component: CCreateLeadComponent},
+            {path: 'edit-lead', component: CEditLeadComponent},
+            {path: 'leads', component: CLeadsComponent},
+            {path: 'deals', component: CDealsComponent},
+            {path: 'create-deal', component: CCreateDealComponent}
+        ]
+    },
     { path: 'my-applications',
         component: ListApplicationsComponent,
         canActivateChild: [AuthGuard],
