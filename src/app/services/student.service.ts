@@ -66,8 +66,8 @@ export class StudentServices {
     getMyConversation(payload:any): Observable<any>{
         return this.httpClient.get<any>(environment.API_URL+'api/conversation/'+payload);
     }
-    setMyConversation(lead_id:any,payload:any): Observable<any>{
-        return this.httpClient.post<any>(environment.API_URL+'api/conversation/'+lead_id,payload);
+    setMyConversation(application_id:any,payload:any): Observable<any>{
+        return this.httpClient.post<any>(environment.API_URL+'api/conversation/'+application_id,payload);
     }
     getCountry(): Observable<any> {
         return this.httpClient.get<any>(environment.API_URL+'api/get_country/');

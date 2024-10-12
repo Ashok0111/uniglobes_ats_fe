@@ -82,7 +82,7 @@ export class NewLeadsComponent {
         this.dataService.currentQuote.subscribe(
                 res => {
                     this.leadsCount=this.sumArray(res.leads);
-                   this.leadsTrends=this.calculateTrendingPercentage(res.leads)
+                    this.leadsTrends=this.calculateTrendingPercentage(res.leads)
 
                     this.series = res;
                     this.chartOptions = {

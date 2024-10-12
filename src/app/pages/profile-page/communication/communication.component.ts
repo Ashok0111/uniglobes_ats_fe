@@ -40,12 +40,12 @@ export class CommunicationComponent  {
             .subscribe(isToggled => {
                 this.isToggled = isToggled;
             });
-    
+
         this.share_ser.docTypesOB
             .pipe(takeUntil(this.destroy$))
             .subscribe((result: any) => {
                 if (result.lead) {
-                    this.lead_number = result.lead.lead_id;
+                    this.lead_number = result.lead.application_id;
                     this.fetchConversations(this.lead_number);
                 }
             });
@@ -59,7 +59,7 @@ export class CommunicationComponent  {
     sendConvo() {
         if (this.myQuery.trim() !== "") {
             const payload = { 'content': this.myQuery };
-            
+
             this.service.setMyConversation(this.lead_number, payload).subscribe((res: any) => {
                 if (res.status_code === 201) {
                     this.fetchConversations(this.lead_number);

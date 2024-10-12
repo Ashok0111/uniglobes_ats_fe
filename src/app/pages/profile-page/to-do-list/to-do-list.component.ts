@@ -24,7 +24,7 @@ export class ToDoListComponent {
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
     ELEMENT_DATA: any[];
-    displayedColumns: string[] = [ 'lead_id','user_email','agent_name','created_date','status','action'];
+    displayedColumns: string[] = [ 'application_id','user_email','agent_name','created_date','status','action'];
     dataSource = new MatTableDataSource<any>([]);
     selection = new SelectionModel<any>(true, []);
 
@@ -77,7 +77,7 @@ export class ToDoListComponent {
         });
     }
     editLead(payload:any){
-        this.router.navigateByUrl("my-applications/view-application/"+payload.lead_id)
+        this.router.navigateByUrl("my-applications/view-application/"+payload.application_id)
     }
     deleteLeads(id:any){
 

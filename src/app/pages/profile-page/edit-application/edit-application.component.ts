@@ -20,6 +20,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { EducationalDetailComponent } from '../education-detail/education-detail.component';
 import { MediaComponent } from '../media/media.component';
 import { CommunicationComponent } from '../communication/communication.component';
+import Notiflix from 'notiflix';
 
 @Component({
     standalone: true,
@@ -38,7 +39,9 @@ export class EditApplicationComponent implements OnInit {
     application_id: string;
     ApplicationObject:any;
     Country:any;
-    University:any;
+    disableFields:boolean=false;
+    DisableStatus=['Submitted for Verification']
+    University:any; //this.ApplicationObject.lead.status
     Course:any;
     constructor(
         public themeService: CustomizerSettingsService,
@@ -51,7 +54,7 @@ export class EditApplicationComponent implements OnInit {
         this.themeService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;
         });
-        this.application_id = this.snap.snapshot.paramMap.get('lead_id')!;
+        this.application_id = this.snap.snapshot.paramMap.get('application_id')!;
 
     }
     ngOnInit(): void {
@@ -66,6 +69,10 @@ export class EditApplicationComponent implements OnInit {
                 this.share_ser.setdocTypesOB(this.ApplicationObject);
                 this.University=this.ApplicationObject.university_list;
                 this.Course=this.ApplicationObject.course_list;
+                console.log(this.DisableStatus.includes(this.ApplicationObject.lead.status))
+                if(this.DisableStatus.includes(this.ApplicationObject.lead.status)){
+                    this.disableFields=true;
+                }
 
             }
         });
@@ -96,10 +103,31 @@ export class EditApplicationComponent implements OnInit {
             "preferred_course":this.ApplicationObject.lead.preferred_course.id || '',
         }
         this.service.updateMyApplicationDetail(this.application_id,payload).subscribe((response)=>{
-
+            if(response["status_code"]==200){
+                Notiflix.Notify.success("Application is updated successfully");
+            }else{
+                Notiflix.Notify.failure("Failed to Update")
+            }
         });
     }
-    // RTL Mode
+    submitApplication()
+    {
+        Notiflix.Confirm.show(
+            'Application Submission',
+            'Once submitted you cannot revert back ',
+            'Yes',
+            'No',
+            () => {
+
+           
+            },
+            () => {
+           
+            },
+            );
+            
+        
+    }    // RTL Mode
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();
     }

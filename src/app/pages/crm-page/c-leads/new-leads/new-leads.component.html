@@ -9,13 +9,13 @@
     <div class="number lh-1 fw-medium">
         {{leadsCount || 0 }}
     </div>
-    <span class="daxa-up-down-badge position-relative" [ngClass]="this.leadsTrends <= 0 ? '' : 'down'" >
+    <!-- <span class="daxa-up-down-badge position-relative" [ngClass]="this.leadsTrends <= 0 ? '' : 'down'" >
         <i class="material-symbols-outlined">
             trending_down
         </i>
         {{leadsTrends || 0 }}
     </span>
-    <div class="chart">
+     <div class="chart">
         <apx-chart
             [series]="chartOptions.series!"
             [chart]="chartOptions.chart!"
@@ -28,8 +28,9 @@
             [labels]="chartOptions.labels!"
             [legend]="chartOptions.legend!"
         ></apx-chart>
-        <div class="title d-block text-body">
-            This Week
-        </div>
+       
+    </div>  -->
+    <div class="title d-block text-body">
+        Today
     </div>
 </div>

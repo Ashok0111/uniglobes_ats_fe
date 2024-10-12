@@ -59,7 +59,7 @@ export const routes: Routes = [
         canActivateChild: [AuthGuard],
         children: [
             {path: 'details', component: ProfileComponent},
-            {path: 'view-application/:lead_id', component: EditApplicationComponent},
+            {path: 'view-application/:application_id', component: EditApplicationComponent},
 
             {path: 'edu-details', component: EducationalDetailComponent},
             {path: 'exp-details', component: ExperienceDetailComponent},
@@ -87,7 +87,7 @@ export const routes: Routes = [
         canActivateChild: [AuthGuard],
         children: [
             {path: '', component: ToDoListComponent},
-            {path: 'view-application/:lead_id', component: EditApplicationComponent},
+            {path: 'view-application/:application_id', component: EditApplicationComponent},
         ]
     },
 

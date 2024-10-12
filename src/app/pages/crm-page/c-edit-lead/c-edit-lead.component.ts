@@ -24,7 +24,7 @@ import { StudentServices } from '../../../services/student.service';
 	styleUrl: './c-edit-lead.component.scss'
 })
 export class CEditLeadComponent {
-    
+
     editor: Editor;
     SCREEN_TYPE='edit';
     leadForm: FormGroup;
@@ -42,7 +42,7 @@ export class CEditLeadComponent {
     Leadsource: string[] = ["Refferal", "College Referal"];
     IntakeYearBase:string[] =["January","June","September"];
     IntakeYear: { year: number, months: string[] }[] = [];
-    lead_id:any;
+    application_id:any;
     Country: any;
     University: any;
     Course: any;
@@ -79,7 +79,7 @@ export class CEditLeadComponent {
             status: [{value:'',disabled: true}, Validators.required],
             description: ['']
           });
-          
+
           this.groupMonthsByYear();
     }
     onSubmit(): void {
@@ -93,7 +93,7 @@ export class CEditLeadComponent {
               p_address: formValues.p_address,
               c_address: formValues.c_address,
               description: formValues.description,
-              lead_id:this.lead_id
+              application_id:this.application_id
           };
           this.service.updateMyLeadsById(result).subscribe((response)=>{
             if(response.status_code==200){
@@ -118,8 +118,8 @@ export class CEditLeadComponent {
         public router:Router,
         private route: ActivatedRoute
     ) {
-        this.lead_id= this.route.snapshot.paramMap.get('id');
-        this.service.getMyLeadsById(this.lead_id).subscribe((response)=>{
+        this.application_id= this.route.snapshot.paramMap.get('id');
+        this.service.getMyLeadsById(this.application_id).subscribe((response)=>{
             if(response.status_code==200){
                 const leadData = response.result[0];
                 this.leadForm.patchValue({
@@ -139,7 +139,7 @@ export class CEditLeadComponent {
                 });
                 this.University=[{id:leadData.preferred_university,name:leadData.university_name}];
                 this.Course=[{id:leadData.preferred_course,name:leadData.course_name}];
-               
+
             }
           });
     }

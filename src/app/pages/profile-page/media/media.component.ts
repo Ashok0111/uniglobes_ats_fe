@@ -106,7 +106,7 @@ export class MediaComponent implements OnInit {
                 'document_name':this.documentForm.value.document_file[0].name,
                 'document_file':await this.getFile(),
                 'document_exn':'png',
-                'lead_id':this.appid
+                'application_id':this.appid
             }
                 this.service.updateMyDocument(payload).subscribe((result:any)=>{
                     if(result['status_code']==200){
@@ -183,7 +183,7 @@ export class MediaComponent implements OnInit {
     download_file(element:any){
         let payload={
         "doc_id": element.id,
-        "lead_id": this.appid
+        "application_id": this.appid
         };
         this.service.downloadMyDocument(payload).subscribe((result:any)=>{
             if(result['status_code']==200){

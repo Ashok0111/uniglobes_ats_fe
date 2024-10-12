@@ -27,7 +27,7 @@ import { routes } from '../../../../../base/app/app.routes';
 })
 export class CLeadsComponent implements OnInit {
 
-    displayedColumns: string[] = ['select', 'id', 'lead_id','source','user_email','status','action'];
+    displayedColumns: string[] = ['select', 'id', 'application_id','source','user_email','status','action'];
     dataSource = new MatTableDataSource<any>(ELEMENT_DATA);
     selection = new SelectionModel<any>(true, []);
 
@@ -122,7 +122,7 @@ export class CLeadsComponent implements OnInit {
        });
        this.globalService.getMyLeadsStats().subscribe(result=>{
         if(result.status_code==200){
-            let dataSet=this.convertforChart(result.result.weekly,'New');
+            let dataSet=this.convertforChart(result.result.today,'Draft');
             this.dataService.updateLeads(dataSet);
             let dataSetInprogress=this.convertforChart(result.result.weekly,'Inprogress');
             this.dataService.updateLeadsInprogress(dataSetInprogress);
@@ -208,7 +208,7 @@ const ELEMENT_DATA: Myleads[] = [
 
 export interface Myleads {
     id: string;
-    lead_id: any;
+    application_id: any;
     source: string;
     user_email: string;
     status: string;

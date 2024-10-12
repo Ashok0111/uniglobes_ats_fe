@@ -19,7 +19,7 @@
                     <div class="row" *ngIf="this.ApplicationObject">
                         <div class="col-sm-6">
                             <h5 class="mb-0">
-                                My Application [ {{this.ApplicationObject?.lead.lead_id || ' '}}]
+                                My Application [ {{this.ApplicationObject?.lead.application_id || ' '}}]
                             </h5>
                         </div>
                         <div class="col-sm-6 d-flex justify-content-end">
@@ -53,7 +53,7 @@
                                 <mat-label>
                                     Application ID
                                 </mat-label>
-                                <input matInput [(ngModel)]="this.ApplicationObject.lead.lead_id" disabled>
+                                <input matInput [(ngModel)]="this.ApplicationObject.lead.application_id" disabled>
                             </mat-form-field>
                         </div>
                     </div>
@@ -131,7 +131,7 @@
                                     Do You Need Support for Visa Slot Booking?
                                 </label>
                                     <mat-card-content>
-                                        <mat-slide-toggle matInput [(ngModel)]="this.ApplicationObject.lead.visa_slot_booking">Visa Slot</mat-slide-toggle>
+                                        <mat-slide-toggle matInput [disabled]="disableFields" [(ngModel)]="this.ApplicationObject.lead.visa_slot_booking">Visa Slot</mat-slide-toggle>
                                     </mat-card-content>
                             </div>
                     </div>
@@ -141,7 +141,7 @@
                                 Do You Need Support for Flight Tickets Booking?
                             </label>
                                 <mat-card-content>
-                                    <mat-slide-toggle matInput  [(ngModel)]="this.ApplicationObject.lead.flight_ticket_booking">Flight Tickets</mat-slide-toggle>
+                                    <mat-slide-toggle matInput [disabled]="disableFields" [(ngModel)]="this.ApplicationObject.lead.flight_ticket_booking">Flight Tickets</mat-slide-toggle>
                                 </mat-card-content>
                         </div>
                     </div>
@@ -154,7 +154,7 @@
                                 <mat-label>
                                     Preferred Country
                                 </mat-label>
-                                <mat-select (selectionChange)="getUniverityList()" [(ngModel)]="this.ApplicationObject.lead.preferred_country.id" >
+                                <mat-select [disabled]="disableFields" (selectionChange)="getUniverityList()" [(ngModel)]="this.ApplicationObject.lead.preferred_country.id" >
                                     <mat-option *ngFor="let country of Country" [value]="country.id">
                                         {{ country.nicename }}
                                     </mat-option>
@@ -171,7 +171,7 @@
                                 <mat-label>
                                     Preferred University
                                 </mat-label>
-                                <mat-select  (selectionChange)="getCourseList()" [(ngModel)]="this.ApplicationObject.lead.preferred_university.id" >
+                                <mat-select  [disabled]="disableFields" (selectionChange)="getCourseList()" [(ngModel)]="this.ApplicationObject.lead.preferred_university.id" >
                                     <mat-option *ngFor="let uni of University" [value]="uni.id">
                                         {{ uni.name }}
                                     </mat-option>
@@ -188,7 +188,7 @@
                                 <mat-label>
                                     Preferred Courses
                                 </mat-label>
-                                <mat-select [(ngModel)]="this.ApplicationObject.lead.preferred_course.id"  >
+                                <mat-select [disabled]="disableFields" [(ngModel)]="this.ApplicationObject.lead.preferred_course.id"  >
                                     <mat-option *ngFor="let cou of Course" [value]="cou.id">
                                         {{ cou.name }}
                                     </mat-option>
@@ -199,9 +199,12 @@
 
 
                     <div class="col-sm-6">
+                        
                        </div>
                     <div class="col-sm-6 d-flex justify-content-end">
-                         <button mat-flat-button class="daxa" (click)="updateMyProfile()" >Update</button>
+
+                        <button mat-flat-button [disabled]="disableFields" class="daxa" (click)="submitApplication()" >Submit for Review</button>
+                         <button mat-flat-button [disabled]="disableFields" class="daxa m-l-2" (click)="updateMyProfile()" >Save</button>
                         </div>
                 </div>
 
