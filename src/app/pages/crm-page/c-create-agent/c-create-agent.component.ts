@@ -1,3 +1,5 @@
+
+
 import { Component } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule, FormBuilder,Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -19,13 +21,13 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { Router } from '@angular/router';
 import { StudentServices } from '../../../services/student.service';
 @Component({
-    selector: 'app-c-create-lead',
+    selector: 'app-c-create-agent',
     standalone: true,
     imports: [MatCardModule, MatMenuModule, MatButtonModule, RouterLink, FormsModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, ReactiveFormsModule, FileUploadModule, NgxEditorModule,CommonModule],
-    templateUrl: './c-create-lead.component.html',
-    styleUrl: './c-create-lead.component.scss'
-})
-export class CCreateLeadComponent {
+    templateUrl: './c-create-agent.component.html',
+    styleUrl: './c-create-agent.component.scss'
+  })
+export class CCreateAgentComponent {
 
     // Text Editor
     leadForm: FormGroup;
@@ -51,41 +53,16 @@ export class CCreateLeadComponent {
     ngOnInit(): void {
 
         this.editor = new Editor();
-        this.studentervice.getCountry().subscribe((response:any)=>{
-            if(response["status_code"]==200){
-                this.Country=response.result
-            }
-        });
+        
         this.leadForm = this.fb.group({
             first_name: ['', Validators.required],
             last_name: ['', Validators.required],
             email: ['', [Validators.required, Validators.email]],
             phone_number: ['', Validators.required],
-            c_address: ['', Validators.required],
-            p_address: ['', Validators.required],
-            year_intake: ['', Validators.required],
-            country: ['', Validators.required],
-            university: ['', Validators.required],
-            course: ['', Validators.required],
-            source: ['', Validators.required],
-            status: ['', Validators.required],
-            description: ['']
+            c_address: ['',],
+            p_address: ['',]
           });
-          this.groupMonthsByYear();
     }
-    createLead(){
-
-    }
-    groupMonthsByYear(): void {
-        const currentYear = new Date().getFullYear();
-        const nextYear = currentYear + 1;
-
-        // Group the months under the current and next year
-        this.IntakeYear = [
-          { year: currentYear, months: this.IntakeYearBase },
-          { year: nextYear, months: this.IntakeYearBase }
-        ];
-      }
     onSubmit(): void {
         if (this.leadForm.valid) {
           const formValues = this.leadForm.value;
@@ -98,44 +75,19 @@ export class CCreateLeadComponent {
               last_name: formValues.last_name,
               p_address: formValues.p_address,
               c_address: formValues.c_address
-            },
-            lead: {
-                preferred_country: formValues.country,
-                preferred_university: formValues.university,
-              preferred_course: formValues.course,
-              source: formValues.source,
-              year_intake: formValues.year_intake,
-              status: formValues.status,
-              description: formValues.description
             }
           };
-          this.service.createlead(result).subscribe((response)=>{
+          this.service.createAgent(result).subscribe((response)=>{
             if(response.status_code==201){
-                Notiflix.Notify.success('Lead is created succcessfully');
-                this.router.navigateByUrl("leads/leads")
+                Notiflix.Notify.success('Agent is created succcessfully');
+                Notiflix.Notify.success('Agent Creation mails is created trigerred ');
+                this.router.navigateByUrl('agent/list-agent')
             }
           });
 
         } else {
           console.log('Form is invalid');
         }
-    }
-    getUniverityList(){
-        this.leadForm.value.university=null;
-        this.leadForm.value.course=null;
-        this.studentervice.getUniversity(this.leadForm.value.country).subscribe((response)=>{
-            if(response["status_code"]==200){
-                this.University=response.result;
-            }
-        });
-    }
-    getCourseList(){
-        this.leadForm.value.course=null;
-        this.studentervice.getCourse(this.leadForm.value.university).subscribe((response)=>{
-            if(response["status_code"]==200){
-                this.Course=response.result;
-            }
-        });
     }
     // make sure to destory the editor
     ngOnDestroy(): void {
@@ -166,3 +118,4 @@ export class CCreateLeadComponent {
     }
 
 }
+

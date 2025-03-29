@@ -40,6 +40,8 @@ import { EducationalDetailComponent } from './pages/profile-page/education-detai
 import { ExperienceDetailComponent } from './pages/profile-page/experience-detail/experience-detail.component';
 import { ListApplicationsComponent } from './pages/profile-page/list-applications/list-applications.component';
 import { ToDoListComponent } from './pages/profile-page/to-do-list/to-do-list.component';
+import { CCreateAgentComponent } from './pages/crm-page/c-create-agent/c-create-agent.component';
+import { CListAgentComponent } from './pages/crm-page/c-list-agent/c-list-agent.component';
 
 export const routes: Routes = [
 
@@ -81,6 +83,17 @@ export const routes: Routes = [
             {path: 'deals', component: CDealsComponent},
             {path: 'create-deal', component: CCreateDealComponent},
             {path: 'all_application', component: ToDoListComponent},
+            
+        ]
+    },
+    {
+        path: 'agent',
+        component: CrmPageComponent,
+        canActivateChild: [AuthGuard],
+        children: [
+            {path: 'create-agent', component: CCreateAgentComponent},
+            {path: 'list-agent', component: CListAgentComponent},
+            
             
         ]
     },

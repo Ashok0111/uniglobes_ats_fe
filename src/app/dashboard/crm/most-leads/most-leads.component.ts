@@ -16,14 +16,17 @@ import {
 } from "ng-apexcharts";
 
 export type ChartOptions = {
-    series: ApexNonAxisChartSeries;
+    series: { name: string; data: number[] }[];  // <-- Update this
     chart: ApexChart;
-    labels: any;
+    labels?: any;
     dataLabels: ApexDataLabels;
     stroke: ApexStroke;
     colors: string[];
     tooltip: ApexTooltip;
     legend: ApexLegend;
+    yaxis:any;
+    xaxis?:any
+    plotOptions?: any;  // <-- Add plotOptions for bar chart settings
 };
 
 @Component({
@@ -47,49 +50,6 @@ export class MostLeadsComponent implements OnChanges {
         public themeService: CustomizerSettingsService
     ) {
         this.chartOptions = {
-            series: [],
-            chart: {
-                width: 430,
-                type: "pie"
-            },
-            stroke: {
-                width: 2,
-                show: true
-            },
-            labels: [],
-            legend: {
-                show: true,  // Enable legend
-                position: "right",  // Move it to the right
-                horizontalAlign: "center", // Align center
-                fontSize: '14px',
-                markers: {
-                    width: 12,
-                    height: 12,
-                    radius: 4
-                },
-                itemMargin: {
-                    vertical: 5
-                }
-            },
-            dataLabels: {
-                enabled: false,
-                style: {
-                    fontSize: '14px'
-                },
-                dropShadow: {
-                    enabled: false
-                }
-            },
-            colors: [
-                "#00cae3", "#0e7aee", "#796df6", "#ffb264", "#f44336"
-            ],
-            tooltip: {
-                y: {
-                    formatter: function(val) {
-                        return val + " Leads";
-                    }
-                }
-            }
         };
         this.themeService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;
@@ -103,14 +63,63 @@ export class MostLeadsComponent implements OnChanges {
     }
 
     private updateChart() {
-        const agentNames = this.leads_by_agent.map((agent: any) => agent.agent_name);
-        const leadCounts = this.leads_by_agent.map((agent: any) => agent.lead_count);
-
+        const chartData = this.leads_by_agent.map((agent: any) => ({
+            x: agent.agent_name,  // Assigning agent names to x
+            y: agent.lead_count   // Assigning lead counts to y
+        }));
+    
+        console.log("Formatted Chart Data:", chartData); // Debugging
+    
         this.chartOptions = {
             ...this.chartOptions,
-            labels: agentNames,
-            series: leadCounts
+            series: [{
+                name: "Leads",
+                data: chartData  // 🔥 Assign data as an array of {x, y} objects
+            }],
+            chart: {
+                type: "bar",
+                height: 250
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: "45%",
+                    distributed: true // Ensures correct category mapping
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            xaxis: {
+                type: "category",
+                labels: {
+                    rotate: -45,
+                    style: {
+                        fontSize: '12px'
+                    }
+                }
+            },
+            yaxis: {
+                title: {
+                    text: "Lead Count"
+                }
+            },
+            colors: ["#00cae3", "#0e7aee", "#796df6", "#ffb264", "#f44336"],
+            tooltip: {
+                y: {
+                    formatter: function (val) {
+                        return val + " Leads";
+                    }
+                }
+            }
         };
+    
+        // 🔄 Ensure the chart updates dynamically
+        setTimeout(() => {
+            this.chart?.updateOptions(this.chartOptions, true, true);
+        }, 0);
     }
+    
+    
 
 }

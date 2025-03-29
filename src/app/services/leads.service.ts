@@ -16,10 +16,16 @@ export class Services {
     createlead(payload: any): Observable<any> {
     return this.httpClient.post<any>(environment.API_URL+'api/create_user_lead/', payload);
     }
+    createAgent(payload: any): Observable<any> {
+        return this.httpClient.post<any>(environment.API_URL+'api/create_agent/', payload);
+        }
 
     getMyLeads(): Observable<any> {
     return this.httpClient.get<any>(environment.API_URL+'api/fetch_my_leads/');
     }
+    getMyAgents(): Observable<any> {
+        return this.httpClient.get<any>(environment.API_URL+'api/fetch_my_agents/');
+        }
     //fetch_lead_stats
     getMyLeadsStats(): Observable<any> {
         return this.httpClient.get<any>(environment.API_URL+'api/fetch_lead_stats/');

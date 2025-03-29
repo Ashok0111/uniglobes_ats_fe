@@ -48,7 +48,7 @@
                         <ul class="sidebar-sub-menu">
                             <li class="sidemenu-item">
                                 <a routerLink="/admin/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Metrics
+                                    Leads Dashboard
                                 </a>
                             </li>
 
@@ -67,20 +67,21 @@
                         </mat-expansion-panel-header>
                         <ul class="sidebar-sub-menu">
                             <li class="sidemenu-item">
-                                <a routerLink="/leads/create-lead" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"  class="sidemenu-link">
-                                    Create Leads
-                                </a>
-                            </li>
-
-                        </ul>
-                        <ul class="sidebar-sub-menu">
-                            <li class="sidemenu-item">
                                 <a routerLink="/leads/leads"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
                                     My Leads
                                 </a>
                             </li>
 
                         </ul>
+                        <ul class="sidebar-sub-menu">
+                            <li class="sidemenu-item">
+                                <a routerLink="/leads/create-lead" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"  class="sidemenu-link">
+                                    Create Leads
+                                </a>
+                            </li>
+
+                        </ul>
+                        
                         <ul class="sidebar-sub-menu" *ngIf="this.userRole==='facilitator'">
                             <li class="sidemenu-item">
                                 <a routerLink="/leads/all_application"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
@@ -90,6 +91,34 @@
 
                         </ul>
                     </mat-expansion-panel>
+
+                    <mat-expansion-panel *ngIf="userRole=='facilitator'" (opened)="panelOpenState = true" (closed)="panelOpenState = true">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <i class="material-symbols-outlined">
+                                    dashboard
+                                </i>
+                                <span class="title">
+                                    Agent
+                                </span>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <ul class="sidebar-sub-menu">
+                            <li class="sidemenu-item">
+                                <a routerLink="/agent/list-agent" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"  class="sidemenu-link">
+                                    My Agents
+                                </a>
+                            </li>
+                            <li class="sidemenu-item">
+                                <a routerLink="/agent/create-agent" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"  class="sidemenu-link">
+                                    Create Agent
+                                </a>
+                            </li>
+                           
+                        </ul>
+
+                    </mat-expansion-panel>
+
                     <mat-expansion-panel *ngIf="this.userRole=='student'" (opened)="panelOpenState = true" (closed)="panelOpenState = true">
                         <mat-expansion-panel-header>
                             <mat-panel-title>
