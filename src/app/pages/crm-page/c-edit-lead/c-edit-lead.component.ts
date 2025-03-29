@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -16,12 +16,19 @@ import { Services } from '../../../services/leads.service';
 import { CommonModule } from '@angular/common';
 import Notiflix from 'notiflix';
 import { StudentServices } from '../../../services/student.service';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { LeadsPopupComponent } from '../../../dashboard/crm/leads-popup/leads-popup.component';
 @Component({
 	selector: 'app-c-edit-lead',
 	standalone: true,
-    imports: [MatCardModule, MatMenuModule, MatButtonModule, RouterLink, FormsModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, ReactiveFormsModule, FileUploadModule, NgxEditorModule,CommonModule],
+    imports: [MatCardModule, MatMenuModule, MatButtonModule, RouterLink, FormsModule,
+         MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule, 
+         MatNativeDateModule, ReactiveFormsModule, FileUploadModule, NgxEditorModule,CommonModule,MatDialogModule],
 	templateUrl: './c-edit-lead.component.html',
-	styleUrl: './c-edit-lead.component.scss'
+	styleUrl: './c-edit-lead.component.scss',
+    providers: [  // ✅ Provide MatDialogRef and MAT_DIALOG_DATA manually
+        { provide: MatDialogRef, useValue: {} },
+      ]
 })
 export class CEditLeadComponent {
 
@@ -46,6 +53,9 @@ export class CEditLeadComponent {
     Country: any;
     University: any;
     Course: any;
+    src: any='default';
+    @Input() dataSrc: any;
+    @Input() message: any; 
     groupMonthsByYear(): void {
         const currentYear = new Date().getFullYear();
         const nextYear = currentYear + 1;
@@ -56,8 +66,12 @@ export class CEditLeadComponent {
           { year: nextYear, months: this.IntakeYearBase }
         ];
       }
-    ngOnInit(): void {
-
+    async ngOnInit() {
+        if(!this.application_id && this.dataSrc ){
+            this.application_id = this.dataSrc?.id; // Get the passed value
+            this.src=this.dataSrc?.src
+        }
+        await this.getLeadsDetails();
         this.editor = new Editor();
         this.studentService.getCountry().subscribe((response:any)=>{
             if(response["status_code"]==200){
@@ -116,9 +130,20 @@ export class CEditLeadComponent {
         public service:Services,
         public studentService:StudentServices,
         public router:Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        public dialogRef: MatDialogRef<LeadsPopupComponent>,
+        
+        
     ) {
+      
         this.application_id= this.route.snapshot.paramMap.get('id');
+        if(this.application_id){
+            this.getLeadsDetails()
+
+        }
+    }
+
+    async getLeadsDetails(){
         this.service.getMyLeadsById(this.application_id).subscribe((response)=>{
             if(response.status_code==200){
                 const leadData = response.result[0];

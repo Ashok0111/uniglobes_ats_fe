@@ -43,15 +43,15 @@
             <ul class="nav-links text-center pl-0 mb-0 list-unstyled">
                 <li class="d-inline-block">
                     <a routerLink="/my-profile/details" class="d-block position-relative" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                        My Profile
+                        My Profile {{this.userRole}}
                     </a>
                 </li>
-                <li class="d-inline-block">
+                <li class="d-inline-block" *ngIf="userRole.trim()=='student'">
                     <a routerLink="/my-profile/edu-details" class="d-block position-relative" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                         My Educational Details
                     </a>
                 </li>
-                <li class="d-inline-block">
+                <li class="d-inline-block" *ngIf="userRole.trim()==='student'">
                     <a routerLink="/my-profile/exp-details" class="d-block position-relative" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                        My Work Experience
                     </a>

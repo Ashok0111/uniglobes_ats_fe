@@ -10,8 +10,11 @@ import { provideHttpClient,withInterceptors } from '@angular/common/http';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 
 export const appConfig: ApplicationConfig = {
-    providers: [provideZoneChangeDetection({ eventCoalescing: true }),APISERVICE,NgxSpinnerModule, provideHttpClient(withInterceptors([Interceptor])), provideRouter(routes), provideClientHydration(), provideAnimationsAsync(), provideAnimationsAsync(),BrowserAnimationsModule],
+    providers: [ { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true } } ,
+        provideZoneChangeDetection({ eventCoalescing: true }),APISERVICE,NgxSpinnerModule,
+         provideHttpClient(withInterceptors([Interceptor])), provideRouter(routes), provideClientHydration(), provideAnimationsAsync(), provideAnimationsAsync(),BrowserAnimationsModule],
 
 };

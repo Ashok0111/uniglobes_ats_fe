@@ -1,33 +1,38 @@
-<mat-card class="daxa-card stats-card mb-25 border-radius bg-white border-none d-block">
+<mat-card class="daxa-card stats-card mb-25 border-radius bg-white border-none d-block stats-card">
     <mat-card-content>
         <div class="row">
-            <div class="col-md-6 col-xxxl-3">
+            <div class="col-md-3 col-xxxl-3">
 
                 <!-- New Users -->
-                <app-new-users />
+                <app-new-users [label]="'Current Month'" [leads_count]="leads_stats?.current_month_leads"/>
 
             </div>
-            <div class="col-md-6 col-xxxl-3">
+
+            <div class="col-md-3 col-xxxl-3">
 
                 <!-- Active Users -->
-                <app-active-users />
+                <app-new-users [label]="'Previous Month'" [leads_count]="leads_stats?.previous_month_leads" />
 
             </div>
-            <div class="col-md-6 col-xxxl-3">
 
-                <!-- Lead Conversation -->
-                <app-lead-conversation />
+            <div class="col-md-3 col-xxxl-2">
 
+                <app-new-users [label]="'No of Agents'" [leads_count]="facilitatorCount" />
             </div>
-            <div class="col-md-6 col-xxxl-3">
+
+            <div class="col-md-3 col-xxxl-2">
+
+                <app-new-users [label]="'No of Facilitator'" [leads_count]="agentCount" />
+            </div>
+            <div class="col-md-3 col-xxxl-2">
 
 
-                                <h5>Select Agent</h5>
+                                <h5>Select Agent/Facilitator</h5>
                                 <mat-form-field>
-                                    <mat-label>selected agent</mat-label>
-                                    <mat-select>
+                                    <mat-label>selected Agent/Facilitator</mat-label>
+                                    <mat-select [(ngModel)]="selectedAgent" (selectionChange)="OnchangeAgents()" >
                                         <mat-option selected=true value="All">All</mat-option>
-                                        <mat-option  *ngFor="let agent of AgentList" [value]="agent.id" >{{agent.first_name}}</mat-option>
+                                        <mat-option  *ngFor="let agent of AgentList" [value]="agent.id" >{{agent.first_name}} ({{agent.user_type}})</mat-option>
                                     </mat-select>
                                 </mat-form-field>
 
@@ -35,3 +40,4 @@
         </div>
     </mat-card-content>
 </mat-card>
+

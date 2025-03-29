@@ -1,4 +1,4 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component, Input, ViewChild, OnChanges, SimpleChanges } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatMenuModule } from "@angular/material/menu";
@@ -15,7 +15,8 @@ import {
     NgApexchartsModule,
     ApexLegend,
     ApexGrid,
-    ApexPlotOptions
+    ApexPlotOptions,
+    ApexStroke
 } from "ng-apexcharts";
 
 export type ChartOptions = {
@@ -25,7 +26,7 @@ export type ChartOptions = {
     yaxis: ApexYAxis | ApexYAxis[];
     title: ApexTitleSubtitle;
     labels: string[];
-    stroke: any; // ApexStroke;
+    stroke: ApexStroke;
     fill: ApexFill;
     plotOptions: ApexPlotOptions;
     grid: ApexGrid;
@@ -41,23 +42,44 @@ export type ChartOptions = {
     templateUrl: './earning-reports.component.html',
     styleUrl: './earning-reports.component.scss'
 })
-export class EarningReportsComponent {
+export class EarningReportsComponent implements OnChanges {
 
     @ViewChild("chart") chart: ChartComponent;
+    @Input() leads_by_yearwise: any;
     public chartOptions: Partial<ChartOptions>;
+    months = [
+        "January", "February", "March", "April", "May", "June", 
+        "July", "August", "September", "October", "November", "December"
+    ];
 
     constructor() {
-        this.chartOptions = {
+        this.chartOptions = this.getChartOptions([]);
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes['leads_by_yearwise'] && this.leads_by_yearwise) {
+            this.updateChart();
+        }
+    }
+
+    updateChart() {
+        const months = [
+            "January", "February", "March", "April", "May", "June", 
+            "July", "August", "September", "October", "November", "December"
+        ];
+        
+        const leadCounts = months.map(month => this.leads_by_yearwise[month] || 0);
+
+        this.chartOptions = this.getChartOptions(leadCounts);
+    }
+
+    getChartOptions(data: number[]): Partial<ChartOptions> {
+        return {
             series: [
                 {
-                    name: "Orders",
+                    name: "Leads",
                     type: "column",
-                    data: [440, 505, 414, 671, 227, 413, 201, 352, 752, 320]
-                },
-                {
-                    name: "Sales",
-                    type: "line",
-                    data: [423, 542, 435, 627, 243, 422, 217, 331, 722, 322]
+                    data: data
                 }
             ],
             chart: {
@@ -67,11 +89,9 @@ export class EarningReportsComponent {
                     show: false
                 }
             },
-            colors: [
-                "#5271f2", "#00cae3"
-            ],
+            colors: ["#5271f2"],
             stroke: {
-                width: [0, 3],
+                width: [2],
                 curve: 'smooth'
             },
             plotOptions: {
@@ -91,18 +111,7 @@ export class EarningReportsComponent {
                 }
             },
             xaxis: {
-                categories: [
-                    "Jan",
-                    "Feb",
-                    "Mar",
-                    "Apr",
-                    "May",
-                    "Jun",
-                    "Jul",
-                    "Aug",
-                    "Sep",
-                    "Oct"
-                ],
+                categories: this.months.map(m => m.slice(0, 3)), // "Jan", "Feb", etc.
                 axisBorder: {
                     show: false,
                     color: '#e0e0e0'
@@ -135,5 +144,4 @@ export class EarningReportsComponent {
             }
         };
     }
-
 }

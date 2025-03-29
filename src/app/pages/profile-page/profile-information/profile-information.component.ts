@@ -5,7 +5,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { RouterLink } from '@angular/router';
 import { StudentServices } from '../../../services/student.service';
 import { shareService } from '../../../services/share.service';
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -14,11 +14,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms'; // <-- Import this
 import Notiflix from 'notiflix';
+import { genericservice } from '../../../services/generic.service';
 
 @Component({
     selector: 'app-profile-information',
     standalone: true,
-    imports: [RouterLink, MatCardModule, MatButtonModule, MatMenuModule,DatePipe,FormsModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule,ReactiveFormsModule],
+    imports: [RouterLink, MatCardModule, MatButtonModule, CommonModule,MatMenuModule,DatePipe,FormsModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule,ReactiveFormsModule],
     templateUrl: './profile-information.component.html',
     styleUrl: './profile-information.component.scss'
 })
@@ -29,6 +30,7 @@ export class ProfileInformationComponent {
         public service: StudentServices,
         public share:shareService,
         private fb: FormBuilder,
+        public dataShare:genericservice
     ) {
 
     }

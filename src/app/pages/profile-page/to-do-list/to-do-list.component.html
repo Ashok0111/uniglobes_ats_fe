@@ -5,98 +5,75 @@
 >
     <mat-card-header>
         <mat-card-title>
-            <h5 class="mb-0">
-               My Applications
-            </h5>
+            <h5 class="mb-0">My Applications</h5>
         </mat-card-title>
         <mat-card-subtitle>
             <form class="search-box position-relative">
-                <i class="material-symbols-outlined">
-                    search
-                </i>
-                <input type="text" class="input-search d-block w-100 border-none outline-0" placeholder="Search here..." (keyup)="applyFilter($event)" #input>
+                <i class="material-symbols-outlined">search</i>
+                <input
+                    type="text"
+                    class="input-search d-block w-100 border-none outline-0"
+                    placeholder="Search here..."
+                    (keyup)="applyFilter($event)"
+                    #input
+                />
             </form>
         </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
         <div class="to-do-list-table">
             <div class="table-responsive">
-                <table mat-table [dataSource]="dataSource">
+                <table mat-table [dataSource]="dataSource" matSort>
 
                     <ng-container matColumnDef="application_id">
-                        <th mat-header-cell *matHeaderCellDef>
-                            Application ID
-                        </th>
-                        <td mat-cell *matCellDef="let element">
-                            {{element.application_id}}
-                        </td>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Application ID</th>
+                        <td mat-cell *matCellDef="let element">{{ element.application_id }}</td>
                     </ng-container>
-                    <ng-container matColumnDef="user_email">
-                        <th mat-header-cell *matHeaderCellDef>
-                            Email
-                        </th>
-                        <td mat-cell *matCellDef="let element">
-                            {{element.user_email}}
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="agent_name">
-                        <th mat-header-cell *matHeaderCellDef>
-                            POC
-                        </th>
-                        <td mat-cell *matCellDef="let element">
-                            {{element.agent_name}}
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="created_date">
-                        <th mat-header-cell *matHeaderCellDef>
-                             Created On
-                        </th>
-                        <td mat-cell *matCellDef="let element">
-                            {{element.created_date |  date: 'mediumDate'}}
-                        </td>
-                    </ng-container>
-                    <!-- Lead Source Column -->
-                    <!-- <ng-container matColumnDef="source">
-                        <th mat-header-cell *matHeaderCellDef>
-                            Lead Source
-                        </th>
-                        <td mat-cell *matCellDef="let element">
-                            {{element.source}}
-                        </td>
-                    </ng-container> -->
 
-                    <!-- Status Column -->
+                    <ng-container matColumnDef="user_email">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+                        <td mat-cell *matCellDef="let element">{{ element.user_email }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="agent_name">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>POC</th>
+                        <td mat-cell *matCellDef="let element">{{ element.agent_name }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="created_date">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Created On</th>
+                        <td mat-cell *matCellDef="let element">{{ element.created_date | date: 'mediumDate' }}</td>
+                    </ng-container>
+
                     <ng-container matColumnDef="status">
-                        <th mat-header-cell *matHeaderCellDef>
-                            Status
-                        </th>
+                        <th mat-header-cell *matHeaderCellDef>Status</th>
                         <td mat-cell *matCellDef="let element">
-                            <span class="daxa-badge in-progress  d-inline-block" *ngIf="element.status=='Draft'">
-                                {{element.status}}
+                            <span class="daxa-badge in-progress d-inline-block" *ngIf="element.status=='Draft'">
+                                {{ element.status }}
                             </span>
                             <span class="daxa-badge new d-inline-block" *ngIf="element.status=='New'">
-                                {{element.status}}
+                                {{ element.status }}
                             </span>
                             <span class="daxa-badge new d-inline-block" *ngIf="element.status=='Submitted for Verification'">
-                                {{element.status}}
+                                {{ element.status }}
                             </span>
                             <span class="daxa-badge won d-inline-block" *ngIf="element.status=='Completed'">
-                                {{element.status}}
+                                {{ element.status }}
                             </span>
                         </td>
                     </ng-container>
 
-                    <!-- Action Column -->
                     <ng-container matColumnDef="action">
-                        <th mat-header-cell *matHeaderCellDef>
-                            Action
-                        </th>
+                        <th mat-header-cell *matHeaderCellDef>Action</th>
                         <td mat-cell *matCellDef="let element">
                             <div class="action-info">
-                                <a mat-button  matTooltip="Edit Application"  matTooltipPosition="above" (click)="editLead(element)">
-                                    <i class="material-symbols-outlined">
-                                        Edit
-                                    </i>
+                                <a
+                                    mat-button
+                                    matTooltip="Edit Application"
+                                    matTooltipPosition="above"
+                                    (click)="editLead(element)"
+                                >
+                                    <i class="material-symbols-outlined">Edit</i>
                                 </a>
                             </div>
                         </td>
@@ -107,12 +84,17 @@
 
                     <!-- Row shown when there is no matching data. -->
                     <tr class="mat-row" *matNoDataRow>
-                        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                        <td class="mat-cell" colspan="4">No data matching the filter "{{ input.value }}"</td>
                     </tr>
 
                 </table>
+
+                <!-- ✅ ADD PAGINATION HERE -->
+                <mat-paginator
+                    [pageSizeOptions]="[10,20]"
+                    showFirstLastButtons
+                ></mat-paginator>
             </div>
         </div>
     </mat-card-content>
 </mat-card>
-

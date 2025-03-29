@@ -22,7 +22,9 @@
            
         </div>
         <ul class="header-right-side d-flex align-items-center mt-0 mb-0 pl-0 list-unstyled">
-
+            <li class="username-gap">
+              Welcome !  {{ this.generic.get_username_f() }} ( {{ userRole  | uppercase }} )
+            </li>
             <li>
                 <button
                     mat-button
@@ -34,6 +36,7 @@
                     </i>
                 </button>
             </li>
+           
             <li>
                 <!-- <button mat-icon-button [matMenuTriggerFor]="notificationsMenu" class="notifications-menu-btn p-0">
                     <i class="material-symbols-outlined">
@@ -136,14 +139,14 @@
                                     person
                                 </i>
                                 My Profile
-                                <a routerLink="/my-profile" class="link-btn d-block position-absolute"></a>
+                                <a routerLink="/my-profile/details" class="link-btn d-block position-absolute"></a>
                             </li>
                             <li class="position-relative transition fw-medium">
                                 <i class="material-symbols-outlined">
                                     settings
                                 </i>
                                 Settings
-                                <a routerLink="/settings" class="link-btn d-block position-absolute"></a>
+                                <a routerLink="/settings/change-password" class="link-btn d-block position-absolute"></a>
                             </li>
                             <li class="position-relative transition fw-medium">
                                 <i class="material-symbols-outlined">

@@ -17,19 +17,34 @@ import { MatCardModule } from '@angular/material/card';
 import { CustomizerSettingsService } from '../../customizer-settings/customizer-settings.service';
 import { StudentServices } from '../../services/student.service';
 import { shareService } from '../../services/share.service';
+import { LeadsListComponent } from './leads-list/leads-list.component';
 
 @Component({
     selector: 'app-crm',
     standalone: true,
-    imports: [MatCardModule, StatsComponent,MatOptionModule, MatSelectModule,MostLeadsComponent, CountryStatsComponent, EarningReportsComponent, TasksStatsComponent, TopCustomersComponent, RecentLeadsComponent, ToDoListComponent, ClientPaymentStatusComponent, TotalLeadsComponent, FormsModule, ReactiveFormsModule,RouterLink],
+    imports: [MatCardModule, StatsComponent,MatOptionModule, MatSelectModule,MostLeadsComponent, CountryStatsComponent, EarningReportsComponent, TasksStatsComponent, TopCustomersComponent, RecentLeadsComponent, ToDoListComponent, ClientPaymentStatusComponent, TotalLeadsComponent, FormsModule, ReactiveFormsModule,RouterLink,LeadsListComponent],
     templateUrl: './crm.component.html',
     styleUrl: './crm.component.scss'
 })
 export class CrmComponent implements OnInit{
+    AgentList: any;
+    leads_stats: any;
     ngOnInit(): void {
-        throw new Error('Method not implemented.');
-    }
+        this.service.getAgentList().subscribe((response:any)=>{
+            if(response["status_code"]==200){
+               this.AgentList=response.result
+            }
+        });
 
+        this.service.getDashboard('').subscribe((response:any)=>{
+            if(response["status_code"]==200){
+               this.leads_stats=response['result'];
+            }
+        });
+    }
+    onValueChanged(newValue: any) {
+        this.leads_stats=newValue
+      }
     constructor(
         public themeService: CustomizerSettingsService,
         public route:Router,

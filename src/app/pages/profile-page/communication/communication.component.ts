@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { StudentServices } from '../../../services/student.service';
 import { shareService } from '../../../services/share.service';
 import { Subject, takeUntil } from 'rxjs';
+import { genericservice } from '../../../services/generic.service';
 
 @Component({
     selector: 'app-communication',
@@ -29,12 +30,23 @@ export class CommunicationComponent  {
     currentUserId = 33;  // Set the current user's ID
     DocsList: any;
     lead_number: any="";
+    userIMG='images/admin_user.png'
     private destroy$ = new Subject<void>();
+    userRole: any;
     constructor(
         public themeService: CustomizerSettingsService,
         public service: StudentServices,
-        public share_ser: shareService
+        public share_ser: shareService,
+        public generic :genericservice,
     ) {
+        this.userRole=this.generic.get_userrole();
+        if(this.userRole.toLowerCase()=='student'){
+            this.userIMG='images/graduated.png'
+        }else if(this.userRole.toLowerCase().trim()=='agent'){
+            this.userIMG='images/teamwork.png'
+        }else{
+            this.userIMG='images/001-settings.png'
+        }
         this.themeService.isToggled$
             .pipe(takeUntil(this.destroy$))
             .subscribe(isToggled => {

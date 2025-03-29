@@ -1,11 +1,27 @@
 
-    <app-stats />
+    <app-stats [AgentList]="AgentList"  [leads_stats]="leads_stats" (updated_leads_stats)="onValueChanged($event)"/>
 
 
-    <div class="col-lg-6 col-xxxl-4">
+        <div class="row">
+            <div class="col-lg-6 col-xxxl-4">
+    
+                <!-- Country Stats -->
+                <app-country-stats [leads_by_country]="leads_stats?.leads_by_country" />
+    
+    
+    
+            </div>
+            <div class="col-lg-8 col-xxxl-8">
+                <app-leads-list [leads_generated]="leads_stats?.leads_generated"></app-leads-list>
+                </div>
+            </div>
 
-        <!-- Country Stats -->
-        <app-country-stats />
-
-    </div>
+            <div class="row">
+                <div class="col-lg-6 col-xxxl-4">
+                    <app-earning-reports  [leads_by_yearwise]="leads_stats?.leads_by_yearwise" />
+                </div>
+                <div class="col-lg-6 col-xxxl-8">
+                    <app-most-leads [leads_by_agent]="leads_stats?.leads_by_agent" />
+                </div>
+                </div>
 

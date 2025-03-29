@@ -31,7 +31,7 @@
                     <span class="sub-title text-body">
                         MAIN
                     </span>
-                    <mat-expansion-panel *ngIf="userRole=='facilitator'" (opened)="panelOpenState = true" (closed)="panelOpenState = true">
+                    <mat-expansion-panel *ngIf="userRole=='facilitator'" class="active" (opened)="panelOpenState = true" (closed)="panelOpenState = true">
                         <mat-expansion-panel-header>
                             <mat-panel-title>
                                 <i class="material-symbols-outlined">
@@ -77,6 +77,14 @@
                             <li class="sidemenu-item">
                                 <a routerLink="/leads/leads"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
                                     My Leads
+                                </a>
+                            </li>
+
+                        </ul>
+                        <ul class="sidebar-sub-menu" *ngIf="this.userRole==='facilitator'">
+                            <li class="sidemenu-item">
+                                <a routerLink="/leads/all_application"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    Student Application's
                                 </a>
                             </li>
 

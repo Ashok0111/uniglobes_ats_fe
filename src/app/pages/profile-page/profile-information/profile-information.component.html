@@ -2,7 +2,7 @@
     <mat-card-header>
         <mat-card-title>
             <h5 class="mb-0">
-                Profile Information <span><a mat-button  matTooltip="Edit Lead"  matTooltipPosition="above" (click)="toggleClass()">
+                Profile Information <span><a *NgIf="this.dataShare.get_userrole()=='student'" mat-button  matTooltip="Edit Lead"  matTooltipPosition="above" (click)="toggleClass()">
                     <i class="material-symbols-outlined" style="font-size:15px !important">
                         Edit
                     </i>
@@ -18,7 +18,7 @@
             <li>
                 <span class="text-body">Email:</span> {{this.userObject.email}}
             </li>
-            <li>
+            <li *ngIf="this.dataShare.get_userrole()=='student'">
                 <span class="text-body">Role:</span> Student
             </li>
             <li>

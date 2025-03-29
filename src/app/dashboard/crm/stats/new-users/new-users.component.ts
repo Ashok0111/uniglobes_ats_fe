@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, Output, ViewChild } from '@angular/core';
 
 import {
     ChartComponent,
@@ -40,6 +40,8 @@ export type ChartOptions = {
 export class NewUsersComponent {
 
     @ViewChild("chart") chart: ChartComponent;
+    @Input() label: any;  // Receives 'name' from parent
+    @Input() leads_count: any;   // Receives 'age' from parent
     public chartOptions: Partial<ChartOptions>;
 
     // isToggled

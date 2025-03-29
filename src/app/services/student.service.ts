@@ -81,6 +81,9 @@ export class StudentServices {
     getAgentList(): Observable<any> {
         return this.httpClient.get<any>(environment.API_URL+'api/get_agents/');
     }
+    getDashboard(agent_id:any): Observable<any> {
+        return this.httpClient.get<any>(environment.API_URL+'api/get_dashboard/?agent_id='+agent_id);
+    }
 
 
 

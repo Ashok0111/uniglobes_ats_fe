@@ -79,7 +79,9 @@ export const routes: Routes = [
             {path: 'edit-lead', component: CEditLeadComponent},
             {path: 'leads', component: CLeadsComponent},
             {path: 'deals', component: CDealsComponent},
-            {path: 'create-deal', component: CCreateDealComponent}
+            {path: 'create-deal', component: CCreateDealComponent},
+            {path: 'all_application', component: ToDoListComponent},
+            
         ]
     },
     { path: 'my-applications',

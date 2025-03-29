@@ -10,7 +10,7 @@
 
                 <div class="title text-center">
                     <h3>
-                         Sign In
+                         Welcome To Uniglobes -  Onboarding Portal
                     </h3>
                 </div>
                 <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
@@ -61,6 +61,11 @@
                     <button mat-button class="btn" type="submit" [disabled]="authForm.invalid">
                         Sign In
                     </button>
+                    <div class="info text-center mt-3">
+                        <p class="text-muted">
+                            Don't have an account? <strong>Reach out to the agent/faclitator to create one.</strong>
+                        </p>
+                    </div>
                 </form>
             </div>
         </div>

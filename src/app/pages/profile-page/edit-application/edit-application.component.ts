@@ -69,7 +69,6 @@ export class EditApplicationComponent implements OnInit {
                 this.share_ser.setdocTypesOB(this.ApplicationObject);
                 this.University=this.ApplicationObject.university_list;
                 this.Course=this.ApplicationObject.course_list;
-                console.log(this.DisableStatus.includes(this.ApplicationObject.lead.status))
                 if(this.DisableStatus.includes(this.ApplicationObject.lead.status)){
                     this.disableFields=true;
                 }

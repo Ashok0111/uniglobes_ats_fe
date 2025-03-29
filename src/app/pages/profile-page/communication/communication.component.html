@@ -22,7 +22,7 @@
                         </div>
                         <div class="title">
                             <span class="d-block fw-medium">
-                                Uniglobes System
+                                Integrated ChatSystem
                             </span>
                         </div>
                     </div>
@@ -45,8 +45,8 @@
                     <ul class="list-unstyled mb-0 mt-0">
                         <li *ngFor="let message of messages" [ngClass]="{'right': message.sender == 'current user'}" class="position-relative">
                             <!-- Conditional User Image based on sender -->
-                            <img *ngIf="message.sender == 'current user'" src="images/graduated.png" width="35" class="rounded-circle user" alt="user">
-                            <img *ngIf="message.sender != 'current user'" src="images/admin_user.png" width="35" class="rounded-circle user" alt="user">
+                            <img *ngIf="message.sender == 'current user'" [src]="message.role=='student'?'images/graduated.png':'images/001-settings.png'" width="35" class="rounded-circle user" alt="user">
+                            <img *ngIf="message.sender != 'current user'" [src]="message.role=='student'?'images/graduated.png':'images/001-settings.png'" width="35" class="rounded-circle user" alt="user">
 
                             <div class="message">
                                 <div>

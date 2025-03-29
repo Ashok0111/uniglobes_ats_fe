@@ -40,7 +40,7 @@
             left: 15px;
             right: auto;
             text-align: left;
-    
+
             .title {
                 margin: {
                     left: 10px;
@@ -106,7 +106,7 @@
                 left: 0;
                 right: auto;
                 text-align: right;
-                
+
                 .title {
                     left: auto;
                     right: 0;
@@ -128,10 +128,10 @@
 
     .stat-item {
         padding-bottom: 30px;
-        
+
         .chart {
             margin-top: -35px;
-        
+
             .title {
                 margin-top: -10px;
             }
@@ -157,4 +157,7 @@
         }
     }
 
+}
+.stat-item {
+    text-align: center !important;
 }
