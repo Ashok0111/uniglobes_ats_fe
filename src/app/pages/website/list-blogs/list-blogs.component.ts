@@ -13,17 +13,18 @@ import { Services } from '../../../services/leads.service';
 import { shareService } from '../../../services/share.service';
 import Notiflix from 'notiflix';
 import { routes } from '../../../../../base/app/app.routes';
+import { WebsiteServices } from '../../../services/website.service';
 
 @Component({
-  selector: 'app-c-list-agent',
+  selector: 'app-list-blogs',
   standalone: true,
   imports: [RouterLink, MatCardModule, MatTooltipModule, MatCheckboxModule, NgIf, MatPaginatorModule, MatTableModule, MatButtonModule],
-  templateUrl: './c-list-agent.component.html',
-  styleUrl: './c-list-agent.component.scss'
+  templateUrl: './list-blogs.component.html',
+  styleUrl: './list-blogs.component.scss'
 })
-export class CListAgentComponent implements OnInit {
+export class ListBlogsComponent implements OnInit {
 
-    displayedColumns: string[] = ['select', 'id','first_name','last_name', 'user_email'];
+    displayedColumns: string[] = ['select', 'id','author_name','blogtopic','status','blogtopic','action'];
     dataSource = new MatTableDataSource<any>(ELEMENT_DATA);
     selection = new SelectionModel<any>(true, []);
 
@@ -68,7 +69,7 @@ export class CListAgentComponent implements OnInit {
 
     constructor(
         public themeService: CustomizerSettingsService,
-        public globalService:Services,
+        public globalService:WebsiteServices,
         public dataService:shareService,
         public router:Router
     ) {
@@ -77,7 +78,7 @@ export class CListAgentComponent implements OnInit {
         });
     }
     ngOnInit(): void {
-        this.globalService.getMyAgents().subscribe(result=>{
+        this.globalService.listBlog().subscribe(result=>{
             if(result.status_code==200){
                 this.ELEMENT_DATA=result['result']
                 this.dataSource = new MatTableDataSource<any>(this.ELEMENT_DATA);
@@ -90,71 +91,35 @@ export class CListAgentComponent implements OnInit {
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();
     }
-     convertDate(dateStr:any) {
-        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-                            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-        // Split the input date string by "/"
-        const parts = dateStr.split("/");
-
-        // Extract day, month, and year from the input
-        const day = parts[0];
-        const month = monthNames[parseInt(parts[1]) - 1]; // Convert month to month name
-        const year = parts[2];
-
-        // Return the converted date as an object
-        return {
-            day: day,
-            month: month,
-            year: year,
-            toString: function() {
-                return `${this.day} ${this.month} ${this.year}`;
-            }
-        };
-    }
-        editLead(element:any){
-            this.router.navigate(["agent/edit-agent",{id: element.id}])
+    
+    editBlog(element:any){
+            this.router.navigate(["website/edit-blog/",{id: element.id}])
         }
-     convertforChart(input:any,filterType:any) {
-        // Create an object to group counts by date for type "New"
-        const groupedData:any = {};
-
-        // Iterate over each item in the input array
-        input.forEach((item:any) => {
-            const { count, week_start_formatted, type } = item;
-
-            // Only consider items with type "New"
-            if (type === filterType) {
-                // If the date is not in the groupedData, initialize it
-                if (!groupedData[week_start_formatted]) {
-                    groupedData[week_start_formatted] = 0;
+        deleteLeads(id:number){
+            Notiflix.Confirm.show(
+                'Delete Blog',
+                'Are You Sure You Want to Delete?',
+                'Yes',
+                'No',
+                () => {
+                    this.globalService.deleteBlog({'id':id}).subscribe((res:any)=>{
+                        
+                            Notiflix.Report.success(
+                                'Success',
+                                'Deleted Successfully',
+                                'Okay',
+                                );
+                                this.ngOnInit();
+                            
+                    });
+                },
+                () => {
+    
                 }
-
-                // Sum the counts for the same date
-                groupedData[week_start_formatted] += count;
-            }
-        });
-
-        // Extract the dates and leads into separate arrays
-        const dates_o: string[] = [];
-        const leads_o: number[] = [];
-
-        // Iterate over the groupedData to populate dates and leads arrays
-        for (const date in groupedData) {
-            dates_o.push(this.convertDate(date).toString());
-            leads_o.push(groupedData[date]);
+                );
+    
         }
-        // Sort the dates and leads arrays by date
-        const sortedIndices = dates_o
-        .map((date, index) => ({ date, index }))
-        .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-        .map((item) => item.index);
-
-        let dates = sortedIndices.map((index) => dates_o[index]);
-        const leads = sortedIndices.map((index) => leads_o[index]);
-        // Return the result in the desired format
-        return { leads, dates };
-    }
+    
 
 }
 

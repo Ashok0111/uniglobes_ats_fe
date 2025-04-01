@@ -118,7 +118,43 @@
                         </ul>
 
                     </mat-expansion-panel>
+                    <mat-expansion-panel *ngIf="userRole=='facilitator'" (opened)="panelOpenState = true" (closed)="panelOpenState = true">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <i class="material-symbols-outlined">
+                                    dashboard
+                                </i>
+                                <span class="title">
+                                    Website Editor
+                                </span>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <ul class="sidebar-sub-menu">
+                            <li class="sidemenu-item">
+                                <a routerLink="/website/list-blogs" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"  class="sidemenu-link">
+                                    Blogs List
+                                </a>
+                            </li>
+                            <li class="sidemenu-item">
+                                <a routerLink="/website/create-blogs" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"  class="sidemenu-link">
+                                    Create Blog
+                                </a>
+                            </li>
+                            <li class="sidemenu-item">
+                                <a routerLink="/website/list-event" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"  class="sidemenu-link">
+                                    Event List
+                                </a>
+                            </li>
+                            <li class="sidemenu-item">
+                                <a routerLink="/website/create-events" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"  class="sidemenu-link">
+                                    Create Event
+                                </a>
+                            </li>
+                            
+                           
+                        </ul>
 
+                    </mat-expansion-panel>
                     <mat-expansion-panel *ngIf="this.userRole=='student'" (opened)="panelOpenState = true" (closed)="panelOpenState = true">
                         <mat-expansion-panel-header>
                             <mat-panel-title>

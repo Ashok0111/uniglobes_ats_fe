@@ -42,6 +42,11 @@ import { ListApplicationsComponent } from './pages/profile-page/list-application
 import { ToDoListComponent } from './pages/profile-page/to-do-list/to-do-list.component';
 import { CCreateAgentComponent } from './pages/crm-page/c-create-agent/c-create-agent.component';
 import { CListAgentComponent } from './pages/crm-page/c-list-agent/c-list-agent.component';
+import { ListBlogsComponent } from './pages/website/list-blogs/list-blogs.component';
+import { WebsiteComponent } from './pages/website/website.component';
+import { ListEventsComponent } from './pages/website/list-events/list-events.component';
+import { CreateBlogsComponent } from './pages/website/create-blogs/create-blogs.component';
+import { CreateEventsComponent } from './pages/website/create-events/create-events.component';
 
 export const routes: Routes = [
 
@@ -93,6 +98,21 @@ export const routes: Routes = [
         children: [
             {path: 'create-agent', component: CCreateAgentComponent},
             {path: 'list-agent', component: CListAgentComponent},
+            
+            
+        ]
+    },
+    {
+        path: 'website',
+        component: WebsiteComponent,
+        canActivateChild: [AuthGuard],
+        children: [
+            {path: 'list-events', component: ListEventsComponent},
+            {path: 'list-blogs', component: ListBlogsComponent},
+            {path: 'create-blogs', component: CreateBlogsComponent},
+            {path: 'create-events', component: CreateEventsComponent},
+            {path: 'edit-blog', component: CreateBlogsComponent},
+            {path: 'edit-event', component: CreateEventsComponent},
             
             
         ]
