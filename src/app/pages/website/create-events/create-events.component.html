@@ -18,65 +18,82 @@
                 <div class="col-md-8 col-sm-8">
                     <div class="mb-25">
                         <label class="main-label d-block lh-1 text-black">Event Title</label>
-                        <input 
-                            class="text-area-topic" 
-                            matInput 
-                            placeholder="Enter Event Title" 
-                            name="event_title" 
+                        <input
+                            class="text-area-topic"
+                            matInput
+                            placeholder="Enter Event Title"
+                            name="event_title"
                             formControlName="event_title"
                             required>
                     </div>
                 </div>
-
+                <!-- Event Date -->
+                <div class="col-md-4 col-sm-4">
+                    <div class="mb-25">
+                        <label class="main-label d-block lh-1 text-black">Event Time Start</label>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Select Date & Time</mat-label>
+                            <input matInput [mtxDatetimepicker]="picker" placeholder="Select Date & Time" formControlName="event_date">
+                            <mtx-datetimepicker-toggle matSuffix [for]="picker"></mtx-datetimepicker-toggle>
+                            <mtx-datetimepicker #picker></mtx-datetimepicker>
+                          </mat-form-field>
+                    </div>
+                </div>
                 <!-- Event Description -->
                 <div class="col-md-8 col-sm-8">
                     <div class="mb-25">
                         <label class="main-label d-block lh-1 text-black">Event Description</label>
                         <div class="NgxEditor__Wrapper">
                             <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
-                            <ngx-editor 
-                                [editor]="editor" 
-                                placeholder="Type event details..." 
+                            <ngx-editor
+                                [editor]="editor"
+                                placeholder="Type event details..."
                                 formControlName="event_description"
-                                name="event_description" 
+                                name="event_description"
                                 required>
                             </ngx-editor>
                         </div>
                     </div>
                 </div>
-
-                <!-- Event Date -->
-                <div class="col-md-4 col-sm-4">
-                    <div class="mb-25">
-                        <label class="main-label d-block lh-1 text-black">Event Date</label>
-                        <mat-form-field class="full-width">
-                            <input 
-                                matInput 
-                                [matDatepicker]="picker" 
-                                placeholder="Select Date" 
-                                formControlName="event_date"
-                                required>
-                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
-                        </mat-form-field>
-                    </div>
+            <!-- Event Date -->
+            <div class="col-md-4 col-sm-4">
+                <div class="mb-25">
+                    <label class="main-label d-block lh-1 text-black">Event Time End</label>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Select Date & Time</mat-label>
+                        <input matInput [mtxDatetimepicker]="picker_end" placeholder="Select Date & Time" formControlName="event_date_end">
+                        <mtx-datetimepicker-toggle matSuffix [for]="picker_end"></mtx-datetimepicker-toggle>
+                        <mtx-datetimepicker #picker_end></mtx-datetimepicker>
+                    </mat-form-field>
                 </div>
-
+            </div>
                 <!-- Location -->
                 <div class="col-md-8 col-sm-8">
                     <div class="mb-25">
                         <label class="main-label d-block lh-1 text-black">Location</label>
-                        <input 
-                            class="text-area-topic" 
-                            matInput 
-                            placeholder="Enter location" 
-                            name="location" 
+                        <input
+                            class="text-area-topic"
+                            matInput
+                            placeholder="Enter location"
+                            name="location"
                             formControlName="location"
                             required>
                     </div>
                 </div>
+                <!-- Online Link -->
+                <div class="col-md-4 col-sm-4">
+                    <div class="mb-25">
+                        <label class="main-label d-block lh-1 text-black">Online Link</label>
+                        <input
+                            class="text-area-topic"
+                            matInput
+                            placeholder="Online Event Link"
+                            name="online_link"
+                            formControlName="online_link"
+                            required>
+                    </div>
+                </div>
 
-               
 
                 <!-- Status -->
                 <div class="col-md-4 col-sm-4">

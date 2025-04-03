@@ -88,7 +88,7 @@ export const routes: Routes = [
             {path: 'deals', component: CDealsComponent},
             {path: 'create-deal', component: CCreateDealComponent},
             {path: 'all_application', component: ToDoListComponent},
-            
+
         ]
     },
     {
@@ -98,8 +98,8 @@ export const routes: Routes = [
         children: [
             {path: 'create-agent', component: CCreateAgentComponent},
             {path: 'list-agent', component: CListAgentComponent},
-            
-            
+
+
         ]
     },
     {
@@ -107,14 +107,14 @@ export const routes: Routes = [
         component: WebsiteComponent,
         canActivateChild: [AuthGuard],
         children: [
-            {path: 'list-events', component: ListEventsComponent},
+            {path: 'list-event', component: ListEventsComponent},
             {path: 'list-blogs', component: ListBlogsComponent},
             {path: 'create-blogs', component: CreateBlogsComponent},
             {path: 'create-events', component: CreateEventsComponent},
             {path: 'edit-blog', component: CreateBlogsComponent},
             {path: 'edit-event', component: CreateEventsComponent},
-            
-            
+
+
         ]
     },
     { path: 'my-applications',

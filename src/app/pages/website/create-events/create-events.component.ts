@@ -14,14 +14,15 @@ import { NgxEditorModule, Editor, Toolbar } from 'ngx-editor';
 import { CommonModule } from '@angular/common';
 import Notiflix from 'notiflix';
 import { WebsiteServices } from '../../../services/website.service';
+import { MtxDatetimepickerModule } from '@ng-matero/extensions/datetimepicker';
 
 @Component({
     selector: 'app-create-events',
     standalone: true,
     imports: [
         MatCardModule, MatMenuModule, MatButtonModule, MatFormFieldModule, MatInputModule,
-        MatSelectModule, MatDatepickerModule, MatNativeDateModule, FileUploadModule, 
-        NgxEditorModule, CommonModule,ReactiveFormsModule
+        MatSelectModule, MatDatepickerModule, MatNativeDateModule, FileUploadModule,
+        NgxEditorModule, CommonModule,ReactiveFormsModule, MtxDatetimepickerModule
     ],
     templateUrl: './create-events.component.html',
     styleUrl: './create-events.component.scss'
@@ -59,7 +60,9 @@ export class CreateEventsComponent {
             event_title: ['', Validators.required],
             event_description: ['', Validators.required],
             event_date: ['', Validators.required],
+            event_date_end: ['', Validators.required],
             location: [''],
+            online_link: [''],
             cover_image: [null],
             status: [null, Validators.required]
         });
@@ -78,7 +81,7 @@ export class CreateEventsComponent {
 
     loadEventDetails(): void {
         if (!this.eventId) return;
-        
+
         let payload = { id: this.eventId };
         this.service.getEventDetail(payload).subscribe(response => {
             if (response.status_code === 200) {
@@ -87,6 +90,8 @@ export class CreateEventsComponent {
                     event_title: event.event_title,
                     event_description: event.event_description,
                     event_date: event.event_date,
+                    event_date_end: event.event_date,
+                    online_link:event.online_link,
                     location: event.location,
                     status: event.status
                 });
@@ -108,6 +113,8 @@ export class CreateEventsComponent {
           formData.append('event_description', this.eventform.value.event_description);
           formData.append('location', this.eventform.value.location);
           formData.append('status', this.eventform.value.status);
+          formData.append('online_link', this.eventform.value.online_link);
+
           const eventDate = new Date(this.eventform.value.event_date);
           if (!isNaN(eventDate.getTime())) {  // Ensure the date is valid
             const formattedDate = eventDate.toISOString();  // Format the date in ISO 8601 format
@@ -116,12 +123,21 @@ export class CreateEventsComponent {
             Notiflix.Notify.failure('Invalid event date');
             return;
           }
-      
+          const eventDateEnd = new Date(this.eventform.value.event_date_end);
+          if (!isNaN(eventDateEnd.getTime())) {  // Ensure the date is valid
+            const formattedDate = eventDateEnd.toISOString();  // Format the date in ISO 8601 format
+            formData.append('event_date_end', formattedDate);
+          } else {
+            Notiflix.Notify.failure('Invalid event date');
+            return;
+          }
+
           formData.append('status', this.eventform.value.status);
-      
+
           this.service.updateEvent(this.eventId, formData).subscribe((response) => {
             if (response.status_code == 201) {
               Notiflix.Notify.success('Event is updated and published');
+
             }
           });
         } else {
@@ -131,6 +147,7 @@ export class CreateEventsComponent {
             formData.append('event_description', this.eventform.value.event_description);
             formData.append('location', this.eventform.value.location);
             formData.append('status', this.eventform.value.status);
+            formData.append('online_link', this.eventform.value.online_link);
             // Check if the event date is valid before formatting it
             const eventDate = new Date(this.eventform.value.event_date);
             if (!isNaN(eventDate.getTime())) {  // Ensure the date is valid
@@ -140,10 +157,18 @@ export class CreateEventsComponent {
               Notiflix.Notify.failure('Invalid event date');
               return;
             }
-      
+            const eventDateEnd = new Date(this.eventform.value.event_date_end);
+          if (!isNaN(eventDateEnd.getTime())) {  // Ensure the date is valid
+            const formattedDate = eventDateEnd.toISOString();  // Format the date in ISO 8601 format
+            formData.append('event_date_end', formattedDate);
+          } else {
+            Notiflix.Notify.failure('Invalid event date');
+            return;
+          }
             this.service.createEvent(formData).subscribe((response) => {
               if (response.status_code == 201) {
                 Notiflix.Notify.success('Event is created and published');
+                this.router.navigate(['/website/list-event']);
               }
             });
           } else {
@@ -151,7 +176,7 @@ export class CreateEventsComponent {
           }
         }
       }
-      
+
 
     ngOnDestroy(): void {
         this.editor.destroy();

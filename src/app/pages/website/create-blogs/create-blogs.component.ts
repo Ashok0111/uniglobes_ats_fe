@@ -110,6 +110,7 @@ export class CreateBlogsComponent {
     this.service.createBlog(formData).subscribe((response)=>{
             if(response.status_code==201){
                 Notiflix.Notify.success('Blog is created published');
+                this.router.navigate(['/website/list-event']);
             }
           });
             // Implement API call to submit form data
