@@ -14,17 +14,20 @@ import { shareService } from '../../../services/share.service';
 import Notiflix from 'notiflix';
 import { routes } from '../../../../../base/app/app.routes';
 import { WebsiteServices } from '../../../services/website.service';
+import { CommonModule } from '@angular/common';
+import { MatSort,MatSortModule } from '@angular/material/sort';
 
 @Component({
   selector: 'app-list-events',
   standalone: true,
-  imports: [RouterLink, MatCardModule, MatTooltipModule, MatCheckboxModule, NgIf, MatPaginatorModule, MatTableModule, MatButtonModule],
+  imports: [RouterLink, MatCardModule, MatTooltipModule, MatCheckboxModule,
+    NgIf, MatPaginatorModule, MatTableModule, MatButtonModule,CommonModule,MatSortModule],
   templateUrl: './list-events.component.html',
   styleUrl: './list-events.component.scss'
 })
 export class ListEventsComponent implements OnInit {
-
-    displayedColumns: string[] = ['select', 'id','organizer_name','event_title','location','status','action'];
+    @ViewChild(MatSort) sort!: MatSort;
+    displayedColumns: string[] = ['select', 'id','organizer_name','event_title','status','created_at','action'];
     dataSource = new MatTableDataSource<any>(ELEMENT_DATA);
     selection = new SelectionModel<any>(true, []);
 
@@ -33,6 +36,7 @@ export class ListEventsComponent implements OnInit {
 
     ngAfterViewInit() {
         this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
     }
 
     /** Whether the number of selected elements matches the total number of rows. */
@@ -90,7 +94,7 @@ export class ListEventsComponent implements OnInit {
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();
     }
-    
+
     editEvent(element:any){
             this.router.navigate(["website/edit-event/",{id: element.id}])
         }
@@ -102,23 +106,23 @@ export class ListEventsComponent implements OnInit {
                 'No',
                 () => {
                     this.globalService.deleteEvent({'id':id}).subscribe((res:any)=>{
-                        
+
                             Notiflix.Report.success(
                                 'Success',
                                 'Deleted Successfully',
                                 'Okay',
                                 );
                                 this.ngOnInit();
-                            
+
                     });
                 },
                 () => {
-    
+
                 }
                 );
-    
+
         }
-    
+
 
 }
 

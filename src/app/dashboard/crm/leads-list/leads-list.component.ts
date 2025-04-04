@@ -17,7 +17,8 @@ import { LeadsPopupComponent } from '../leads-popup/leads-popup.component';
 @Component({
   selector: 'app-leads-list',
   standalone: true,
-  imports: [RouterLink, MatCardModule,MatDialogModule,  MatTooltipModule, MatCheckboxModule, NgIf, MatPaginatorModule, MatTableModule, MatButtonModule],
+  imports: [RouterLink, MatCardModule,MatDialogModule,  MatTooltipModule, MatCheckboxModule, NgIf,
+    MatPaginatorModule, MatTableModule, MatButtonModule],
   templateUrl: './leads-list.component.html',
   styleUrl: './leads-list.component.scss'
 })
@@ -31,10 +32,11 @@ export class LeadsListComponent implements OnInit,OnChanges  {
     ELEMENT_DATA: any;
 
     ngAfterViewInit() {
-        if(this.dataSource !=null){
+        if(this.dataSource?.data?.length){
+            console.log(this.dataSource,"ERR")
             this.dataSource.paginator = this.paginator;
         }
-        
+
     }
 
     /** Whether the number of selected elements matches the total number of rows. */
@@ -45,7 +47,7 @@ export class LeadsListComponent implements OnInit,OnChanges  {
     }
 
     ngOnInit(): void {
-       
+
         this.updateDataSource();
     };
      /** Selects all rows if they are not all selected; otherwise clear selection. */
@@ -82,7 +84,7 @@ export class LeadsListComponent implements OnInit,OnChanges  {
             maxWidth: '90vw', // Prevents excessive scaling
             panelClass: 'custom-dialog' // Optional custom styling
         });
-    
+
         dialogRef.afterClosed().subscribe(result => {
             console.log(`Dialog result: ${result}`);
         });

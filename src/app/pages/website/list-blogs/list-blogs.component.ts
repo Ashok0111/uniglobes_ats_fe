@@ -10,21 +10,24 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatButtonModule } from '@angular/material/button';
 import { CustomizerSettingsService } from '../../../customizer-settings/customizer-settings.service';
 import { Services } from '../../../services/leads.service';
+import { CommonModule } from '@angular/common';
 import { shareService } from '../../../services/share.service';
 import Notiflix from 'notiflix';
 import { routes } from '../../../../../base/app/app.routes';
 import { WebsiteServices } from '../../../services/website.service';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 
 @Component({
   selector: 'app-list-blogs',
   standalone: true,
-  imports: [RouterLink, MatCardModule, MatTooltipModule, MatCheckboxModule, NgIf, MatPaginatorModule, MatTableModule, MatButtonModule],
+  imports: [RouterLink, MatCardModule, MatTooltipModule, MatCheckboxModule,
+    NgIf, MatPaginatorModule, MatTableModule, MatButtonModule,CommonModule,MatSortModule],
   templateUrl: './list-blogs.component.html',
   styleUrl: './list-blogs.component.scss'
 })
 export class ListBlogsComponent implements OnInit {
-
-    displayedColumns: string[] = ['select', 'id','author_name','blogtopic','status','blogtopic','action'];
+    @ViewChild(MatSort) sort!: MatSort;
+    displayedColumns: string[] = ['select', 'id','author_name','blogtopic','status','created_at','action'];
     dataSource = new MatTableDataSource<any>(ELEMENT_DATA);
     selection = new SelectionModel<any>(true, []);
 
@@ -33,6 +36,7 @@ export class ListBlogsComponent implements OnInit {
 
     ngAfterViewInit() {
         this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
     }
 
     /** Whether the number of selected elements matches the total number of rows. */
@@ -91,7 +95,7 @@ export class ListBlogsComponent implements OnInit {
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();
     }
-    
+
     editBlog(element:any){
             this.router.navigate(["website/edit-blog/",{id: element.id}])
         }
@@ -103,23 +107,23 @@ export class ListBlogsComponent implements OnInit {
                 'No',
                 () => {
                     this.globalService.deleteBlog({'id':id}).subscribe((res:any)=>{
-                        
+
                             Notiflix.Report.success(
                                 'Success',
                                 'Deleted Successfully',
                                 'Okay',
                                 );
                                 this.ngOnInit();
-                            
+
                     });
                 },
                 () => {
-    
+
                 }
                 );
-    
+
         }
-    
+
 
 }
 

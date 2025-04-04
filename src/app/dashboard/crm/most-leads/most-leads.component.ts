@@ -50,6 +50,19 @@ export class MostLeadsComponent implements OnChanges {
         public themeService: CustomizerSettingsService
     ) {
         this.chartOptions = {
+            series: [
+                {
+                  name: "",
+                  data: [1] // Ensure this is not undefined
+                }
+              ],
+              chart: {
+                type: "bar", // Ensure this is defined
+                height: 350
+              },
+              xaxis: {
+                categories: ["Jan", "Feb", "Mar", "Apr"]
+              }
         };
         this.themeService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;
@@ -57,7 +70,7 @@ export class MostLeadsComponent implements OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes['leads_by_agent'] && this.leads_by_agent.length > 0) {
+        if (changes['leads_by_agent'] && this.leads_by_agent?.length > 0) {
             this.updateChart();
         }
     }
@@ -67,9 +80,8 @@ export class MostLeadsComponent implements OnChanges {
             x: agent.agent_name,  // Assigning agent names to x
             y: agent.lead_count   // Assigning lead counts to y
         }));
-    
-        console.log("Formatted Chart Data:", chartData); // Debugging
-    
+
+
         this.chartOptions = {
             ...this.chartOptions,
             series: [{
@@ -113,13 +125,13 @@ export class MostLeadsComponent implements OnChanges {
                 }
             }
         };
-    
+
         // 🔄 Ensure the chart updates dynamically
         setTimeout(() => {
             this.chart?.updateOptions(this.chartOptions, true, true);
         }, 0);
     }
-    
-    
+
+
 
 }
