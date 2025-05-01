@@ -51,13 +51,22 @@
                             <span class="daxa-badge in-progress d-inline-block" *ngIf="element.status=='Draft'">
                                 {{ element.status }}
                             </span>
-                            <span class="daxa-badge new d-inline-block" *ngIf="element.status=='New'">
+                            <span class="daxa-badge new d-inline-block" *ngIf="element.status=='In Progress'">
                                 {{ element.status }}
                             </span>
-                            <span class="daxa-badge new d-inline-block" *ngIf="element.status=='Submitted for Verification'">
+                            <span class="daxa-badge new d-inline-block" *ngIf="element.status=='Verified'">
+                                {{ element.status }}
+                            </span>
+                            <span class="daxa-badge new d-inline-block" *ngIf="element.status=='UniversityProgress'">
                                 {{ element.status }}
                             </span>
                             <span class="daxa-badge won d-inline-block" *ngIf="element.status=='Completed'">
+                                {{ element.status }}
+                            </span>
+                            <span class="daxa-badge fail d-inline-block" *ngIf="element.status=='Failed'">
+                                {{ element.status }}
+                            </span>
+                            <span class="daxa-badge new d-inline-block" *ngIf="element.status=='More Info Required'">
                                 {{ element.status }}
                             </span>
                         </td>

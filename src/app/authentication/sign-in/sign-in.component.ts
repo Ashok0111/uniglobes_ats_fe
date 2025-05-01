@@ -11,6 +11,7 @@ import { CustomizerSettingsService } from '../../customizer-settings/customizer-
 import { APISERVICE } from '../../services/auth.service';
 import { genericservice } from '../../services/generic.service';
 import { Subject } from 'rxjs';
+import Notiflix from 'notiflix';
 
 @Component({
     selector: 'app-sign-in',
@@ -54,27 +55,35 @@ export class SignInComponent {
     authForm: FormGroup;
     onSubmit() {
         if (this.authForm.valid) {
-            this.service.login(this.authForm.value).subscribe((res: any) => {
-                if(res['status_code']==200){
-                    let response:any=res['result'];
-                    if("access" in response)
-                    {
-                        localStorage.setItem('token',response["access"]);
-                        localStorage.setItem('refresh',response["refresh"]);
-                        this.userRole=this.generic.get_userrole_token(response["access"]);
-                        localStorage.setItem("default_path",this.pathMap[this.userRole]);
-                        this.generic.refreshSubject.next();
-                        this.router.navigateByUrl(this.pathMap[this.userRole])
-
-
-                    }else{
-                    console.log("Auth Failed")
+            this.service.login(this.authForm.value).subscribe({
+                next: (res: any) => {
+                    console.log(res, "RESPONSE");
+                    if (res['status_code'] === 200) {
+                        const response: any = res['result'];
+                        if ("access" in response) {
+                            localStorage.setItem('token', response["access"]);
+                            localStorage.setItem('refresh', response["refresh"]);
+                            this.userRole = this.generic.get_userrole_token(response["access"]);
+                            localStorage.setItem("default_path", this.pathMap[this.userRole]);
+                            this.generic.refreshSubject.next();
+                            this.router.navigateByUrl(this.pathMap[this.userRole]);
+                        } else {
+                            console.log("Auth Failed");
+                            Notiflix.Notify.failure("Authentication failed. Please try again.");
+                        }
+                    } else {
+                        Notiflix.Notify.failure("Invalid response from server.");
                     }
-            }
-              })
+                },
+                error: (err) => {
+                    console.error(err);
+                    Notiflix.Notify.failure("No active account found with the given credentials");
+                }
+            });
         } else {
             console.log('Form is invalid. Please check the fields.');
         }
     }
+
 
 }

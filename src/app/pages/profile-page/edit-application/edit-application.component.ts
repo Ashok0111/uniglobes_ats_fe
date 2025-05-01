@@ -21,6 +21,7 @@ import { EducationalDetailComponent } from '../education-detail/education-detail
 import { MediaComponent } from '../media/media.component';
 import { CommunicationComponent } from '../communication/communication.component';
 import Notiflix from 'notiflix';
+import { genericservice } from '../../../services/generic.service';
 
 @Component({
     standalone: true,
@@ -40,6 +41,17 @@ export class EditApplicationComponent implements OnInit {
     ApplicationObject:any;
     Country:any;
     disableFields:boolean=false;
+    userRole:string="";
+    Application_Status:any = {
+        'Draft': 'Draft',
+        'In Progress': 'In Progress',
+        'Verified': 'Verified',
+        'UniversityProgress': 'University Progress',
+        'Completed': 'Completed',
+        'Failed': 'Failed',
+        'More Info Required': 'More Info Required'
+    }
+    ApplicationStatusKeys = Object.keys(this.Application_Status);
     DisableStatus=['Submitted for Verification']
     University:any; //this.ApplicationObject.lead.status
     Course:any;
@@ -48,13 +60,15 @@ export class EditApplicationComponent implements OnInit {
         public route:Router,
         public snap:ActivatedRoute,
         public service:StudentServices,
-        public share_ser:shareService
+        public share_ser:shareService,
+        public generic :genericservice,
 
     ) {
         this.themeService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;
         });
         this.application_id = this.snap.snapshot.paramMap.get('application_id')!;
+        this.userRole=this.generic.get_userrole();
 
     }
     ngOnInit(): void {
@@ -65,7 +79,7 @@ export class EditApplicationComponent implements OnInit {
         });
         this.service.getMyApplicationDetailByID({"application_id":this.application_id}).subscribe((response)=>{
             if(response["status_code"]==200){
-                this.ApplicationObject=response.result;
+                    this.ApplicationObject=response.result;
                 this.share_ser.setdocTypesOB(this.ApplicationObject);
                 this.University=this.ApplicationObject.university_list;
                 this.Course=this.ApplicationObject.course_list;
@@ -76,6 +90,22 @@ export class EditApplicationComponent implements OnInit {
             }
         });
     }
+    get statusList(): string[] {
+        const allStatuses = ['Draft', 'In Progress', 'Verified', 'UniversityProgress'];
+        const finalStatus = this.ApplicationObject?.lead.status;
+      
+        if (finalStatus === 'Completed' || finalStatus === 'Failed') {
+          allStatuses.push(finalStatus);
+        }
+      
+        return allStatuses;
+      }
+      
+      isActive(status: string): boolean {
+        const currentStatus = this.ApplicationObject?.lead.status;
+        const index = this.statusList.indexOf(currentStatus);
+        return this.statusList.indexOf(status) <= index;
+      }
     getUniverityList(){
         this.ApplicationObject.lead.preferred_university.id=null;
         this.ApplicationObject.lead.preferred_course.id=null;
@@ -94,12 +124,15 @@ export class EditApplicationComponent implements OnInit {
         });
     }
     updateMyProfile(){
+        console.log(this.ApplicationObject.lead.status )
         var payload={
             "visa_slot_booking":this.ApplicationObject.lead.visa_slot_booking,
             "flight_ticket_booking":this.ApplicationObject.lead.flight_ticket_booking,
             "preferred_country":this.ApplicationObject.lead.preferred_country.id || '',
             "preferred_university":this.ApplicationObject.lead.preferred_university.id || '',
             "preferred_course":this.ApplicationObject.lead.preferred_course.id || '',
+            "status":this.ApplicationObject.lead.status || '',
+
         }
         this.service.updateMyApplicationDetail(this.application_id,payload).subscribe((response)=>{
             if(response["status_code"]==200){
@@ -118,14 +151,14 @@ export class EditApplicationComponent implements OnInit {
             'No',
             () => {
 
-           
+
             },
             () => {
-           
+
             },
             );
-            
-        
+
+
     }    // RTL Mode
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();

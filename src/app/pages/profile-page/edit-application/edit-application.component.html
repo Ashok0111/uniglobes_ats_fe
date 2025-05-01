@@ -1,237 +1,232 @@
 <!-- Breadcrumb -->
 <div class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-between">
-    <h5 class="mb-0">
-        View Application
-    </h5>
-</div>
-
-
-<!-- Add User -->
+    <h5 class="mb-0">View Application</h5>
+  </div>
+  
+  <!-- Application Details -->
 <div class="row">
     <div class="col-xxl-13 col-xxxl-12">
-        <mat-card
-            class="daxa-card add-user-card mb-25 border-radius bg-white border-none d-block"
+    <mat-card
+            class="daxa-card tracking-id-card mb-25 border-radius bg-white border-none d-block bg-gradient"
             [class.rtl-enabled]="themeService.isRTLEnabled()"
         >
-
-
-            <mat-card-header>
-                    <div class="row" *ngIf="this.ApplicationObject">
-                        <div class="col-sm-6">
-                            <h5 class="mb-0">
-                                My Application [ {{this.ApplicationObject?.lead.application_id || ' '}}]
-                            </h5>
-                        </div>
-                        <div class="col-sm-6 d-flex justify-content-end">
-                            <span  class="badge rounded-pill text-bg-daxa">{{this.ApplicationObject.lead.status}}</span>
-                        </div>
-                    </div>
-            </mat-card-header>
             <mat-card-content>
-
-                <div class="row" *ngIf="this.ApplicationObject">
-                    <div class="col-sm-6">
-                        <div class="mb-25">
-                            <label class="main-label d-block lh-1 text-black">
-                                Email Address
-                            </label>
-                            <mat-form-field>
-                                <mat-label>
-                                    Email Address
-                                </mat-label>
-                                <input matInput [(ngModel)]="this.ApplicationObject.user.email" disabled>
-                            </mat-form-field>
-                        </div>
-
+                <span class="d-block fw-medium text-white">
+                    Status
+                </span>
+                <div class="numbers position-relative d-sm-flex align-items-center justify-content-between">
+                    <div *ngFor="let status of statusList; let i = index" class="box" [class.active]="isActive(status)">
+                      <div class="rounded-circle text-center transition text-white fw-medium">
+                        {{ ('0' + (i + 1)).slice(-2) }}
+                      </div>
+                      <span class="fw-medium d-block text-white">
+                        {{ Application_Status[status] }}
+                      </span>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="mb-25">
-                            <label class="main-label d-block lh-1 text-black">
-                                Application ID
-                            </label>
-                            <mat-form-field>
-                                <mat-label>
-                                    Application ID
-                                </mat-label>
-                                <input matInput [(ngModel)]="this.ApplicationObject.lead.application_id" disabled>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="mb-25">
-                            <label class="main-label d-block lh-1 text-black">
-                                First Name
-                            </label>
-                            <mat-form-field>
-                                <mat-label>
-                                    First Name
-                                </mat-label>
-                                <input matInput [(ngModel)]="this.ApplicationObject.user.first_name" disabled>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="mb-25">
-                            <label class="main-label d-block lh-1 text-black">
-                                Last Name
-                            </label>
-                            <mat-form-field>
-                                <mat-label>
-                                    Last Name
-                                </mat-label>
-                                <input matInput [(ngModel)]="this.ApplicationObject.user.last_name" disabled>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="mb-25">
-                            <label class="main-label d-block lh-1 text-black">
-                                Phone No
-                            </label>
-                            <mat-form-field>
-                                <mat-label>
-                                    Phone no
-                                </mat-label>
-                                <input matInput [(ngModel)]="this.ApplicationObject.user.phone_number" disabled>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="mb-25">
-                            <label class="main-label d-block lh-1 text-black">
-                                Primary Address
-                            </label>
-                            <mat-form-field class="textarea">
-                                <mat-label>
-                                    Primary Address
-                                </mat-label>
-                                <textarea matInput [(ngModel)]="this.ApplicationObject.user.p_address" disabled></textarea>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="mb-25">
-                            <label class="main-label d-block lh-1 text-black">
-                                Communication Address
-                            </label>
-                            <mat-form-field class="textarea">
-                                <mat-label>
-                                    Communication Address
-                                </mat-label>
-                                <textarea matInput [(ngModel)]="this.ApplicationObject.user.c_address" disabled></textarea>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="mb-25">
-                                <label class="main-label d-block lh-1 text-black">
-                                    Do You Need Support for Visa Slot Booking?
-                                </label>
-                                    <mat-card-content>
-                                        <mat-slide-toggle matInput [disabled]="disableFields" [(ngModel)]="this.ApplicationObject.lead.visa_slot_booking">Visa Slot</mat-slide-toggle>
-                                    </mat-card-content>
-                            </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="mb-25">
-                            <label class="main-label d-block lh-1 text-black">
-                                Do You Need Support for Flight Tickets Booking?
-                            </label>
-                                <mat-card-content>
-                                    <mat-slide-toggle matInput [disabled]="disableFields" [(ngModel)]="this.ApplicationObject.lead.flight_ticket_booking">Flight Tickets</mat-slide-toggle>
-                                </mat-card-content>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="mb-25">
-                            <label class="main-label d-block lh-1 text-black">
-                                Preferred Country
-                            </label>
-                            <mat-form-field class="textarea">
-                                <mat-label>
-                                    Preferred Country
-                                </mat-label>
-                                <mat-select [disabled]="disableFields" (selectionChange)="getUniverityList()" [(ngModel)]="this.ApplicationObject.lead.preferred_country.id" >
-                                    <mat-option *ngFor="let country of Country" [value]="country.id">
-                                        {{ country.nicename }}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="mb-25">
-                            <label class="main-label d-block lh-1 text-black">
-                                Preferred University
-                            </label>
-                            <mat-form-field class="textarea">
-                                <mat-label>
-                                    Preferred University
-                                </mat-label>
-                                <mat-select  [disabled]="disableFields" (selectionChange)="getCourseList()" [(ngModel)]="this.ApplicationObject.lead.preferred_university.id" >
-                                    <mat-option *ngFor="let uni of University" [value]="uni.id">
-                                        {{ uni.name }}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="mb-25">
-                            <label class="main-label d-block lh-1 text-black">
-                                Preferred Courses
-                            </label>
-                            <mat-form-field class="textarea">
-                                <mat-label>
-                                    Preferred Courses
-                                </mat-label>
-                                <mat-select [disabled]="disableFields" [(ngModel)]="this.ApplicationObject.lead.preferred_course.id"  >
-                                    <mat-option *ngFor="let cou of Course" [value]="cou.id">
-                                        {{ cou.name }}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                    </div>
-
-
-                    <div class="col-sm-6">
-                        
-                       </div>
-                    <div class="col-sm-6 d-flex justify-content-end">
-
-                        <button mat-flat-button [disabled]="disableFields" class="daxa" (click)="submitApplication()" >Submit for Review</button>
-                         <button mat-flat-button [disabled]="disableFields" class="daxa m-l-2" (click)="updateMyProfile()" >Save</button>
-                        </div>
-                </div>
-
+                  </div>
             </mat-card-content>
-
-
         </mat-card>
-        <mat-card
-        class="daxa-card add-user-card mb-25 border-radius bg-white border-none d-block"
-        [class.rtl-enabled]="themeService.isRTLEnabled()">
-                <mat-card-content>
-                    <div class="col-sm-12">
-                        <app-media [appid]="application_id"> </app-media>
-                    </div>
-                    </mat-card-content>
-        </mat-card>
-        <mat-card
-            class="daxa-card add-user-card mb-25 border-radius bg-white border-none d-block"
-            [class.rtl-enabled]="themeService.isRTLEnabled()">
-        <div class="col-sm-12">
-            <mat-card-content>
-                <app-communication></app-communication>
-            </mat-card-content>
-        </div>
-
-        </mat-card>
-
     </div>
-
 </div>
+
+  <div class="row">
+    <div class="col-xxl-13 col-xxxl-12">
+      <!-- User Details Card -->
+      <mat-card
+        class="daxa-card add-user-card mb-25 border-radius bg-white border-none d-block"
+        [class.rtl-enabled]="themeService.isRTLEnabled()"
+      >
+        <mat-card-header *ngIf="ApplicationObject">
+          <div class="row">
+            <div class="col-sm-6">
+              <h5 class="mb-0">My Application [ {{ ApplicationObject?.lead.application_id || ' ' }} ]</h5>
+            </div>
+            <div class="col-sm-6 d-flex justify-content-end">
+              <span class="badge rounded-pill text-bg-daxa">{{ ApplicationObject.lead.status }}</span>
+            </div>
+          </div>
+        </mat-card-header>
+  
+        <mat-card-content *ngIf="ApplicationObject">
+          <div class="row">
+            <!-- Email -->
+            <div class="col-sm-6 mb-25">
+              <label class="main-label d-block lh-1 text-black">Email Address</label>
+              <mat-form-field appearance="fill">
+                <mat-label>Email Address</mat-label>
+                <input matInput [(ngModel)]="ApplicationObject.user.email" disabled />
+              </mat-form-field>
+            </div>
+  
+            <!-- Application ID -->
+            <div class="col-sm-6 mb-25">
+              <label class="main-label d-block lh-1 text-black">Application ID</label>
+              <mat-form-field appearance="fill">
+                <mat-label>Application ID</mat-label>
+                <input matInput [(ngModel)]="ApplicationObject.lead.application_id" disabled />
+              </mat-form-field>
+            </div>
+  
+            <!-- First Name -->
+            <div class="col-sm-6 mb-25">
+              <label class="main-label d-block lh-1 text-black">First Name</label>
+              <mat-form-field appearance="fill">
+                <mat-label>First Name</mat-label>
+                <input matInput [(ngModel)]="ApplicationObject.user.first_name" disabled />
+              </mat-form-field>
+            </div>
+  
+            <!-- Last Name -->
+            <div class="col-sm-6 mb-25">
+              <label class="main-label d-block lh-1 text-black">Last Name</label>
+              <mat-form-field appearance="fill">
+                <mat-label>Last Name</mat-label>
+                <input matInput [(ngModel)]="ApplicationObject.user.last_name" disabled />
+              </mat-form-field>
+            </div>
+  
+            <!-- Phone -->
+            <div class="col-sm-6 mb-25">
+              <label class="main-label d-block lh-1 text-black">Phone No</label>
+              <mat-form-field appearance="fill">
+                <mat-label>Phone No</mat-label>
+                <input matInput [(ngModel)]="ApplicationObject.user.phone_number" disabled />
+              </mat-form-field>
+            </div>
+            <div class="col-sm-6 mb-25">
+               
+              </div>
+            <!-- Primary Address -->
+            <div class="col-sm-6 mb-25">
+              <label class="main-label d-block lh-1 text-black">Primary Address</label>
+              <mat-form-field appearance="fill" class="textarea">
+                <mat-label>Primary Address</mat-label>
+                <textarea matInput [(ngModel)]="ApplicationObject.user.p_address" disabled></textarea>
+              </mat-form-field>
+            </div>
+  
+            <!-- Communication Address -->
+            <div class="col-sm-6 mb-25">
+              <label class="main-label d-block lh-1 text-black">Communication Address</label>
+              <mat-form-field appearance="fill" class="textarea">
+                <mat-label>Communication Address</mat-label>
+                <textarea matInput [(ngModel)]="ApplicationObject.user.c_address" disabled></textarea>
+              </mat-form-field>
+            </div>
+  
+            <!-- Visa Slot -->
+            <div class="col-sm-6 mb-25">
+              <label class="main-label d-block lh-1 text-black">Do You Need Support for Visa Slot Booking?</label>
+              <mat-slide-toggle [disabled]="disableFields" [(ngModel)]="ApplicationObject.lead.visa_slot_booking">
+                Visa Slot
+              </mat-slide-toggle>
+            </div>
+  
+            <!-- Flight Ticket -->
+            <div class="col-sm-6 mb-25">
+              <label class="main-label d-block lh-1 text-black">Do You Need Support for Flight Tickets Booking?</label>
+              <mat-slide-toggle [disabled]="disableFields" [(ngModel)]="ApplicationObject.lead.flight_ticket_booking">
+                Flight Tickets
+              </mat-slide-toggle>
+            </div>
+  
+            <!-- Preferred Country -->
+            <div class="col-sm-4 mb-25">
+              <label class="main-label d-block lh-1 text-black">Preferred Country</label>
+              <mat-form-field appearance="fill" class="textarea">
+                <mat-label>Preferred Country</mat-label>
+                <mat-select
+                  [disabled]="disableFields"
+                  (selectionChange)="getUniverityList()"
+                  [(ngModel)]="ApplicationObject.lead.preferred_country.id"
+                >
+                  <mat-option *ngFor="let country of Country" [value]="country.id">
+                    {{ country.nicename }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+  
+            <!-- Preferred University -->
+            <div class="col-sm-4 mb-25">
+              <label class="main-label d-block lh-1 text-black">Preferred University</label>
+              <mat-form-field appearance="fill" class="textarea">
+                <mat-label>Preferred University</mat-label>
+                <mat-select
+                  [disabled]="disableFields"
+                  (selectionChange)="getCourseList()"
+                  [(ngModel)]="ApplicationObject.lead.preferred_university.id"
+                >
+                  <mat-option *ngFor="let uni of University" [value]="uni.id">
+                    {{ uni.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+  
+            <!-- Preferred Course -->
+            <div class="col-sm-4 mb-25">
+              <label class="main-label d-block lh-1 text-black">Preferred Courses</label>
+              <mat-form-field appearance="fill" class="textarea">
+                <mat-label>Preferred Courses</mat-label>
+                <mat-select
+                  [disabled]="disableFields"
+                  [(ngModel)]="ApplicationObject.lead.preferred_course.id"
+                >
+                  <mat-option *ngFor="let cou of Course" [value]="cou.id">
+                    {{ cou.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+  
+            <!-- Application Status -->
+            <div class="col-sm-4 mb-25" *ngIf="userRole === 'facilitator'">
+              <label class="main-label d-block lh-1 text-black">Application Status</label>
+              <mat-form-field appearance="fill" class="textarea">
+                <mat-label>Application Status</mat-label>
+                <mat-select [(ngModel)]="ApplicationObject.lead.status">
+                  <mat-option *ngFor="let key of ApplicationStatusKeys" [value]="key">
+                    {{ Application_Status[key] }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+  
+            <!-- Save Button -->
+            <div class="col-sm-12 d-flex justify-content-end">
+              <button
+                mat-flat-button
+                [disabled]="disableFields"
+                class="daxa m-l-2"
+                (click)="updateMyProfile()"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+  
+      <!-- Media Card -->
+      <mat-card class="daxa-card add-user-card mb-25 border-radius bg-white border-none d-block"
+        [class.rtl-enabled]="themeService.isRTLEnabled()">
+        <mat-card-content>
+          <div class="col-sm-12">
+            <app-media [appid]="application_id"></app-media>
+          </div>
+        </mat-card-content>
+      </mat-card>
+  
+      <!-- Communication Card -->
+      <mat-card class="daxa-card add-user-card mb-25 border-radius bg-white border-none d-block"
+        [class.rtl-enabled]="themeService.isRTLEnabled()">
+        <mat-card-content>
+          <div class="col-sm-12">
+            <app-communication></app-communication>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  
