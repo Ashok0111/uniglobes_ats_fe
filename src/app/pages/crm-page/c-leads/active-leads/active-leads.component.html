@@ -3,19 +3,21 @@
     [class.rtl-enabled]="themeService.isRTLEnabled()"
     [class.component-dark-theme]="themeService.isDark()"
 >
-    <h5>
+<div class="text-center d-flex flex-column align-items-center justify-content-center h-100">
+    <h5 class="mb-1">
         Active Leads
     </h5>
     <div class="number lh-1 fw-medium">
-        {{LeadsInprogress}}
+        {{ leadsCount }}
     </div>
-    <span class="daxa-up-down-badge position-relative" [ngClass]="this.leadsTrends <= 0 ? '' : 'down'">
+</div>
+    <!-- <span class="daxa-up-down-badge position-relative" [ngClass]="this.leadsTrends <= 0 ? '' : 'down'">
         <i class="material-symbols-outlined">
             trending_up
         </i>
         {{this.leadsTrends}}
-    </span>
-    <div class="chart">
+    </span> -->
+    <!-- <div class="chart">
         <apx-chart
             [series]="chartOptions.series!"
             [chart]="chartOptions.chart!"
@@ -31,5 +33,5 @@
         <div class="title d-block text-body">
             This Month
         </div>
-    </div>
+    </div> -->
 </div>

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import {
     ChartComponent,
     ApexAxisChartSeries,
@@ -17,6 +17,7 @@ import { RouterLink } from '@angular/router';
 import { CustomizerSettingsService } from '../../../../customizer-settings/customizer-settings.service';
 import { shareService } from '../../../../services/share.service';
 import { CommonModule } from '@angular/common';
+import { Services } from '../../../../services/leads.service';
 
 export type ChartOptions = {
     series: ApexAxisChartSeries;
@@ -41,14 +42,16 @@ export type ChartOptions = {
 export class NewLeadsComponent {
 
     @ViewChild("chart") chart: ChartComponent;
+    @Input() leadsCount: number = 0;
     public chartOptions: Partial<ChartOptions>;
     series:any;
-    leadsCount:any=0;
+    // leadsCount:any=0;
     leadsTrends:any=0;
 
     constructor(
         public themeService: CustomizerSettingsService,
         public dataService:shareService,
+        public globalService:Services,
     ) {
         this.themeService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;
@@ -78,7 +81,14 @@ export class NewLeadsComponent {
         return trendingPercentage.toFixed(2) + "%";
     }
     ngOnInit(): void {
-        this.series={}
+        this.series={};
+        // 1. Get Lead Completion Stats
+    // this.globalService.getMyLeadsStats().subscribe((res: any) => {
+    //     if (res.status_code === 200) {
+    //         const completedObj = res.result.counts.find((item: any) => item.type === "New");
+    //         this.leadsCount = completedObj?.count || 0;
+    //     }
+    // });
         this.dataService.currentQuote.subscribe(
                 res => {
                     this.leadsCount=this.sumArray(res.leads);

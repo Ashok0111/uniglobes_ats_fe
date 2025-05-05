@@ -23,19 +23,19 @@
             <div class="col-md-6 col-xxxl-3">
 
                 <!-- New Leads -->
-                <app-new-leads />
+                <app-new-leads [leadsCount]="newLeadsCount"/>
 
             </div>
             <div class="col-md-6 col-xxxl-3">
 
                 <!-- Active Leads -->
-                <app-active-leads />
+                <app-active-leads [leadsCount]="activeLeadsCount"/>
 
             </div>
             <div class="col-md-6 col-xxxl-3">
 
                 <!-- Lead Conversation -->
-                <app-lead-conversion />
+                <app-lead-conversion [leadsCount]="leadConversionCount"/>
 
             </div>
             <div class="col-md-6 col-xxxl-3">

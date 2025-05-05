@@ -27,7 +27,7 @@
     "@fullcalendar/core": "^6.1.10",
     "@fullcalendar/daygrid": "^6.1.10",
     "@iplab/ngx-file-upload": "^18.0.0",
-    "@ng-matero/extensions": "^19.3.0",
+    "@ng-matero/extensions": "^18.0.0",
     "apexcharts": "^3.49.2",
     "date-fns": "^4.1.0",
     "express": "^4.18.2",

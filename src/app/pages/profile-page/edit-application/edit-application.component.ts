@@ -93,22 +93,31 @@ export class EditApplicationComponent implements OnInit {
             }
         });
     }
-    updateMyProfile(){
-        var payload={
-            "visa_slot_booking":this.ApplicationObject.lead.visa_slot_booking,
-            "flight_ticket_booking":this.ApplicationObject.lead.flight_ticket_booking,
-            "preferred_country":this.ApplicationObject.lead.preferred_country.id || '',
-            "preferred_university":this.ApplicationObject.lead.preferred_university.id || '',
-            "preferred_course":this.ApplicationObject.lead.preferred_course.id || '',
-        }
-        this.service.updateMyApplicationDetail(this.application_id,payload).subscribe((response)=>{
-            if(response["status_code"]==200){
-                Notiflix.Notify.success("Application is updated successfully");
-            }else{
-                Notiflix.Notify.failure("Failed to Update")
+    updateMyProfile() {
+        // Determine the new status based on current status
+        let currentStatus = this.ApplicationObject.lead.status;
+        let newStatus = currentStatus === 'Inprogress' ? 'Completed' : 'Inprogress';
+    
+        // Assign new status to the ApplicationObject
+        this.ApplicationObject.lead.status = newStatus;
+    
+        let payload = {
+            "visa_slot_booking": this.ApplicationObject.lead.visa_slot_booking,
+            "flight_ticket_booking": this.ApplicationObject.lead.flight_ticket_booking,
+            "preferred_country": this.ApplicationObject.lead.preferred_country.id || '',
+            "preferred_university": this.ApplicationObject.lead.preferred_university.id || '',
+            "preferred_course": this.ApplicationObject.lead.preferred_course.id || '',
+            "status": newStatus
+        };
+    
+        this.service.updateMyApplicationDetail(this.application_id, payload).subscribe((response) => {
+            if (response["status_code"] == 200) {
+                Notiflix.Notify.success(`Application is updated successfully with status: ${newStatus}`);
+            } else {
+                Notiflix.Notify.failure("Failed to Update");
             }
         });
-    }
+    }    
     submitApplication()
     {
         Notiflix.Confirm.show(
